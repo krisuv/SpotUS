@@ -1,3 +1,5 @@
+import { Button } from "@mui/material";
+
 interface IPost {
   tag: string;
   content: string;
@@ -12,7 +14,7 @@ interface IPost {
 const Post = (): JSX.Element => {
   return(
     <div>
-
+      
     </div>
   )
 }

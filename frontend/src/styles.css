@@ -10,25 +10,6 @@ html {
     font-family: 'Montserrat', sans-serif;
 }
 
-body {
-    min-height: 100vh;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-}
-
 #root {
     isolation: isolate;
-}
-
-p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-}
-
-input, button, textarea, select {
-    font: inherit;
-}
-
-img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
 }

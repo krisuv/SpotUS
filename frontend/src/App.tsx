@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppWrapper } from './App.styles';
+import Navbar from './components/Navbar';
+import { ThemeProvider } from '@mui/system';
+import { spotUSTheme } from './assets';
 
 import { MainPage, Profile, Contact } from './pages';
 
@@ -8,13 +11,16 @@ import { MainPage, Profile, Contact } from './pages';
 function App() {
 
   return (
-    <AppWrapper>
-      <Routes>
-        <Route path='/' element={<MainPage />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/contact' element={<Contact />} />
-      </Routes>
-    </AppWrapper>
+    <ThemeProvider theme={spotUSTheme}>
+      <AppWrapper>
+        <Navbar/>
+        <Routes>
+          <Route path='/' element={<MainPage />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/contact' element={<Contact />} />
+        </Routes>
+      </AppWrapper>
+    </ThemeProvider>
   )
 }
 
