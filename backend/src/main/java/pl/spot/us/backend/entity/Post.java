@@ -1,4 +1,4 @@
-package pl.spot.us.backend;
+package pl.spot.us.backend.entity;
 
 import javax.persistence.*;
 
@@ -9,6 +9,8 @@ public class Post {
     @Column(name = "id", nullable = false)
     private Long id;
 
+
+    //todo tutaj nie lepiej lista?
     @Column(name = "tag")
     private TagEnum tag;
 
@@ -17,17 +19,16 @@ public class Post {
 
     @Column(name = "title" )
     private String title;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    // todo klucz obcy z user
-    @Column(name = "userId")
-    private Long userId;
-
-    public Post(Long id, TagEnum tag, String content, String title, Long userId) {
+    public Post(Long id, TagEnum tag, String content, String title, User user) {
         this.id = id;
         this.tag = tag;
         this.content = content;
         this.title = title;
-        this.userId = userId;
+        this.user = user;
     }
 
     public Post(){}
@@ -36,39 +37,39 @@ public class Post {
         return id;
     }
 
-    public TagEnum getTag() {
-        return tag;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public TagEnum getTag() {
+        return tag;
     }
 
     public void setTag(TagEnum tag) {
         this.tag = tag;
     }
 
+    public String getContent() {
+        return content;
+    }
+
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
