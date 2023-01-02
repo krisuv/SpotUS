@@ -1,6 +1,10 @@
 package pl.spot.us.backend.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+
 
 @Entity
 public class Post {

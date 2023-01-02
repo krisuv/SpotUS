@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="SpotUS" uuid="232588b4-bb40-43a0-9472-aaead3268b91">
+    <data-source source="LOCAL" name="SpotDb" uuid="0086d7c7-aa92-48b3-9f3b-acf3ce92886a">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
-      <jdbc-url>jdbc:h2:mem:memDb</jdbc-url>
+      <jdbc-url>jdbc:h2:mem:SpotDb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
