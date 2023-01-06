@@ -11,19 +11,30 @@ import java.util.List;
 @Repository
 public class PostRepository {
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbc;
 
     public int save(Post post){
-       jdbcTemplate.update("INSERT INTO Post(tag,content,title) VALUES(?,?)",post.getTag(),post.getContent(),post.getTitle());
+       jdbc.update("INSERT INTO Post ( ID, TAG, CONTENT, TITLE, CREATIONDATE ) " +
+                                "VALUES(?, ?, ?, ?, ?)",
+                                post.getId(),
+                                post.getTag().toString(),
+                                post.getContent(),
+                                post.getTitle(),
+                                post.getCreationDate());
         return 1;
     }
 
     public List<Post> getAll() {
-        List<Post> posts = jdbcTemplate.query("SELECT * FROM Post", BeanPropertyRowMapper.newInstance(Post.class));
+        List<Post> posts = jdbc.query("SELECT * FROM Post", BeanPropertyRowMapper.newInstance(Post.class));
         return posts;
     }
-    public Post getById ( int id){
-        return jdbcTemplate.queryForObject("SELECT * FROM Post WHERE" + "id = ?",
+    public Post getById (Long id) {
+        return jdbc.queryForObject("SELECT * FROM Post WHERE id = ?",
                     BeanPropertyRowMapper.newInstance(Post.class), id);
+    }
+
+    public int delete (Long id) {
+        jdbc.update("DELETE FROM Post WHERE id = ?", id);
+        return 1;
     }
 }
