@@ -9,12 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Entity
 @RequiredArgsConstructor
 public class Post {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     private Long id;
 
     private TagEnum tag;

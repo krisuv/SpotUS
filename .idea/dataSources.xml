@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="spotUS" uuid="3eddb430-0379-4919-b2f4-5eebc9600432">
+    <data-source source="LOCAL" name="SpotDb" uuid="eca329c8-16c3-4d0b-af6a-26fc0dc961cc">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
