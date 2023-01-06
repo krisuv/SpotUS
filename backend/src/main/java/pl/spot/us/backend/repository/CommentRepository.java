@@ -26,6 +26,8 @@ public class CommentRepository {
         return 1;
     }
 
+    //comment
+
     public List<Comment> getAll() {
         List<Comment> comments = jdbc.query("SELECT * FROM Comment", BeanPropertyRowMapper.newInstance(Comment.class));
         return comments;
