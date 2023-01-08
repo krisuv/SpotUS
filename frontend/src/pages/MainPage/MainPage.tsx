@@ -1,6 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { Post } from '../../components';
+import PostEditor from '../../components/PostEditor/PostEditor';
 import { posts, sponsoredPosts } from '../../mocks/Post.mocks';
 import { Wall, StickySidebar, Container } from './MainPage.styles';
 
@@ -8,6 +9,7 @@ const MainPage = (): JSX.Element => {
   return (
     <Container container justifyContent={'center'} spacing={10}>
       <Wall item md={6}>
+        <PostEditor />
         <h2 style={{ fontSize: '20px' }}>Twoja tablica</h2>
         {
           posts.map(post => (
