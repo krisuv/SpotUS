@@ -1,11 +1,19 @@
-import { blue, purple } from '@mui/material/colors';
+import { purple } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
+import { makeFontStyles } from '../src/utils/styleSnippets';
 
 const spotUSTheme = createTheme({
   palette: {
     primary: purple,
     text: {
-      white: '#F0F0F0'
+      white: '#F0F0F0',
+      dark: '#0D1633'
+    }
+  },
+  typography: {
+    fontSize: 12,
+    body1: {
+      ...makeFontStyles(14, '17px', '#0D1633')
     }
   },
   breakpoints: {
@@ -17,17 +25,12 @@ const spotUSTheme = createTheme({
       xl: 1920,
     }
   },
-  typography: {
-    
-    // h1: {
-    //   fontWeight: 700
-    // }
-  }
 });
 
 declare module '@mui/material/styles/createPalette' {
   interface TypeText {
     white: string;
+    dark: string;
   }
 }
 

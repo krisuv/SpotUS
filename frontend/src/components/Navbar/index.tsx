@@ -1,6 +1,7 @@
-import { NavLink } from "react-router-dom";
-import { Logo } from '../../assets'
-import { Header, Nav } from "./Navbar.styles";
+import { NavLink } from 'react-router-dom';
+import { Header, Nav } from './Navbar.styles';
+import Logo from '../Logo/Logo';
+import React from 'react';
 
 const Navbar = (): JSX.Element => {
   return (
@@ -12,7 +13,7 @@ const Navbar = (): JSX.Element => {
         <NavLink to={'/contact'}>Kontakt</NavLink>
       </Nav>
     </Header>
-  )
-}
+  );
+};
 
 export default Navbar;
