@@ -1,17 +1,17 @@
-insert into Post ( ID, TAG, CONTENT, TITLE, CREATIONDATE )
-values ( 1, 'PARTY', 'Impreza dzisiaj u mnie', 'Impreza Troszyn', '2023-01-22' );
-insert into Post ( ID, TAG, CONTENT, TITLE, CREATIONDATE )
-values ( 2, 'EDU', 'Wspólna nauka kolos ktoś coś', 'Kolos Boro', '2023-01-03' );
-insert into Post ( ID, TAG, CONTENT, TITLE, CREATIONDATE )
-values ( 3, 'EDU', 'Finanse poratuje ktoś?', 'Finanse', '2023-01-07' );
-insert into Post ( ID, TAG, CONTENT, TITLE, CREATIONDATE )
-values ( 4, 'PARTY', 'Impreza dzisiaj u mnie, wpadać', 'Kurwa jazda', '2023-01-11' );
+insert into Post ( TAG, CONTENT, TITLE )
+values ( 2, 'Impreza dzisiaj u mnie', 'Impreza Troszyn' );
+insert into Post ( TAG, CONTENT, TITLE )
+values ( 1, 'Wspólna nauka kolos ktoś coś', 'Kolos Boro' );
+insert into Post ( TAG, CONTENT, TITLE )
+values ( 3, 'Finanse poratuje ktoś?', 'Finanse' );
+insert into Post ( TAG, CONTENT, TITLE )
+values ( 3, 'Finanse poratuje ktoś?', 'Finanse' );
 
-insert into Comment ( ID, CONTENT, CREATIONDATE, POST )
-values ( 1, 'z tobą zawsze!!!', '2023-01-22', 2 );
-insert into Comment ( ID, CONTENT, CREATIONDATE, POST )
-values ( 2, 'jestem za', '2023-01-22', 4 );
-insert into Comment ( ID, CONTENT, CREATIONDATE, POST )
-values ( 3, 'to kiedy?!!!', '2023-01-22', 4 );
-insert into Comment ( ID, CONTENT, CREATIONDATE, POST )
-values ( 4, 'to kiedy?!!!', '2023-01-22', 1 );
+insert into Comment ( CONTENT, POST_ID )
+values ( 'z tobą zawsze!!!', (SELECT id from POST WHERE id=1) );
+insert into Comment ( CONTENT, POST_ID )
+values ( 'jestem za', (SELECT id from POST WHERE id=1) );
+insert into Comment ( CONTENT, POST_ID )
+values ( 'to kiedy?!!!', (SELECT id from POST WHERE id=3) );
+insert into Comment ( CONTENT, POST_ID )
+values ( 'to kiedy?!!!', (SELECT id from POST WHERE id=2) );
