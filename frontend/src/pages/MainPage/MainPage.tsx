@@ -1,29 +1,29 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { Post } from '../../components';
-import posts from '../../mocks/Post.mocks';
-import { Container } from './MainPage.styles';
+import { posts, sponsoredPosts } from '../../mocks/Post.mocks';
+import { Wall, StickySidebar, Container } from './MainPage.styles';
 
 const MainPage = (): JSX.Element => {
   return (
-    <Grid container spacing={4} justifyContent='center'>
-      {/* <h1>MainPage</h1> */}
-      <Container item md={6} isMain>
-        {        
+    <Container container justifyContent={'center'} spacing={10}>
+      <Wall item md={6}>
+        <h2 style={{ fontSize: '20px' }}>Twoja tablica</h2>
+        {
           posts.map(post => (
             <Post key={post.id} {...post} />
           ))
-        }     
-      </Container>
-      <Container item md={4}>
-        <h2>Zobacz, co cię ominęło w tym tygodniu!</h2>
-        {        
-          posts.map(post => (
+        }
+      </Wall>
+      <StickySidebar item md={4}>
+        <h2 style={{ fontSize: '20px' }}>Zobacz, co cię ominęło w tym tygodniu!</h2>
+        {
+          sponsoredPosts.map(post => (
             <Post key={post.id} {...post} />
           ))
-        }     
-      </Container>
-    </Grid>
+        }
+      </StickySidebar>
+    </Container>
   );
 };
 

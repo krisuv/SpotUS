@@ -1,18 +1,26 @@
 import styled from '@emotion/styled';
-import {  Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { spotUSTheme as theme } from '../../../public';
 
-export const Container = styled(Grid)<{isMain?: boolean}>(({isMain}) =>({
+export const Container = styled(Grid)({
+  display: 'flex',
+  justifyContent: 'center',
+  // minHeight: 1800
+});
+
+export const Wall = styled(Grid)({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(3),
-  overflowY: isMain? 'scroll' : 'initial',
-  maxHeight: isMain? '100vh' : 'initial'
-  // [theme.breakpoints.up('sm')]: {
-  //   gap: theme.spacing(5),
-  // },
-  // [theme.breakpoints.up('md')]: {
-  //   gap: theme.spacing(5),
-  // },
-}));
+});
+
+export const StickySidebar = styled(Grid)({
+  display: 'flex',
+  position: 'sticky',
+  alignSelf: 'flex-start',
+  top: 0,
+  overflowY: 'auto',
+  gap: theme.spacing(3),
+  flexDirection: 'column',
+});
 

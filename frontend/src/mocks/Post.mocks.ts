@@ -1,6 +1,6 @@
 import { IPost } from '../components/Post/Post.types';
 
-const posts: IPost[] = [
+export const posts: IPost[] = [
   {
     tag: 'party',
     id: '3sdsx@sa230',
@@ -18,7 +18,82 @@ const posts: IPost[] = [
     content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo molestiae officiis ratione, tenetur rem nam tempora itaque, autem voluptate libero minima eos praesentium qui adipisci odit possimus laudantium commodi omnis optio. Impedit commodi exercitationem dolor deleniti, voluptatum ea voluptates corporis.',
     commentsCount: 10,
     votes: 35
-  }
+  },
+  {
+    tag: 'help',
+    id: '3sd23)*s',
+    username: 'koperek',
+    publishDate: '01/04/2023 11:45 AM',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo molestiae officiis ratione, tenetur rem nam tempora itaque, autem voluptate libero minima eos praesentium qui adipisci odit possimus laudantium commodi omnis optio. Impedit commodi exercitationem dolor deleniti, voluptatum ea voluptates corporis.',
+    commentsCount: 10,
+    votes: 35
+  },
+  {
+    tag: 'sponsored',
+    id: '3sd23)*s',
+    username: 'koperek',
+    publishDate: '01/04/2023 11:45 AM',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo molestiae officiis ratione, tenetur rem nam tempora itaque, autem voluptate libero minima eos praesentium qui adipisci odit possimus laudantium commodi omnis optio. Impedit commodi exercitationem dolor deleniti, voluptatum ea voluptates corporis.',
+    commentsCount: 10,
+    votes: 35
+  },
+  {
+    tag: 'job',
+    id: '3sd23)*s',
+    username: 'koperek',
+    publishDate: '01/04/2023 11:45 AM',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo molestiae officiis ratione, tenetur rem nam tempora itaque, autem voluptate libero minima eos praesentium qui adipisci odit possimus laudantium commodi omnis optio. Impedit commodi exercitationem dolor deleniti, voluptatum ea voluptates corporis.',
+    commentsCount: 10,
+    votes: 35
+  },
+  {
+    tag: 'job',
+    id: '3sd23)*s',
+    username: 'koperek',
+    publishDate: '01/04/2023 11:45 AM',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo molestiae officiis ratione, tenetur rem nam tempora itaque, autem voluptate libero minima eos praesentium qui adipisci odit possimus laudantium commodi omnis optio. Impedit commodi exercitationem dolor deleniti, voluptatum ea voluptates corporis.',
+    commentsCount: 10,
+    votes: 35
+  },
+  {
+    tag: 'job',
+    id: '3sd23)*s',
+    username: 'koperek',
+    publishDate: '01/04/2023 11:45 AM',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo molestiae officiis ratione, tenetur rem nam tempora itaque, autem voluptate libero minima eos praesentium qui adipisci odit possimus laudantium commodi omnis optio. Impedit commodi exercitationem dolor deleniti, voluptatum ea voluptates corporis.',
+    commentsCount: 10,
+    votes: 35
+  },
+
 ];
 
-export default posts;
+
+export const sponsoredPosts: IPost[] = [
+  {
+    tag: 'job',
+    id: '3sd23)*s',
+    username: 'koperek',
+    publishDate: '01/04/2023 11:45 AM',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo molestiae officiis ratione, tenetur rem nam tempora itaque, autem voluptate libero minima eos praesentium qui adipisci odit possimus laudantium commodi omnis optio. Impedit commodi exercitationem dolor deleniti, voluptatum ea voluptates corporis.',
+    commentsCount: 10,
+    votes: 35
+  },
+  {
+    tag: 'job',
+    id: '3sd23)*s',
+    username: 'koperek',
+    publishDate: '01/04/2023 11:45 AM',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo molestiae officiis ratione, tenetur rem nam tempora itaque, autem voluptate libero minima eos praesentium qui adipisci odit possimus laudantium commodi omnis optio. Impedit commodi exercitationem dolor deleniti, voluptatum ea voluptates corporis.',
+    commentsCount: 10,
+    votes: 35
+  },
+  {
+    tag: 'job',
+    id: '3sd23)*s',
+    username: 'koperek',
+    publishDate: '01/04/2023 11:45 AM',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo molestiae officiis ratione, tenetur rem nam tempora itaque, autem voluptate libero minima eos praesentium qui adipisci odit possimus laudantium commodi omnis optio. Impedit commodi exercitationem dolor deleniti, voluptatum ea voluptates corporis.',
+    commentsCount: 10,
+    votes: 35
+  },
+];

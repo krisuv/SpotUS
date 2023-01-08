@@ -1,6 +1,6 @@
 import { IPost } from './Post.types';
 import React from 'react';
-import { Container, Avatar, UserInfo } from './Post.styles';
+import { Container, UserInfo, WrapperLeft, WrapperRight, CommentIcon, Comments, ArrowDown, ArrowUp, Votes } from './Post.styles';
 import Typography from '@mui/material/Typography';
 
 
@@ -9,20 +9,27 @@ import Typography from '@mui/material/Typography';
 const Post = (props: IPost): JSX.Element => {
   const { tag, username, content, commentsCount, publishDate, votes } = props;
   return (
-    <Container>
-      <div>
+    <Container category={tag}>
+      <WrapperLeft>
         <UserInfo>
-          <h2>{tag}</h2>
+          <h2>@{tag}</h2>
           <h3>{username}</h3>
         </UserInfo>
-        <Typography variant="body1">{content}</Typography>
-        <Typography>{commentsCount}</Typography>
-      </div>
-      <div>
+        <Typography>{content}</Typography>
+        <Comments>
+          <CommentIcon />
+          <Typography>{commentsCount}</Typography>
+        </Comments>
+      </WrapperLeft>
+      <WrapperRight>
         <Typography>{publishDate}</Typography>
-        <Typography>...</Typography>
-        <Typography>{votes}</Typography>
-      </div>
+        <Votes>
+          <Typography variant='body2'>...</Typography>
+          <ArrowUp />
+          <Typography variant='body2'>{votes}</Typography>
+          <ArrowDown />
+        </Votes>
+      </WrapperRight>
     </Container>
   );
 };

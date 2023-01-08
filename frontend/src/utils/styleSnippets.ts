@@ -16,3 +16,5 @@ export const makeFlexCenter = () => ({
   justifyContent: 'center',
   alignItems: 'center',
 });
+
+export const makeBorder = (color: string) => `1px solid ${color}`;

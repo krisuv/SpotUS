@@ -6,9 +6,9 @@ export const StyledLogo = styled('img')({
   width: '110px',
   height: 'auto',
   [theme.breakpoints.up('md')]: {
-    width: '126px'
+    width: '116px'
   },
   [theme.breakpoints.up('lg')]: {
-    width: '140px'
+    width: '120px'
   }
 });
