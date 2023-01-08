@@ -19,6 +19,7 @@ public class Post {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private TagEnum tag;
 
     private String content;
