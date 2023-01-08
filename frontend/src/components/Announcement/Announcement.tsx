@@ -1,6 +1,6 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import React from 'react';
-import { Title, Container } from './Announcement.styles';
+import { Title, Container, Submit } from './Announcement.styles';
 import { IAnnouncement } from './Announcement.types';
 
 const Announcement = (props: IAnnouncement): JSX.Element => {
@@ -10,7 +10,7 @@ const Announcement = (props: IAnnouncement): JSX.Element => {
       <Typography>@{author}</Typography>
       <Title variant='h3'>{title}</Title>
       <Typography>{content}</Typography>
-      <Button variant='contained' color='secondary'>{buttonText}</Button>
+      <Submit variant='contained' color='secondary'>{buttonText}</Submit>
     </Container>
   );
 };

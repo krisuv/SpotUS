@@ -5,7 +5,6 @@ import { spotUSTheme as theme } from '../../../public';
 export const Container = styled(Grid)({
   display: 'flex',
   justifyContent: 'center',
-  // minHeight: 1800
 });
 
 export const Wall = styled(Grid)({
