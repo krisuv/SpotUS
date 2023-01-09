@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/comments/")
 public class CommentController {
     private final CommentRepository commentRepository;
 
@@ -25,11 +25,11 @@ public class CommentController {
         Comment savedComment = commentRepository.save(comment);
         return ResponseEntity.created(new URI("/comments" + savedComment.getId())).body(savedComment);
     }
-    @GetMapping("/{id}")
+    @GetMapping("{id}/")
     public Comment getComment(@PathVariable Long id) {
         return commentRepository.findById(id).orElseThrow(RuntimeException::new);
     }
-    @PutMapping("/{id}")
+    @PutMapping("{id}/")
     public ResponseEntity updateComment(@PathVariable Long id, @RequestBody Comment comment) {
         Comment currentComment = commentRepository.findById(id).orElseThrow(RuntimeException::new);
         currentComment.setContent(comment.getContent());
@@ -37,7 +37,7 @@ public class CommentController {
 
         return ResponseEntity.ok(currentComment);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}/")
     public ResponseEntity deleteComment(@PathVariable Long id) {
         commentRepository.deleteById(id);
         return ResponseEntity.ok().build();

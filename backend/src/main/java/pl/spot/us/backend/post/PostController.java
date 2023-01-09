@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/posts/")
 public class PostController {
     private final PostRepository postRepository;
 
@@ -27,11 +27,11 @@ public class PostController {
         Post savedPost = postRepository.save(post);
         return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
     }
-    @GetMapping("/{id}")
+    @GetMapping("{id}/")
     public Post getPost(@PathVariable Long id) {
         return postRepository.findById(id).orElseThrow(RuntimeException::new);
     }
-    @PutMapping("/{id}")
+    @PutMapping("{id}/")
     public ResponseEntity updatePost(@PathVariable Long id, @RequestBody Post post) {
         Post currentPost = postRepository.findById(id).orElseThrow(RuntimeException::new);
         currentPost.setTag(post.getTag());
@@ -40,7 +40,7 @@ public class PostController {
 
         return ResponseEntity.ok(currentPost);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}/")
     public ResponseEntity deletePost(@PathVariable Long id) {
         postRepository.deleteById(id);
         return ResponseEntity.ok().build();
