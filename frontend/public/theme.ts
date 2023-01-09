@@ -4,8 +4,13 @@ import { makeFontStyles } from '../src/utils/styleSnippets';
 
 const spotUSTheme = createTheme({
   palette: {
-    primary: grey,
-    secondary: amber,
+    primary: {
+      main: '#A1B0BF',
+      contrastText: '#293f54',
+      dark: '#7C8D9E',
+      light: '#c5d7e8'
+    },
+    secondary: amber,   
     text: {
       lightBorder: 'rgba(240, 240, 240, .3)',
       light: '#F0F0F0',
@@ -13,7 +18,8 @@ const spotUSTheme = createTheme({
     },
     background: {
       dark: '#0D1633',
-      light: '#6081D3'
+      light: '#6081D3',
+      grey: '#A1B0BF'
     }
   },
   typography: {
@@ -47,6 +53,7 @@ declare module '@mui/material/styles/createPalette' {
   interface TypeBackground {
     light: string;
     dark: string;
+    grey: string;
   }
 }
 
