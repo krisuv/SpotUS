@@ -1,9 +1,7 @@
-package pl.spot.us.backend.controller;
+package pl.spot.us.backend.comment;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.spot.us.backend.entity.Comment;
-import pl.spot.us.backend.repository.CommentRepository;
 
 import java.net.URI;
 import java.net.URISyntaxException;

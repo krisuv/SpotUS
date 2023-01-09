@@ -1,9 +1,9 @@
-package pl.spot.us.backend.controller;
+package pl.spot.us.backend.post;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.spot.us.backend.entity.Post;
-import pl.spot.us.backend.repository.PostRepository;
+import pl.spot.us.backend.post.Post;
+import pl.spot.us.backend.post.PostRepository;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,7 +35,6 @@ public class PostController {
     public ResponseEntity updatePost(@PathVariable Long id, @RequestBody Post post) {
         Post currentPost = postRepository.findById(id).orElseThrow(RuntimeException::new);
         currentPost.setTag(post.getTag());
-        currentPost.setTitle(post.getTitle());
         currentPost.setContent(post.getContent());
         currentPost = postRepository.save(post);
 

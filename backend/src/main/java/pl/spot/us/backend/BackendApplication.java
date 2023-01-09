@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 //@ComponentScan(basePackages = "pl.spot.us.backend")
 @SpringBootApplication
-@EntityScan("pl.spot.us.backend.entity")
+@EntityScan("pl.spot.us.backend")
 public class BackendApplication {
 
 	public static void main(String[] args) {

@@ -1,11 +1,13 @@
-package pl.spot.us.backend.entity;
+package pl.spot.us.backend.post;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import pl.spot.us.backend.comment.Comment;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -19,17 +21,18 @@ public class Post {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private TagEnum tag;
+
+    private String username;
 
     private String content;
 
-    private String title;
+    private Timestamp publishDate;
 
     @OneToMany(mappedBy="post")
     @JsonBackReference
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
-//    private AppUser appUser;
-
-//    private List<Comment> comments;
+    private Long votes;
 }

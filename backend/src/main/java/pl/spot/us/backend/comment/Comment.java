@@ -1,12 +1,11 @@
-package pl.spot.us.backend.entity;
+package pl.spot.us.backend.comment;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
+import pl.spot.us.backend.post.Post;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @Entity
@@ -19,7 +18,7 @@ public class Comment {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-//    private AppUser appUser;
+    private String username;
 
     private String content;
 
@@ -28,8 +27,9 @@ public class Comment {
     @JsonBackReference
     private Post post;
 
-    public Comment(Long id, String content, Post post) {
+    public Comment(Long id, String username, String content, Post post) {
         this.id = id;
+        this.username = username;
         this.content = content;
         this.post = post;
     }
