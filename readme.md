@@ -12,7 +12,7 @@ Potrzebujemy zainstalować środowisko node.js, po czym doinstalujemy  do niego 
 [Pobierz node.js v19.0.0 z tego linku](https://nodejs.org/download/release/v19.0.0/win-x64/)  
 `node --version` (sprawdzenie, czy node.js zainstalował się poprawnie)  
 
-2. Instalacja yarna z konsoli node.js:  
+2. Instalacja yarna:  
 `npm install --global yarn` (flaga --global oznacza globalną instalację yarna na poziomie systemu operacyjnego, npm to domyślny menadżer paczek instalowany razem z node.js)  
 `yarn --version` (sprawdzenie, czy yarn zainstalował się poprawnie)  
 
