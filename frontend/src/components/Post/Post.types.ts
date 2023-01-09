@@ -1,15 +1,26 @@
-export type TTag = 'party' | 'uni' | 'edu' | 'help' | 'job' | 'event' | 'sponsored' | 'other';
+import { TComment } from '../Comment/Comment.types';
 
-export const tags: TTag[] = ['party', 'uni', 'edu', 'help', 'job', 'event', 'sponsored', 'other'];
+export type TTag = 'party' | 'uni' | 'edu' | 'help' | 'job' | 'event' | 'sponsored' | 'other' | string;
+
+export const tags: Record<'label', TTag>[] = [
+  { label: 'party' },
+  { label: 'uni' },
+  { label: 'edu' },
+  { label: 'help' },
+  { label: 'job' },
+  { label: 'event' },
+  { label: 'sponsored' },
+  { label: 'other' }
+];
 
 export interface IPost {
-  id: string;
+  id: number;
   tag: TTag;
   username: string;
   content: string;
-  commentsCount: number;
   publishDate: string;
-  votes?: number;
+  comments: TComment[]
+  votes: number;
 }
 
 export type TCategoryColors = Record<TTag, string>;

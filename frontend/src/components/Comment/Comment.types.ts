@@ -1,3 +1,3 @@
 import { IPost } from '../Post/Post.types';
 
-export type IComment = Omit<IPost, 'commentsCount' | 'publishDate' | 'votes'>;
+export type TComment = Omit<IPost, 'commentsCount' | 'publishDate' | 'votes' | 'tag'>;

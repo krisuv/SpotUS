@@ -3,9 +3,12 @@ import downloadPosts from '../../api/loadPosts';
 import { Post } from '../../components';
 import { IPost } from '../../components/Post/Post.types';
 import PostEditor from '../../components/PostEditor/PostEditor';
-import { sponsoredPosts } from '../../mocks/Post.mocks';
 import { Wall, StickySidebar, Container } from './MainPage.styles';
-import { posts as mockPosts } from '../../mocks/Post.mocks';
+import mockPostsJSON from '../../mocks/Post.mocks.json';
+
+const mockPosts = mockPostsJSON.slice(0, 4) as IPost[];
+const sponsoredPosts =  mockPostsJSON.slice(4) as IPost[];
+
 
 const MainPage = (): JSX.Element => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -26,8 +29,8 @@ const MainPage = (): JSX.Element => {
   return (
     <Container container justifyContent={'center'} spacing={10}>
       <Wall item md={6}>
-        <PostEditor />
         <h2 style={{ fontSize: '20px' }}>Twoja tablica</h2>
+        <PostEditor />
         {
           mockPosts.map(post => (
             <Post key={post.id} {...post} />

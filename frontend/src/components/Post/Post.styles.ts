@@ -6,7 +6,7 @@ import { TCategoryColors, TTag } from './Post.types';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import UpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DownIcon from '@mui/icons-material/KeyboardArrowDown';
-import gradientColors from '../../utils/gradients';
+import gradientColors from '../../utils/gradientColors';
 
 export const Container = styled(Box)<{ category: TTag }>(({ category }) => ({
   display: 'flex',

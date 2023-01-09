@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography, Box, Button } from '@mui/material';
 import { spotUSTheme as theme } from '../../../public';
-import gradientColors from '../../utils/gradients';
+import gradientColors from '../../utils/gradientColors';
 import { makeBorder } from '../../utils/styleSnippets';
 
 export const Title = styled(Typography)({
