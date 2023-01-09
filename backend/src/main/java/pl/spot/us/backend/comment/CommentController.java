@@ -23,7 +23,7 @@ public class CommentController {
     @PostMapping("")
     public ResponseEntity createComment(@RequestBody Comment comment) throws URISyntaxException {
         Comment savedComment = commentRepository.save(comment);
-        return ResponseEntity.created(new URI("/comments" + savedComment.getId())).body(savedComment);
+        return ResponseEntity.created(new URI("/comments/" + savedComment.getId())).body(savedComment);
     }
     @GetMapping("{id}/")
     public Comment getComment(@PathVariable Long id) {

@@ -8,8 +8,9 @@ import { TComment } from '../Comment/Comment.types';
 {/* <Avatar src='https://placekitten.com/40/40' alt='' /> */ }
 
 const Post = (props: IPost): JSX.Element => {
-  const { id, tag, username, content, commentsCount, publishDate, votes } = props;
-  const [comments, setComments] = useState<TComment[]>([]);
+  const { id, tag, username, content, publishDate, votes } = props;
+  // const commentsCount = comments.length || 0;
+  // const [comments, setComments] = useState<TComment[]>([]);
   useEffect(() => {
     console.log('download comments...');
   }, []);
@@ -23,7 +24,7 @@ const Post = (props: IPost): JSX.Element => {
         <Typography>{content}</Typography>
         <Comments>
           <CommentIcon />
-          <Typography>{commentsCount}</Typography>
+          <Typography>{0}</Typography>
         </Comments>
       </WrapperLeft>
       <WrapperRight>

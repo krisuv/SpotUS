@@ -25,7 +25,7 @@ public class PostController {
     @PostMapping("")
     public ResponseEntity createPost(@RequestBody Post post) throws URISyntaxException {
         Post savedPost = postRepository.save(post);
-        return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
+        return ResponseEntity.created(new URI("/posts/" + savedPost.getId())).body(savedPost);
     }
     @GetMapping("{id}/")
     public Post getPost(@PathVariable Long id) {
