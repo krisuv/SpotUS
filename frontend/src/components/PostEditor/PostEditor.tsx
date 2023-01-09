@@ -1,9 +1,9 @@
+import React, {useState} from 'react';
 import { Button, Autocomplete, TextareaAutosize, TextField } from '@mui/material';
-import React from 'react';
 import { tags } from '../Post/Post.types';
 
 const PostEditor = (): JSX.Element => {
-
+  const [userComment, setUserComment] = useState('');
   return (
     <form>
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis, doloribus illum modi dolores quisquam quibusdam! Expedita natus sequi est rerum.
