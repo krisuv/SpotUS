@@ -12,37 +12,31 @@ import java.util.List;
 @RestController
 @RequestMapping("/posts/")
 public class PostController {
-    private final PostRepository postRepository;
+    private final PostService postService;
 
-    public PostController(PostRepository postRepository) {
-        this.postRepository = postRepository;
+    public PostController(PostService postService) {
+        this.postService = postService;
     }
 
     @GetMapping
     public List<Post> getPosts() {
-        return postRepository.findAll();
+        return postService.findAll();
     }
     @PostMapping("")
     public ResponseEntity createPost(@RequestBody Post post) throws URISyntaxException {
-        Post savedPost = postRepository.save(post);
+        Post savedPost = postService.createPost(post);
         return ResponseEntity.created(new URI("/posts/" + savedPost.getId())).body(savedPost);
     }
     @GetMapping("{id}/")
     public Post getPost(@PathVariable Long id) {
-        return postRepository.findById(id).orElseThrow(RuntimeException::new);
+        return postService.findById(id);
     }
     @PutMapping("{id}/")
     public ResponseEntity updatePost(@PathVariable Long id, @RequestBody Post post) {
-        Post currentPost = postRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentPost.setTag(post.getTag());
-        currentPost.setContent(post.getContent());
-        currentPost = postRepository.save(post);
-
-        return ResponseEntity.ok(currentPost);
+        return postService.updatePost(id, post);
     }
     @DeleteMapping("{id}/")
     public ResponseEntity deletePost(@PathVariable Long id) {
-        postRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        return postService.deletePost(id);
     }
 }
