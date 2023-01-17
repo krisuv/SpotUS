@@ -1,11 +1,16 @@
 package pl.spot.us.backend.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.spot.us.backend.comment.Comment;
+import pl.spot.us.backend.post.Post;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,4 +29,8 @@ public class User {
     private String password;
 
     private String roles;
+
+    @OneToMany(mappedBy="username")
+    @JsonBackReference
+    private List<Post> post;
 }

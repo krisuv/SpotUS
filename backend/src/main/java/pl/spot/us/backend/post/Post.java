@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import pl.spot.us.backend.comment.Comment;
+import pl.spot.us.backend.user.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -24,7 +25,10 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private TagEnum tag;
 
-    private String username;
+    @ManyToOne(optional = false)
+    @JoinColumn(name="username_id", nullable=false)
+    @JsonBackReference
+    private User username;
 
     private String content;
 
