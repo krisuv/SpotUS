@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import downloadPosts from '../../api/loadPosts';
+import { downloadPosts } from '../../api/Post.api';
 import { Post } from '../../components';
 import { IPost } from '../../components/Post/Post.types';
 import PostEditor from '../../components/PostEditor/PostEditor';
@@ -14,9 +14,9 @@ const MainPage = (): JSX.Element => {
   const [posts, setPosts] = useState<IPost[]>([]);
 
   const loadPosts = async () => {
-    const dbPosts = await downloadPosts();
+    const dbPosts = await downloadPosts() as unknown as IPost[];
     if (dbPosts && dbPosts.length > 0) {
-      setPosts(dbPosts as IPost[]);
+      setPosts(dbPosts);
     } else {
       console.error('Nie udało się pobrać postów');
     }

@@ -1,48 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Autocomplete, TextField } from '@mui/material';
-import { IPost, tags } from '../Post/Post.types';
-import { Container, PublishIcon, Wrapper, Button, Textarea } from './PostEditor.styles';
-import axios from 'axios';
-import { TComment } from '../Comment/Comment.types';
-import { validatePost } from './PostEditor.helpers';
-import { TCreatePost } from './PostEditor.types';
-import { createPost } from '../../api/createPost';
+import React, { useRef } from 'react';
+import { TextField, Typography } from '@mui/material';
+import { tags } from '../Post/Post.types';
+import { Container, PublishIcon, Wrapper, Button, Textarea, AutoComplete, Form } from './PostEditor.styles';
+import usePostProcess from '../../hooks/usePostProcess';
 
-const userName = 'koperek';
 
 const PostEditor = (): JSX.Element => {
-  const [post, setPost] = useState<TCreatePost>({
-    tag: '',
-    content: '',
-  });
-  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const { post, setPost, handleSubmit, findError } = usePostProcess();
   const autocompleteRef = useRef<any>(null);
 
-  useEffect(() => {
-    console.log('constant validation of input fields...');
-  }, [post]);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const { tag, content } = post;
-    const validationResult = await validatePost({ tag, content });
-    if (validationResult instanceof Object) {
-      await createPost({
-        username: userName,
-        publishDate: new Date().toString(),
-        ...validationResult
-      } satisfies IPost);
-    } else if (Array.isArray(validationResult)) {
-      setValidationErrors(validationResult);
-    }
-  };
-
+  /**
+  * A function that takes in an event and sets the state of the post.
+  * @param event - React.ChangeEvent<HTMLTextAreaElement>
+  */
   const handleTextFieldChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const field = event.target.name;
-    console.log(event.target.value);
     setPost({ ...post, [field]: event.target.value });
   };
 
+  /**
+ * It takes an event and a value, and then it sets the post state to the value of the input field
+ * @param _event - React.SyntheticEvent<Element, Event>
+ * @param {any} value - The value of the input.
+ */
   const handleAutocompleteChange = (_event: React.SyntheticEvent<Element, Event>, value: any) => {
     const field = autocompleteRef.current.querySelector('input').id;
     if (value?.label) {
@@ -53,17 +33,21 @@ const PostEditor = (): JSX.Element => {
   return (
     <Wrapper>
       <Container>
-        <form onSubmit={handleSubmit} id='commentForm'>
-          <Autocomplete
+        <Typography variant="h2" color="primary">Co u ciebie słychać?</Typography>
+        <Form onSubmit={handleSubmit} id='commentForm'>
+          <Textarea spellCheck='false' name='content' onChange={handleTextFieldChange} />
+          {findError('content')}
+          <AutoComplete
             disablePortal
             id="tag"
             ref={autocompleteRef}
             onChange={handleAutocompleteChange}
+            // onKeyPress={(e) => e.preventDefault()}
             options={tags}
-            renderInput={(params) => <TextField {...params} label="Tag" />}
+            renderInput={(params) => <TextField color='secondary' {...params} label="Tag" />}
           />
-          <Textarea spellCheck='false' name='content' onChange={handleTextFieldChange} />
-        </form>
+          {findError('tag')}
+        </Form>
       </Container>
       <Button form='commentForm' type='submit' variant='text' color='primary' endIcon={<PublishIcon />}>Dodaj</Button>
     </Wrapper>

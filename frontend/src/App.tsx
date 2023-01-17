@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppWrapper } from './App.styles';
 import Navbar from './components/Navbar/Navbar';
 import { ThemeProvider } from '@mui/system';
 import { spotUSTheme } from '../public';
-import React from 'react';
 
-import { MainPage, Profile, Contact } from './pages';
+import { MainPage, Profile, Contact, Register, Login } from './pages';
 
 
 function App() {
@@ -19,6 +18,8 @@ function App() {
           <Route path='/' element={<MainPage />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </AppWrapper>
     </ThemeProvider>

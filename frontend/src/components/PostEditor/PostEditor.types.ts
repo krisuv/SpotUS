@@ -9,7 +9,6 @@ export const VPost = yup.object().shape({
       'empty-check', 
       'Twój post musi zawierać treść!', 
       text => text?.replaceAll(' ','').length !== 0)
-    .required(),
 });
 
-export type TCreatePost = Pick<IPost, 'tag' | 'content' >
+export type TCreatePost = Pick<IPost, 'tag' | 'content' | 'username' >;

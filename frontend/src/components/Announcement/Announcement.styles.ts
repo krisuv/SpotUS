@@ -19,9 +19,10 @@ export const Container = styled(Box)({
   border: makeBorder(theme.palette.text.lightBorder),
   backdropFilter: 'blur(12.5px)',
   borderRadius: theme.spacing(1),
-  padding: theme.spacing(7, 6)
+  padding: theme.spacing(7, 6),
+  maxWidth: 500
 });
 
 export const Submit = styled(Button)({
-  marginTop: theme.spacing(10)
+  marginTop: theme.spacing(10),
 });

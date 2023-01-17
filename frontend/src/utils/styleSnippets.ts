@@ -17,4 +17,4 @@ export const makeFlexCenter = () => ({
   alignItems: 'center',
 });
 
-export const makeBorder = (color: string) => `1px solid ${color}`;
+export const makeBorder = (color: string) => (`1px solid ${color}`);

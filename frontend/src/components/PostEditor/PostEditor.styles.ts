@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { spotUSTheme as theme } from '../../../public';
-import { Box, Button as MuiButton, TextareaAutosize } from '@mui/material';
+import { Autocomplete, Box, Button as MuiButton, TextareaAutosize } from '@mui/material';
 import { makeFontStyles } from '../../utils/styleSnippets';
 import SendIcon from '@mui/icons-material/Send';
 
@@ -10,7 +10,8 @@ export const Container = styled(Box)({
   ...makeFontStyles(12, '15px'),
   padding: theme.spacing(1, 1, 1, 2),
   '& h2': {
-    color: 'black'
+    ...makeFontStyles(20, '15px', theme.palette.text.light),
+    margin: theme.spacing(1.5,0,2)
   },
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(1.5, 1.5, 1.5, 2.5),
@@ -43,6 +44,27 @@ export const Button = styled(MuiButton)({
 });
 
 export const Textarea = styled(TextareaAutosize)({
+  width: '100%', 
+  minHeight: 70,
+  padding: theme.spacing(2),
   resize: 'none',
-  border: 'none'
+  border: 'none',
+  backgroundColor: theme.palette.background.darkGrey,
+  borderRadius: theme.spacing(1),
+  fontWeight: '500 !important',
+  '&:focus': {
+    boxShadow: 'none',
+    border: 'none',
+    outline: `1px solid ${theme.palette.text.dark}`
+  }
+});
+
+export const AutoComplete = styled(Autocomplete)({
+  maxWidth: 200,
+});
+
+export const Form = styled('form')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1),
 });
