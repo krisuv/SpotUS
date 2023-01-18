@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import pl.spot.us.backend.comment.Comment;
+import pl.spot.us.backend.user.User;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -23,7 +24,10 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private TagEnum tag;
 
-    private String username;
+    @ManyToOne(optional = false)
+    @JoinColumn(name="username_id", nullable=false)
+    @JsonBackReference
+    private User username;
 
     private String content;
 
