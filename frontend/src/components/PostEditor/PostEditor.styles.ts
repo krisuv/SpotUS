@@ -40,7 +40,6 @@ export const Wrapper = styled(Box)({
 
 export const Button = styled(MuiButton)({
   alignSelf: 'flex-end',
-  // maxWidth: 120
 });
 
 export const Textarea = styled(TextareaAutosize)({

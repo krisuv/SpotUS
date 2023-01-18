@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
 import { downloadComments } from '../../api/Comment.api';
+import UserComment from '../UserComment/UserComment';
+
 
 
 {/* <Avatar src='https://placekitten.com/40/40' alt='' /> */ }
@@ -13,6 +15,7 @@ const Post = (props: IPost): JSX.Element => {
   const { id, tag, username, content, commentsCount, publishDate, votes } = props;
   const [comments, setComments] = useState<IComment[]>([]);
   const [userVote, setUserVote] = useState<TVote>(0);
+  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     console.log('download comments...');
@@ -32,6 +35,10 @@ const Post = (props: IPost): JSX.Element => {
     userVote !== vote && setUserVote(vote);
   };
 
+  const handleShowComments = () => {
+    setShowComments(prev => !prev);
+  };
+
   return (
     <Wrapper>
       <PostContainer category={tag}>
@@ -41,7 +48,7 @@ const Post = (props: IPost): JSX.Element => {
             <h3>{username}</h3>
           </UserInfo>
           <Typography>{content}</Typography>
-          <Comments>
+          <Comments onClick={handleShowComments}>
             <CommentIcon />
             <Typography>{commentsCount}</Typography>
           </Comments>
@@ -57,17 +64,20 @@ const Post = (props: IPost): JSX.Element => {
           </Votes>
         </WrapperRight>
       </PostContainer>
-      <CommentsContainer>
-        {
-          //zamienić na comments
-          mockCommentsJson.map((comment, index) => comment.postId === id && (
-            <CommentContainer key={index}>
-              <div>{comment.username}</div>
-              <div>{comment.content}</div>
-            </CommentContainer>
-          ))
-        }
-      </CommentsContainer>
+      {showComments && (
+        <CommentsContainer>
+          <Typography variant="h3" color="initial">Dodaj komentarz</Typography>
+          <UserComment />
+          {
+            mockCommentsJson.map((comment, index) => comment.postId === id && (
+              <CommentContainer key={index}>
+                <div>{comment.username}</div>
+                <div>{comment.content}</div>
+              </CommentContainer>
+            ))
+          }
+        </CommentsContainer>
+      )}
     </Wrapper>
   );
 };

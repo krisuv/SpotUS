@@ -32,6 +32,9 @@ const spotUSTheme = createTheme({
   },
   typography: {
     fontSize: 12,
+    h3: {
+      fontSize: 16
+    },
     body1: {
       ...makeFontStyles(14, '17px', '#0D1633'),
       fontWeight: '500 !important'

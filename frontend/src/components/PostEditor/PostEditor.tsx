@@ -49,7 +49,14 @@ const PostEditor = (): JSX.Element => {
           {findError('tag')}
         </Form>
       </Container>
-      <Button form='commentForm' type='submit' variant='text' color='primary' endIcon={<PublishIcon />}>Dodaj</Button>
+      <Button
+        form='commentForm'
+        type='submit'
+        variant='text'
+        color='primary'
+        endIcon={<PublishIcon />}>
+        Dodaj
+      </Button>
     </Wrapper>
   );
 };

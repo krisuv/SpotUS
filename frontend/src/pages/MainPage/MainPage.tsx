@@ -5,12 +5,13 @@ import { IPost } from '../../components/Post/Post.types';
 import PostEditor from '../../components/PostEditor/PostEditor';
 import { Wall, StickySidebar, Container } from './MainPage.styles';
 import mockPostsJSON from '../../mocks/Post.mocks.json';
+import { IMainPage } from './MainPage.types';
 
 const mockPosts = mockPostsJSON.slice(0, 4) as IPost[];
 const sponsoredPosts =  mockPostsJSON.slice(4) as IPost[];
 
 
-const MainPage = (): JSX.Element => {
+const MainPage = ({userData}: IMainPage): JSX.Element => {
   const [posts, setPosts] = useState<IPost[]>([]);
 
   const loadPosts = async () => {

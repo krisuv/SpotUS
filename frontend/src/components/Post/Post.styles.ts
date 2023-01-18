@@ -44,14 +44,14 @@ export const CommentsContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(2),
-  paddingLeft: theme.spacing()
+  paddingLeft: theme.spacing(),
+  width: 'min(100%, 600px)',
 }));
 
 export const CommentContainer = styled(Box)(({ theme }) => ({
   borderRadius: theme.spacing(1),
   background: 'wheat', 
   padding: theme.spacing(1, 2), 
-  width: 'min(100%, 600px)',
 }));
 
 

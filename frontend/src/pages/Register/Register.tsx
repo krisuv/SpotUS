@@ -14,27 +14,29 @@ import { Container } from '../pages.styles';
 import { Copyright } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import { createUser } from '../../api/User.api';
 
 
 const Register = (): JSX.Element => {
   const navigate = useNavigate();
+  //if the user is logged in redirect them do main page immediately
+  if (sessionStorage.getItem('user')) {
+    navigate('/');
+  }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userData = {
-      email: data.get('email'),
-      password: data.get('password'),
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-    };
-    console.log(JSON.stringify({
+    const userData = (JSON.stringify({
       email: data.get('email'),
       password: data.get('password'),
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
     }));
-    localStorage.setItem('user', userData);
+    const userToken = await createUser(userData);
+    if (!sessionStorage.getItem('user')) {
+      sessionStorage.setItem('user', JSON.stringify(userToken));
+    }
     navigate('/');
   };
 
