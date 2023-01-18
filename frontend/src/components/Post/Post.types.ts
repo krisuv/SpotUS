@@ -1,5 +1,3 @@
-import { TComment } from '../Comment/Comment.types';
-
 export type TTag = 'party' | 'uni' | 'edu' | 'help' | 'job' | 'event' | 'sponsored' | 'other' | string;
 
 export const tags: Record<'label', TTag>[] = [
@@ -14,13 +12,15 @@ export const tags: Record<'label', TTag>[] = [
 ];
 
 export interface IPost {
-  id: number;
+  id?: number;
   tag: TTag;
   username: string;
   content: string;
   publishDate: string;
-  comments: TComment[]
-  votes: number;
+  commentsCount?: number;
+  votes?: number;
 }
 
 export type TCategoryColors = Record<TTag, string>;
+
+export type TVote = -1 | 0 | 1;

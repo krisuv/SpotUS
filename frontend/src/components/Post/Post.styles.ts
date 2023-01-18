@@ -1,14 +1,20 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { Box } from '@mui/material';
-import { spotUSTheme as theme } from '../../../public';
 import { makeFontStyles, makeBorder } from '../../utils/styleSnippets';
-import { TCategoryColors, TTag } from './Post.types';
+import { TTag } from './Post.types';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import UpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DownIcon from '@mui/icons-material/KeyboardArrowDown';
 import gradientColors from '../../utils/gradientColors';
+import ClearIcon from '@mui/icons-material/Clear';
 
-export const Container = styled(Box)<{ category: TTag }>(({ category }) => ({
+export const Wrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3)
+}));
+
+export const PostContainer = styled(Box)<{ category: TTag }>(({ category, theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   gap: theme.spacing(2),
@@ -26,7 +32,7 @@ export const Container = styled(Box)<{ category: TTag }>(({ category }) => ({
   },
   [theme.breakpoints.up('md')]: {
     ...makeFontStyles(14, '17.5px'),
-
+    borderRadius: theme.spacing(2),
   },
   [theme.breakpoints.up('lg')]: {
     padding: theme.spacing(1.5, 1.5, 1.5, 3.5),
@@ -34,12 +40,28 @@ export const Container = styled(Box)<{ category: TTag }>(({ category }) => ({
   },
 }));
 
-export const WrapperLeft = styled(Box)({
+export const CommentsContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  paddingLeft: theme.spacing(),
+  width: 'min(100%, 600px)',
+}));
+
+export const CommentContainer = styled(Box)(({ theme }) => ({
+  borderRadius: theme.spacing(1),
+  background: 'wheat', 
+  padding: theme.spacing(1, 2), 
+}));
+
+
+export const WrapperLeft = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(1)
-});
-export const WrapperRight = styled(Box)({
+}));
+
+export const WrapperRight = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   fontWeight: 700,
   gap: theme.spacing(1),
@@ -48,8 +70,7 @@ export const WrapperRight = styled(Box)({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  // gap: theme.spacing(1)
-});
+}));
 
 export const Votes = styled(Box)({
   display: 'flex',
@@ -58,7 +79,7 @@ export const Votes = styled(Box)({
   justifyContent: 'center',
 });
 
-export const UserInfo = styled(Box)({
+export const UserInfo = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(.5),
@@ -68,29 +89,35 @@ export const UserInfo = styled(Box)({
   '& h3': {
     ...makeFontStyles(12, '20px')
   }
-});
+}));
 
-export const CommentIcon = styled(ChatBubbleIcon)({
+export const CommentIcon = styled(ChatBubbleIcon)(({ theme }) => ({
   fill: theme.palette.text.dark,
   width: 22,
   height: 22
-});
+}));
 
-export const ArrowUp = styled(UpIcon)({
+export const ArrowUp = styled(UpIcon)(({ theme }) => ({
   fill: theme.palette.text.dark,
   width: 40,
   height: 30
-});
+}));
 
-export const ArrowDown = styled(DownIcon)({
+export const ArrowDown = styled(DownIcon)(({ theme }) => ({
   fill: theme.palette.text.dark,
   width: 40,
   height: 30,
-});
+}));
 
-export const Comments = styled(Box)({
+export const CancelVote = styled(ClearIcon)(({ theme }) => ({
+  fill: theme.palette.text.dark,
+  width: 40,
+  height: 30,
+}));
+
+export const Comments = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.spacing(1.5)
-});
+}));
 

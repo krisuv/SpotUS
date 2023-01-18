@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import { Container } from './Contact.styles';
+import { Container } from '../pages.styles';
 import Announcement from '../../components/Announcement/Announcement';
 import { IAnnouncement } from '../../components/Announcement/Announcement.types';
 
@@ -19,7 +19,7 @@ const Contact = (): JSX.Element => {
   return (
     <Container>
       <h1>Contact</h1>
-      <Announcement {...becomeAdmin}/>
+      <Announcement {...becomeAdmin} />
     </Container>
   );
 };

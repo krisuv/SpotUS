@@ -20,13 +20,16 @@ export const AppWrapper = styled('div')({
   //reset default CSS values
   '& p, h1, h2, h3, h4, h5, h6': {
     color: theme.palette.text.light,
+    fontFamily: 'Montserrat, sans-serif',
     overflowWrap: 'break-word'
   },
   '& h1, h2, h3, h4, h5, h6': {
     color: theme.palette.text.light,
+    fontWeight: 700,
   },
   '& p': {
     color: theme.palette.text.dark,
+    fontWeight: 500
   },
   '& input, button, textarea, select': {
     font: 'inherit'
@@ -35,18 +38,4 @@ export const AppWrapper = styled('div')({
     display: 'block',
     maxWidth: '100%'
   },
-  // '&::-webkit-scrollbar': {
-  //   width: '.8vw'
-  // },
-  // '&::-webkit-scrollbar-track': {
-  //   background: 'pink',
-  //   borderRadius: 10,
-  //   marginBlock: 15
-  // },
-  // '&::-webkit-scrollbar-thumb': {
-  //   borderRadius: 10,
-  //   padding: 5,
-  //   background: 'gold'
-  // }
-
 });
