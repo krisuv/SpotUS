@@ -24,10 +24,7 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private TagEnum tag;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name="username_id", nullable=false)
-    @JsonBackReference
-    private User username;
+    private String username;
 
     private String content;
 
