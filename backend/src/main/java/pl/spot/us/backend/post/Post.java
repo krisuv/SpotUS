@@ -1,14 +1,13 @@
 package pl.spot.us.backend.post;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import pl.spot.us.backend.comment.Comment;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity

@@ -1,11 +1,10 @@
 package pl.spot.us.backend.comment;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import pl.spot.us.backend.post.Post;
-
-import javax.persistence.*;
 
 @Data
 @Entity
