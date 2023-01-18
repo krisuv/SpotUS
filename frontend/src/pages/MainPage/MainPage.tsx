@@ -7,8 +7,8 @@ import { Wall, StickySidebar, Container } from './MainPage.styles';
 import mockPostsJSON from '../../mocks/Post.mocks.json';
 import { IMainPage } from './MainPage.types';
 
-// const mockPosts = mockPostsJSON.slice(0, 4) as IPost[];
-// const sponsoredPosts =  mockPostsJSON.slice(4) as IPost[];
+const mockPosts = mockPostsJSON.slice(0, 4) as IPost[];
+const sponsoredPosts =  mockPostsJSON.slice(4) as IPost[];
 
 
 const MainPage = ({userData}: IMainPage): JSX.Element => {
@@ -33,7 +33,7 @@ const MainPage = ({userData}: IMainPage): JSX.Element => {
         <h2 style={{ fontSize: '20px' }}>Twoja tablica</h2>
         <PostEditor />
         {
-          posts.map(post => (
+          mockPosts.map(post => (
             <Post key={post.id} {...post} />
           ))
         }
@@ -41,7 +41,7 @@ const MainPage = ({userData}: IMainPage): JSX.Element => {
       <StickySidebar item md={4}>
         <h2 style={{ fontSize: '20px' }}>Zobacz, co cię ominęło w tym tygodniu!</h2>
         {
-          posts.map(post => (
+          sponsoredPosts.map(post => (
             <Post key={post.id} {...post} />
           ))
         }
