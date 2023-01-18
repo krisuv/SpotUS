@@ -5,7 +5,11 @@ import org.springframework.stereotype.Service;
 import pl.spot.us.backend.post.Post;
 import pl.spot.us.backend.post.PostRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static pl.spot.us.backend.post.PostService.badWordsFound;
+import static pl.spot.us.backend.post.PostService.loadConfigs;
 
 @Service
 public class CommentService {
@@ -22,10 +26,18 @@ public class CommentService {
     }
 
     public Comment createComment(Comment comment){
+        loadConfigs();
         Comment savedComment = comment;
+        String postContent = savedComment.getContent();
+        ArrayList<String> badWords = badWordsFound(postContent);
+        if (badWords.size() > 0) {
+            return null;
+            //co się stanie jak ktoś wpisze złe
+        }else {
+            commentRepository.save(comment);
+            return savedComment;
+        }
 
-        commentRepository.save(comment);
-        return savedComment;
     }
 
     public Comment findById(Long id) {
