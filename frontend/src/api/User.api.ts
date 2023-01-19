@@ -7,7 +7,7 @@ export const createUser = async (data: string) => {
     throw new Error('Passing data is not a JSON string!');
   }
   const res: AxiosResponse = await axios
-    .post('http://localhost:8080/auth/register/', data, {
+    .post('http://localhost:8080/auth/register', data, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -27,7 +27,7 @@ export const loginUser = async (data: string) => {
     throw new Error('Passing data is not a JSON string!');
   }
   const res: AxiosResponse = await axios
-      .post('http://localhost:8080/auth/authenticate/', data, {
+      .post('http://localhost:8080/auth/authenticate', data, {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
