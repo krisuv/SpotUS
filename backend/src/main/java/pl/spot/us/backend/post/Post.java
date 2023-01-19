@@ -8,6 +8,7 @@ import pl.spot.us.backend.comment.Comment;
 import pl.spot.us.backend.user.User;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -24,15 +25,32 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private TagEnum tag;
 
-    private String username;
-
     private String content;
 
     private Timestamp publishDate;
 
-    @OneToMany(mappedBy="post")
-    @JsonBackReference
-    private List<Comment> comments;
+    @OneToMany(mappedBy = "post")
+    private Collection<Comment> comments;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
+    }
 
     private Long votes;
 }

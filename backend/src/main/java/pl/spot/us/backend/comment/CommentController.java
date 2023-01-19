@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments/")
+@RequestMapping("/comments")
 public class CommentController {
     private final CommentService commentService;
 
@@ -24,17 +24,17 @@ public class CommentController {
     @PostMapping("")
     public ResponseEntity createComment(@RequestBody Comment comment) throws URISyntaxException {
         Comment savedComment = commentService.createComment(comment);
-        return ResponseEntity.created(new URI("/comments/" + savedComment.getId())).body(savedComment);
+        return ResponseEntity.created(new URI("/comments" + savedComment.getId())).body(savedComment);
     }
-    @GetMapping("{id}/")
+    @GetMapping("/{id}")
     public Comment getComment(@PathVariable Long id) {
         return commentService.findById(id);
     }
-    @PutMapping("{id}/")
+    @PutMapping("/{id}")
     public ResponseEntity updateComment(@PathVariable Long id, @RequestBody Comment comment) {
         return commentService.updateComment(id, comment);
     }
-    @DeleteMapping("{id}/")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteComment(@PathVariable Long id) {
         return  commentService.deleteById(id);
     }

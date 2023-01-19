@@ -5,6 +5,8 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.spot.us.backend.comment.Comment;
+import pl.spot.us.backend.post.Post;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,6 +30,28 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<Post> posts;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<Comment> comments;
+
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Collection<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Collection<Post> posts) {
+        this.posts = posts;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

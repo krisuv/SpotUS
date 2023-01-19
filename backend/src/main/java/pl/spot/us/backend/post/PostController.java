@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts/")
+@RequestMapping("/posts")
 public class PostController {
     private final PostService postService;
 
@@ -25,17 +25,17 @@ public class PostController {
     @PostMapping("")
     public ResponseEntity createPost(@RequestBody Post post) throws URISyntaxException {
         Post savedPost = postService.createPost(post);
-        return ResponseEntity.created(new URI("/posts/" + savedPost.getId())).body(savedPost);
+        return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
     }
-    @GetMapping("{id}/")
+    @GetMapping("/{id}")
     public Post getPost(@PathVariable Long id) {
         return postService.findById(id);
     }
-    @PutMapping("{id}/")
+    @PutMapping("/{id}")
     public ResponseEntity updatePost(@PathVariable Long id, @RequestBody Post post) {
         return postService.updatePost(id, post);
     }
-    @DeleteMapping("{id}/")
+    @DeleteMapping("/{id}")
     public ResponseEntity deletePost(@PathVariable Long id) {
         return postService.deletePost(id);
     }
