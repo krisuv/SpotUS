@@ -33,11 +33,13 @@ const Register = (): JSX.Element => {
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
     }));
+    console.log(userData);
     const userToken = await createUser(userData);
+    console.log(userToken);
     if (!sessionStorage.getItem('user')) {
       sessionStorage.setItem('user', JSON.stringify(userToken));
     }
-    navigate('/');
+    navigate('/login');
   };
 
   return (
@@ -57,7 +59,7 @@ const Register = (): JSX.Element => {
           <Typography component="h1" variant="h5">
             Zarejestruj się
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField

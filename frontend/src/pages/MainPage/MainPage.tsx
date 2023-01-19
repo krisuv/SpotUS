@@ -13,9 +13,11 @@ const sponsoredPosts =  mockPostsJSON.slice(4) as IPost[];
 
 const MainPage = ({userData}: IMainPage): JSX.Element => {
   const [posts, setPosts] = useState<IPost[]>([]);
+  console.log('downloaded posts: ', posts);
 
   const loadPosts = async () => {
     const dbPosts = await downloadPosts() as unknown as IPost[];
+    console.log('dbPosts: ', dbPosts);
     if (dbPosts && dbPosts.length > 0) {
       setPosts(dbPosts);
     } else {

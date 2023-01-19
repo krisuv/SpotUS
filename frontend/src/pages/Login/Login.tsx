@@ -13,16 +13,30 @@ import Typography from '@mui/material/Typography';
 import Wrapper from '@mui/material/Container';
 import { Copyright } from '../../components';
 import { Container } from '../pages.styles';
+import {loginUser} from "../../api/User.api";
+import {useNavigate} from "react-router-dom";
 
 const Login = (): JSX.Element => {
+  const navigate = useNavigate();
+  //if the user is logged in redirect them do main page immediately
+  if (sessionStorage.getItem('user')) {
+    navigate('/');
+  }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const userData = (JSON.stringify({
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }));
+    console.log(userData);
+    const user = await loginUser(userData);
+    console.log(user);
+    if (!sessionStorage.getItem('user')) {
+      sessionStorage.setItem('user', JSON.stringify(user));
+    }
+    navigate('/');
   };
 
   return (
@@ -43,7 +57,7 @@ const Login = (): JSX.Element => {
           <Typography component="h1" variant="h5">
             Zaloguj
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
