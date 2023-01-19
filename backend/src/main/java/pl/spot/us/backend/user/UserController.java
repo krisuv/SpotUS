@@ -19,14 +19,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("{id}/")
-    public Optional<User> getUser(@PathVariable Long id) {
-        return userRepository.findById(id);
+    @GetMapping("{email}/")
+    public User getUser(@PathVariable String email) {
+        return userService.findByEmail(email);
     }
 
     @PutMapping("{id}/")
-    public ResponseEntity updatePost(@PathVariable Long id, User user) {
+    public ResponseEntity updateUser(@PathVariable Long id, User user) {
         return userService.updateUser(id, user);
     }
-
 }
