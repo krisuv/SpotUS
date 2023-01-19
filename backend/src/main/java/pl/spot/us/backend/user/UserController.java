@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/user/")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -19,14 +19,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("{id}/")
-    public Optional<User> getUser(@PathVariable Long id) {
-        return userRepository.findById(id);
+    @GetMapping("/{email}")
+    public User getUser(@PathVariable String email) {
+        return userService.findByEmail(email);
     }
 
-    @PutMapping("{id}/")
-    public ResponseEntity updatePost(@PathVariable Long id, User user) {
+    @PutMapping("/{id}")
+    public ResponseEntity updateUser(@PathVariable Long id, User user) {
         return userService.updateUser(id, user);
     }
-
 }

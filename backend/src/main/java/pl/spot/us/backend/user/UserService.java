@@ -14,6 +14,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(RuntimeException::new);
+    }
+
     public ResponseEntity updateUser(Long id, User user) {
         User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setFirstName(user.getFirstName());
