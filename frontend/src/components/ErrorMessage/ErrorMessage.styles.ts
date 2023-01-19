@@ -1,8 +1,5 @@
-import styled from '@emotion/styled';
-import { spotUSTheme as theme } from '../../../public';
+import { styled, Typography } from '@mui/material';
 
-export const Error = styled('span')({
-  display: 'block', 
-  color: 'red', 
+export const Error = styled(Typography)(({theme}) => ({
   margin: theme.spacing(1,0)
-});
+}));

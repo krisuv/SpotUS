@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { IPost, TVote } from './Post.types';
-import { PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, CancelVote, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer, CommentContainer } from './Post.styles';
-import Typography from '@mui/material/Typography';
+import { PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
 import { downloadComments } from '../../api/Comment.api';
 import UserComment from '../UserComment/UserComment';
+import { dateFormat } from '../../formatters';
+import Comment from '../Comment/Comment';
+import { IconButton, Typography } from '@mui/material';
 
 
 
@@ -16,7 +18,7 @@ const Post = (props: IPost): JSX.Element => {
   const [comments, setComments] = useState<IComment[]>([]);
   const [userVote, setUserVote] = useState<TVote>(0);
   const [showComments, setShowComments] = useState(false);
-
+  const date = dateFormat(publishDate);
   useEffect(() => {
     console.log('download comments...');
     // updateVote()
@@ -32,6 +34,8 @@ const Post = (props: IPost): JSX.Element => {
   };
 
   const handleVote = (vote: TVote) => () => {
+    console.log(vote);
+    console.log(userVote);
     userVote !== vote && setUserVote(vote);
   };
 
@@ -41,8 +45,9 @@ const Post = (props: IPost): JSX.Element => {
 
   return (
     <Wrapper>
-      <PostContainer category={tag}>
-        <WrapperLeft>
+      <PostContainer container category={tag}>
+        <WrapperLeft item xs={9}>
+          <Typography variant="body1" color="error">xD</Typography>
           <UserInfo>
             <h2>@{tag}</h2>
             <h3>{username}</h3>
@@ -53,14 +58,30 @@ const Post = (props: IPost): JSX.Element => {
             <Typography>{commentsCount}</Typography>
           </Comments>
         </WrapperLeft>
-        <WrapperRight>
-          <Typography>{publishDate}</Typography>
+        <WrapperRight item xs={2}>
+          <Typography>{date}</Typography>
           <Votes>
             <Typography variant='body2'>...</Typography>
-            <ArrowUp onClick={handleVote(1)} />
+            <IconButton
+              disabled={userVote === 1}
+              // color='third'
+              size='small'
+              aria-label='lubię to'>
+              <ArrowUp onClick={handleVote(1)} />
+            </IconButton>
             <Typography variant='body2'>{(votes || 0) + userVote}</Typography>
-            <ArrowDown onClick={handleVote(-1)} />
-            <CancelVote onClick={handleVote(0)} />
+            <IconButton
+              disabled={userVote === -1}
+              // color='third'
+              size='small'
+              aria-label='nie podoba mi się'>
+              <ArrowDown onClick={handleVote(-1)} />
+            </IconButton>
+            {userVote !== 0 && (
+              <Typography onClick={handleVote(0)}>
+                Anuluj głos
+              </Typography>
+            )}
           </Votes>
         </WrapperRight>
       </PostContainer>
@@ -69,11 +90,8 @@ const Post = (props: IPost): JSX.Element => {
           <Typography variant="h3" color="initial">Dodaj komentarz</Typography>
           <UserComment />
           {
-            mockCommentsJson.map((comment, index) => comment.postId === id && (
-              <CommentContainer key={index}>
-                <div>{comment.username}</div>
-                <div>{comment.content}</div>
-              </CommentContainer>
+            mockCommentsJson.map(({ username, content, postId }, index) => postId === id && (
+              <Comment key={index} username={username} content={content} />
             ))
           }
         </CommentsContainer>

@@ -1,4 +1,4 @@
-import { amber, grey } from '@mui/material/colors';
+import { amber, cyan } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 import { makeFontStyles } from '../utils/styleSnippets';
 
@@ -11,12 +11,24 @@ const spotUSTheme = createTheme({
       light: '#C5D7E8'
     },
     secondary: amber,
+    // third: {
+    //   main: '#131e42',
+    //   dark: '#0D1633',
+    //   contrastText: '#050c24',
+    //   light: '#3b4f96'
+    // },
+    success: cyan,
+    error: {
+      main: '#ab0c07',
+      dark: '#850905',
+      contrastText: '#570503',
+      light: '#c40904'
+    },
     info: {
       main: '#7C8D9E',
       light: '#8797a8',
       dark: '#617080',
       contrastText: '#2a435c'
-
     },
     text: {
       lightBorder: 'rgba(240, 240, 240, .3)',
@@ -36,8 +48,10 @@ const spotUSTheme = createTheme({
       fontSize: 16
     },
     body1: {
-      ...makeFontStyles(14, '17px', '#0D1633'),
-      fontWeight: '500 !important'
+      fontWeight: '500 !important',
+      letterSpacing: 0.4,
+      lineHeight: '17px',
+      fontSize: 14
     },
     body2: {
       fontWeight: '700 !important',
@@ -52,28 +66,6 @@ const spotUSTheme = createTheme({
           borderRadius: 24,
         }
       }
-    },
-    MuiAutocomplete: {
-      // styleOverrides: {
-      //   inputRoot: {
-      //     // padding: 100
-      //   },
-      //   root: {
-      //     background: 'olive'
-      //   },
-      //   groupLabel: {
-      //     background: 'cyan'
-      //   },
-      //   popper: {
-      //     background: 'orange'
-      //   },
-      //   input: {
-      //     background: 'red'
-      //   },
-      //   popupIndicator: {
-      //     background: 'green'
-      //   }
-      // }
     }
   },
   breakpoints: {
@@ -88,6 +80,14 @@ const spotUSTheme = createTheme({
 });
 
 declare module '@mui/material/styles/createPalette' {
+  // interface Palette {
+  //   third: PaletteColor;
+  // }
+
+  // interface PaletteOptions {
+  //   third: PaletteColorOptions;
+  // }
+
   interface TypeText {
     white: string;
     lightBorder: string;
@@ -102,6 +102,12 @@ declare module '@mui/material/styles/createPalette' {
     darkGrey: string;
   }
 }
+
+// declare module '@mui/material/IconButton' {
+//   interface IconButtonPropsColorOverrides {
+//     third: true;
+//   }
+// }
 
 
 export default spotUSTheme;
