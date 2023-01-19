@@ -1,6 +1,7 @@
 package pl.spot.us.backend.post;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +31,11 @@ public class Post {
     private Timestamp publishDate;
 
     @OneToMany(mappedBy = "post")
+    @JsonManagedReference
     private Collection<Comment> comments;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 

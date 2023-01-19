@@ -1,5 +1,6 @@
 package pl.spot.us.backend.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,9 +33,11 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Collection<Post> posts;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Collection<Comment> comments;
 
     public Collection<Comment> getComments() {

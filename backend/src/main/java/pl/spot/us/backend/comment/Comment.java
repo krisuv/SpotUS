@@ -21,10 +21,12 @@ public class Comment {
     private String content;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name="post_id", nullable=false)
     private Post post;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
