@@ -30,39 +30,17 @@ public class Post {
 
     private Timestamp publishDate;
 
-    @OneToMany(mappedBy = "post")
-    @JsonManagedReference
-    private Collection<Comment> comments;
+    private Long votes;
 
     @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    private String username;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
+    public Post(TagEnum tag, String content, Timestamp publishDate, Long votes, User user) {
+        this.tag = tag;
+        this.content = content;
+        this.publishDate = publishDate;
+        this.votes = votes;
         this.user = user;
     }
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(User user) {
-        this.username = user.getUsername();
-    }
-
-    public Collection<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Collection<Comment> comments) {
-        this.comments = comments;
-    }
-
-    private Long votes;
 }
