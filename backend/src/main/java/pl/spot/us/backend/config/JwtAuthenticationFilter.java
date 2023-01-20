@@ -29,7 +29,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-//    @SneakyThrows
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return this.isPublicURI(request);
@@ -39,6 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         ArrayList<String> publicURIs = new ArrayList<String>();
         publicURIs.add("/api/auth/authenticate");
+        publicURIs.add("/api/auth/register");
 
         return publicURIs.contains(uri);
     }

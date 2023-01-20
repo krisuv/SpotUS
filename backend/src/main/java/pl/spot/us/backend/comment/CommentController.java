@@ -17,11 +17,11 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping
+    @GetMapping(value = "")
     public List<Comment> getComments() {
         return commentService.findAll();
     }
-    @PostMapping("")
+    @PostMapping(value = "", consumes = {"application/json"})
     public ResponseEntity createComment(@RequestBody Comment comment) throws URISyntaxException {
         Comment savedComment = commentService.createComment(comment);
         return ResponseEntity.created(new URI("/comments" + savedComment.getId())).body(savedComment);

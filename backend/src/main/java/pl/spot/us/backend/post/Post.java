@@ -1,16 +1,20 @@
 package pl.spot.us.backend.post;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import pl.spot.us.backend.comment.Comment;
 import pl.spot.us.backend.user.User;
+import pl.spot.us.backend.user.UserRepository;
 
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -32,7 +36,7 @@ public class Post {
 
     private Long votes;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -42,5 +46,8 @@ public class Post {
         this.publishDate = publishDate;
         this.votes = votes;
         this.user = user;
+    }
+
+    public Post(Optional<Post> byId) {
     }
 }

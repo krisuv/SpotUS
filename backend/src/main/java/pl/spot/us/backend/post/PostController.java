@@ -18,14 +18,14 @@ public class PostController {
         this.postService = postService;
     }
 
-    @CrossOrigin
-    @GetMapping("") //wrzucić nawiasy z pustymi apostrofami
+    @GetMapping("")
     public List<Post> getPosts() {
         return postService.findAll();
     }
-    @PostMapping("/{userId}")
-    public ResponseEntity createPost(@PathVariable Long userId, @RequestBody Post post) throws URISyntaxException {
-        Post savedPost = postService.createPost(post, userId);
+
+    @PostMapping(value ="", consumes = {"application/json"})
+    public ResponseEntity createPost(@RequestBody Post post) throws URISyntaxException {
+        Post savedPost = postService.createPost(post);
         return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
     }
     @GetMapping("/{id}")

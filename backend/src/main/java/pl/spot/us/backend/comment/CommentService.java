@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.spot.us.backend.post.Post;
 import pl.spot.us.backend.post.PostRepository;
+import pl.spot.us.backend.user.User;
 
 import java.util.List;
 
@@ -11,9 +12,11 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
 
-    public CommentService(CommentRepository commentRepository) {
+    public CommentService(CommentRepository commentRepository, PostRepository postRepository) {
         this.commentRepository = commentRepository;
+        this.postRepository = postRepository;
     }
 
     public List<Comment> findAll() {
@@ -24,8 +27,13 @@ public class CommentService {
     public Comment createComment(Comment comment){
         Comment savedComment = comment;
 
-        commentRepository.save(comment);
-        return savedComment;
+        Post post = new Post(postRepository.findById(2L));
+        savedComment.setPost(post);
+        if(post != null) {
+            postRepository.save(post);
+            return comment;
+        }
+        return null;
     }
 
     public Comment findById(Long id) {

@@ -1,5 +1,6 @@
 package pl.spot.us.backend.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import pl.spot.us.backend.comment.Comment;
 import pl.spot.us.backend.post.Post;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Builder
@@ -39,7 +37,11 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonBackReference
     private List<Post> posts = new ArrayList<>();
+
+    public User(Optional<User> byId) {
+    }
 
 
     @Override

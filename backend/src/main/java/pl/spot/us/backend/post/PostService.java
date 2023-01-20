@@ -29,20 +29,20 @@ public class PostService {
         return posts;
     }
 
-    public Post createPost(Post post, Long userId){
+    public Post createPost(Post post){
         Post savedPost = post;
-        Optional<User> user = userRepository.findById(userId);
-        if(userId != null){
-            post.setUser(user.get());
+        User user = new User(userRepository.findById(1L));
+        savedPost.setUser(user);
+        if(user != null) {
             postRepository.save(post);
             return post;
         }
+        return null;
+
         // TODO weryfikacja lista przekleństw
         //możesz coś w tym stylu
         //String postContent = savedPost.getContent();
         //if(postContent coś tam ) {}
-
-        return null;
     }
 
     public Post findById(Long id) {
