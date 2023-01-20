@@ -1,5 +1,7 @@
-import { styled, Typography } from '@mui/material';
+import { styled } from '@mui/material';
 
-export const Error = styled(Typography)(({theme}) => ({
-  margin: theme.spacing(1,0)
+export const Error = styled('span')(({theme}) => ({
+  margin: theme.spacing(1,0),
+  color: theme.palette.error.dark,
+  fontWeight: 500
 }));

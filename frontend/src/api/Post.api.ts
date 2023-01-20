@@ -10,9 +10,9 @@ export const createPost = async (data: unknown) => {
 };
 
 export const downloadPosts = async () => {
-  const jwt = sessionStorage.getItem('user') || '';
+  const jwt = localStorage.getItem('user') || '';
   let token = '';
-  if(JSON.parse(jwt)){
+  if (JSON.parse(jwt)) {
     const userToken = JSON.parse(jwt);
     token = userToken.token;
     console.log(`Bearer ${token}`);
@@ -26,11 +26,11 @@ export const downloadPosts = async () => {
       }
     })
     .then((response) => {
-      return response.data || []
+      return response.data || [];
     }).catch((error) => {
       console.log(error);
       console.log(`Bearer ${token}`);
-      });
+    });
   return res;
 };
 

@@ -1,17 +1,15 @@
-import styled from '@emotion/styled';
 import { Box } from '@mui/system';
-import { spotUSTheme as theme } from '../../../public';
-import { TextField as MuiTextField } from '@mui/material';
+import { styled, TextField as MuiTextField } from '@mui/material';
 import { amber } from '@mui/material/colors';
 
-export const UserData = styled('form')({
+export const UserData = styled('form')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(3),
   marginTop: theme.spacing(6)
-});
+}));
 
-export const TextField = styled(MuiTextField)({
+export const TextField = styled(MuiTextField)(({ theme }) => ({
   maxWidth: 300,
   borderRadius: theme.spacing(1),
   '& .MuiOutlinedInput-root': {
@@ -49,11 +47,11 @@ export const TextField = styled(MuiTextField)({
   // '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
   //   border: `2px solid ${theme.palette.text.orange} !important`
   // },
-});
+}));
 
-export const Container = styled(Box)({
+export const Container = styled(Box)(({ theme }) => ({
   height: '100vh',
   [theme.breakpoints.up('md')]: {
     width: '50%'
   }
-});
+}));

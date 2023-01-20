@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { spotUSTheme as theme } from '../../../public';
 
 export const StyledLogo = styled('img')({

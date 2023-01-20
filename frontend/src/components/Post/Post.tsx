@@ -47,10 +47,9 @@ const Post = (props: IPost): JSX.Element => {
     <Wrapper>
       <PostContainer container category={tag}>
         <WrapperLeft item xs={9}>
-          <Typography variant="body1" color="error">xD</Typography>
           <UserInfo>
-            <h2>@{tag}</h2>
-            <h3>{username}</h3>
+            <Typography variant='h2'>@{tag}</Typography>
+            <Typography variant='h4'>{username}</Typography>
           </UserInfo>
           <Typography>{content}</Typography>
           <Comments onClick={handleShowComments}>
@@ -63,19 +62,21 @@ const Post = (props: IPost): JSX.Element => {
           <Votes>
             <Typography variant='body2'>...</Typography>
             <IconButton
+              onClick={handleVote(1)}
               disabled={userVote === 1}
-              // color='third'
+              color='third'
               size='small'
               aria-label='lubię to'>
-              <ArrowUp onClick={handleVote(1)} />
+              <ArrowUp />
             </IconButton>
             <Typography variant='body2'>{(votes || 0) + userVote}</Typography>
             <IconButton
+              onClick={handleVote(-1)}
               disabled={userVote === -1}
-              // color='third'
+              color='third'
               size='small'
               aria-label='nie podoba mi się'>
-              <ArrowDown onClick={handleVote(-1)} />
+              <ArrowDown  />
             </IconButton>
             {userVote !== 0 && (
               <Typography onClick={handleVote(0)}>
@@ -87,7 +88,7 @@ const Post = (props: IPost): JSX.Element => {
       </PostContainer>
       {showComments && (
         <CommentsContainer>
-          <Typography variant="h3" color="initial">Dodaj komentarz</Typography>
+          <Typography variant="h4" color="initial">Dodaj komentarz</Typography>
           <UserComment />
           {
             mockCommentsJson.map(({ username, content, postId }, index) => postId === id && (

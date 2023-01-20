@@ -13,13 +13,13 @@ import Typography from '@mui/material/Typography';
 import Wrapper from '@mui/material/Container';
 import { Copyright } from '../../components';
 import { Container } from '../pages.styles';
-import {loginUser} from "../../api/User.api";
-import {useNavigate} from "react-router-dom";
+import { loginUser } from '../../api/User.api';
+import { useNavigate } from 'react-router-dom';
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
   //if the user is logged in redirect them do main page immediately
-  if (sessionStorage.getItem('user')) {
+  if (localStorage.getItem('user')) {
     navigate('/');
   }
 
@@ -33,8 +33,8 @@ const Login = (): JSX.Element => {
     console.log(userData);
     const user = await loginUser(userData);
     console.log(user);
-    if (!sessionStorage.getItem('user')) {
-      sessionStorage.setItem('user', JSON.stringify(user));
+    if (!localStorage.getItem('user')) {
+      localStorage.setItem('user', JSON.stringify(user));
     }
     navigate('/');
   };

@@ -1,10 +1,6 @@
-import { styled } from '@mui/material';
-import { spotUSTheme as theme } from '../public';
+import { Box, styled } from '@mui/material';
 
-export const AppWrapper = styled('div')({
-  // background: 'linear-gradient(180deg, #0D1633 0%, #14285A 27.6%, #6081D3 100%)',
-  // minHeight: '100vh',
-  // overflow: 'hidden',
+export const ContentWrapper = styled(Box)(({ theme }) => ({
   lineHeight: 1.5,
   '-webkit-font-smoothing': 'antialiased',
   padding: theme.spacing(2, 3),
@@ -17,7 +13,6 @@ export const AppWrapper = styled('div')({
   [theme.breakpoints.up('lg')]: {
     padding: theme.spacing(6, 20)
   },
-  //reset default CSS values
   '& p, h1, h2, h3, h4, h5, h6': {
     color: theme.palette.text.light,
     fontFamily: 'Montserrat, sans-serif',
@@ -38,4 +33,10 @@ export const AppWrapper = styled('div')({
     display: 'block',
     maxWidth: '100%'
   },
-});
+}));
+
+export const AppWrapper = styled(Box)(({ theme }) => ({
+  // isolation: 'isolate',
+  fontFamily: '"Montserrat", sans-serif',
+  background: 'linear-gradient(180deg, #0D1633 0%, #14285A 27.6%, #6081D3 100%)',
+}));

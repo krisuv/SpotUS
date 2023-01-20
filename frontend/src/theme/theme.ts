@@ -11,12 +11,12 @@ const spotUSTheme = createTheme({
       light: '#C5D7E8'
     },
     secondary: amber,
-    // third: {
-    //   main: '#131e42',
-    //   dark: '#0D1633',
-    //   contrastText: '#050c24',
-    //   light: '#3b4f96'
-    // },
+    third: {
+      main: '#131e42',
+      dark: '#0D1633',
+      contrastText: '#050c24',
+      light: '#3b4f96'
+    },
     success: cyan,
     error: {
       main: '#ab0c07',
@@ -33,7 +33,8 @@ const spotUSTheme = createTheme({
     text: {
       lightBorder: 'rgba(240, 240, 240, .3)',
       light: '#F0F0F0',
-      dark: '#0D1633'
+      dark: '#0D1633',
+      error: '#ab0c07'
     },
     background: {
       dark: '#0D1633',
@@ -44,7 +45,14 @@ const spotUSTheme = createTheme({
   },
   typography: {
     fontSize: 12,
+    h2: {
+      fontSize: 36,
+      margin: '8px 0 16px'
+    },
     h3: {
+      fontSize: 20
+    },
+    h4: {
       fontSize: 16
     },
     body1: {
@@ -54,8 +62,10 @@ const spotUSTheme = createTheme({
       fontSize: 14
     },
     body2: {
-      fontWeight: '700 !important',
+      // fontWeight: '700 !important',
+      lineHeight: '22px',
     },
+
   },
   components: {
     MuiButton: {
@@ -80,19 +90,20 @@ const spotUSTheme = createTheme({
 });
 
 declare module '@mui/material/styles/createPalette' {
-  // interface Palette {
-  //   third: PaletteColor;
-  // }
+  interface Palette {
+    third: PaletteColor;
+  }
 
-  // interface PaletteOptions {
-  //   third: PaletteColorOptions;
-  // }
+  interface PaletteOptions {
+    third: PaletteColorOptions;
+  }
 
   interface TypeText {
     white: string;
     lightBorder: string;
     light: string;
     dark: string;
+    error: string;
   }
 
   interface TypeBackground {
@@ -103,11 +114,11 @@ declare module '@mui/material/styles/createPalette' {
   }
 }
 
-// declare module '@mui/material/IconButton' {
-//   interface IconButtonPropsColorOverrides {
-//     third: true;
-//   }
-// }
+declare module '@mui/material/IconButton' {
+  interface IconButtonPropsColorOverrides {
+    third: true;
+  }
+}
 
 
 export default spotUSTheme;

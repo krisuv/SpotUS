@@ -20,7 +20,7 @@ import { createUser } from '../../api/User.api';
 const Register = (): JSX.Element => {
   const navigate = useNavigate();
   //if the user is logged in redirect them do main page immediately
-  if (sessionStorage.getItem('user')) {
+  if (localStorage.getItem('user')) {
     navigate('/');
   }
 
@@ -36,8 +36,8 @@ const Register = (): JSX.Element => {
     console.log(userData);
     const userToken = await createUser(userData);
     console.log(userToken);
-    if (!sessionStorage.getItem('user')) {
-      sessionStorage.setItem('user', JSON.stringify(userToken));
+    if (!localStorage.getItem('user')) {
+      localStorage.setItem('user', JSON.stringify(userToken));
     }
     navigate('/login');
   };

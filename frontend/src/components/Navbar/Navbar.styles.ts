@@ -1,9 +1,8 @@
-import styled from '@emotion/styled';
-import { spotUSTheme as theme } from '../../../public';
+import { styled } from '@mui/material';
 
-export const Header = styled('header')<{ isBreakpointMet: boolean }>(({ isBreakpointMet }) => ({
+export const Header = styled('header')<{ isBreakpointMet: boolean }>(({ isBreakpointMet, theme }) => ({
   position: 'sticky',
-  backgroundColor: isBreakpointMet? theme.palette.background.dark : 'transparent',
+  backgroundColor: isBreakpointMet ? theme.palette.background.dark : 'transparent',
   // backdropFilter: isBreakpointMet? 'blur(20px) brightness(80%)' : 'none',
   transition: '.3s ease-in-out',
   top: 0,
@@ -23,7 +22,7 @@ export const Header = styled('header')<{ isBreakpointMet: boolean }>(({ isBreakp
   },
 }));
 
-export const Nav = styled('nav')({
+export const Nav = styled('nav')(({ theme }) => ({
   '& :not(:last-child)': {
     marginRight: theme.spacing(4)
   },
@@ -31,4 +30,4 @@ export const Nav = styled('nav')({
     color: 'whitesmoke',
     textDecoration: 'none'
   },
-});
+}));
