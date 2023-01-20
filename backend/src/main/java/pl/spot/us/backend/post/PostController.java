@@ -22,9 +22,9 @@ public class PostController {
     public List<Post> getPosts() {
         return postService.findAll();
     }
-    @PostMapping("")
-    public ResponseEntity createPost(@RequestBody Post post) throws URISyntaxException {
-        Post savedPost = postService.createPost(post);
+    @PostMapping("/{userId}")
+    public ResponseEntity createPost(@PathVariable Long userId, @RequestBody Post post) throws URISyntaxException {
+        Post savedPost = postService.createPost(post, userId);
         return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
     }
     @GetMapping("/{id}")

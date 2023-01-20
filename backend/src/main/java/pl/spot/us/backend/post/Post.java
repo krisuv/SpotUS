@@ -39,12 +39,21 @@ public class Post {
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
+    private String username;
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(User user) {
+        this.username = user.getUsername();
     }
 
     public Collection<Comment> getComments() {

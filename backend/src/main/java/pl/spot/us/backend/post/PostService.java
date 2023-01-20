@@ -5,18 +5,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import pl.spot.us.backend.user.User;
+import pl.spot.us.backend.user.UserRepository;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, UserRepository userRepository) {
         this.postRepository = postRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Post> findAll() {
@@ -24,16 +29,20 @@ public class PostService {
         return posts;
     }
 
-    public Post createPost(Post post){
+    public Post createPost(Post post, Long userId){
         Post savedPost = post;
-
+        Optional<User> user = userRepository.findById(userId);
+        if(userId != null){
+            post.setUser(user.get());
+            postRepository.save(post);
+            return post;
+        }
         // TODO weryfikacja lista przekleństw
         //możesz coś w tym stylu
         //String postContent = savedPost.getContent();
         //if(postContent coś tam ) {}
 
-        postRepository.save(post);
-        return savedPost;
+        return null;
     }
 
     public Post findById(Long id) {
