@@ -15,12 +15,13 @@ public class CorsConfig {
 
     @Bean
     public WebMvcConfigurer getCorsConfiguration(){
+        System.out.println("allowed origin: " + allowedOrigin);
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings (CorsRegistry registry) {
-                registry.addMapping("/**")
+                registry.addMapping("/**") //czy path pattern jest poprawny
                         .allowedOrigins(allowedOrigin)
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedMethods("*")
                         .allowedHeaders("*");
                         //zamiast adresów i metod mogą być *
             }

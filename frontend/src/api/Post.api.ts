@@ -3,7 +3,7 @@ import { TVote } from '../components/Post/Post.types';
 
 export const createPost = async (data: unknown) => {
   const res: AxiosResponse = await axios
-    .post('http://localhost:8080/posts', data)
+    .post('/api/posts', data)
     .then(res => res.data)
     .catch(err => console.error(err));
   return res;
@@ -11,39 +11,38 @@ export const createPost = async (data: unknown) => {
 
 export const downloadPosts = async () => {
   const jwt = sessionStorage.getItem('user') || '';
-  let token = '';
+  console.log(jwt);
   if(JSON.parse(jwt)){
-    const userToken = JSON.parse(jwt);
-    token = userToken.token;
+    const userObject = JSON.parse(jwt);
+    const token = userObject.token;
     console.log(`Bearer ${token}`);
-  }
-  const res: AxiosResponse = await axios
-    .get('http://localhost:8080/posts', {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => {
-      return response.data || []
-    }).catch((error) => {
+
+    try {
+      const res: AxiosResponse = await axios
+        .get('/api/posts', {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        });
+        return res.data || [];
+    } catch (error) {
       console.log(error);
-      console.log(`Bearer ${token}`);
-      });
-  return res;
+    }
+  }
 };
 
 export const downloadOnePost = async (id: number) => {
   const res: AxiosResponse = await axios
-    .get(`http://localhost:8080/posts/${id}`)
+    .get(`/api/posts/${id}`)
     .then((response) => response.data || []);
   return res;
 };
 
 export const updatePost = async (data: unknown, id: number) => {
   const res: AxiosResponse = await axios
-    .put(`http://localhost:8080/posts/${id}`, data)
+    .put(`/api/posts/${id}`, data)
     .then(res => res.data)
     .catch(err => console.error(err));
   return res;
@@ -51,7 +50,7 @@ export const updatePost = async (data: unknown, id: number) => {
 
 export const deletePost = async (id: number) => {
   const res: AxiosResponse = await axios
-    .delete(`http://localhost:8080/posts/${id}`)
+    .delete(`/api/posts/${id}`)
     .then(res => res.data)
     .catch(err => console.error(err));
   return res;
@@ -59,7 +58,7 @@ export const deletePost = async (id: number) => {
 
 export const updatePostVotes = async (postId: number, votes: number) => {
   const res: AxiosResponse = await axios
-    .put(`http://localhost:8080/posts/${postId}`, votes)
+    .put(`/api/posts/${postId}`, votes)
     .then(res => res.data)
     .catch(err => console.error(err));
   return res;
