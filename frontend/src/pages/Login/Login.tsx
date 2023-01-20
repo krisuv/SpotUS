@@ -12,9 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Wrapper from '@mui/material/Container';
 import { Copyright } from '../../components';
-import { Container } from '../pages.styles';
 import { loginUser } from '../../api/User.api';
 import { useNavigate } from 'react-router-dom';
+import { ILoginUser } from '../../types';
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
@@ -26,10 +26,10 @@ const Login = (): JSX.Element => {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userData = (JSON.stringify({
-      email: data.get('email'),
-      password: data.get('password'),
-    }));
+    const userData: ILoginUser = {
+      email: data.get('email')?.toString() || '',
+      password: data.get('password')?.toString() || ''
+    };
     console.log(userData);
     const user = await loginUser(userData);
     console.log(user);
@@ -40,7 +40,7 @@ const Login = (): JSX.Element => {
   };
 
   return (
-    <Container>
+    <>
       <Wrapper component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -107,7 +107,7 @@ const Login = (): JSX.Element => {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Wrapper>
-    </Container>
+    </>
   );
 };
 

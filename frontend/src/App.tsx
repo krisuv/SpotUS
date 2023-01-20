@@ -13,16 +13,16 @@ const App = () => {
   console.log('%c Logged user: ', 'color: #3fd4ee', userToken.current);
 
   // we will use this
-  // const user = userToken.current ? decodeUserToken(userToken.current) : null; 
+  const user = userToken.current ? decodeUserToken(userToken.current) : null; 
 
   // this is only for a test. deletete it later and uncomment upper line
-  const user = decodeUserToken(mockTokenTest); 
+  // const user = decodeUserToken(mockTokenTest); 
   console.log(user);
   
   return (
     <ThemeProvider theme={spotUSTheme}>
       <AppWrapper>
-        <Navbar />
+        <Navbar userData={user} />
         <ContentWrapper>
           <AppRouter userData={user} />
         </ContentWrapper>

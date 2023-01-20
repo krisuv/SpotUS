@@ -9,12 +9,8 @@ import { dateFormat } from '../../formatters';
 import Comment from '../Comment/Comment';
 import { IconButton, Typography } from '@mui/material';
 
-
-
-{/* <Avatar src='https://placekitten.com/40/40' alt='' /> */ }
-
 const Post = (props: IPost): JSX.Element => {
-  const { id, tag, username, content, commentsCount, publishDate, votes } = props;
+  const { id, tag, username, content, commentsCount, publishDate, votes, previewVersion } = props;
   const [comments, setComments] = useState<IComment[]>([]);
   const [userVote, setUserVote] = useState<TVote>(0);
   const [showComments, setShowComments] = useState(false);
@@ -52,8 +48,10 @@ const Post = (props: IPost): JSX.Element => {
             <Typography variant='h4'>{username}</Typography>
           </UserInfo>
           <Typography>{content}</Typography>
-          <Comments onClick={handleShowComments}>
-            <CommentIcon />
+          <Comments>
+            <IconButton onClick={handleShowComments}>
+              <CommentIcon />
+            </IconButton>
             <Typography>{commentsCount}</Typography>
           </Comments>
         </WrapperLeft>
@@ -76,7 +74,7 @@ const Post = (props: IPost): JSX.Element => {
               color='third'
               size='small'
               aria-label='nie podoba mi się'>
-              <ArrowDown  />
+              <ArrowDown />
             </IconButton>
             {userVote !== 0 && (
               <Typography onClick={handleVote(0)}>
@@ -88,8 +86,14 @@ const Post = (props: IPost): JSX.Element => {
       </PostContainer>
       {showComments && (
         <CommentsContainer>
-          <Typography variant="h4" color="initial">Dodaj komentarz</Typography>
-          <UserComment />
+          {
+            !previewVersion && (
+              <>
+                <Typography variant="h4" color="initial">Dodaj komentarz</Typography>
+                <UserComment />
+              </>
+            )
+          }
           {
             mockCommentsJson.map(({ username, content, postId }, index) => postId === id && (
               <Comment key={index} username={username} content={content} />

@@ -10,7 +10,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Wrapper from '@mui/material/Container';
-import { Container } from '../pages.styles';
 import { Copyright } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
@@ -43,7 +42,7 @@ const Register = (): JSX.Element => {
   };
 
   return (
-    <Container>
+    <>
       <Wrapper component="main" maxWidth="xs">
         <Box
           sx={{
@@ -130,7 +129,7 @@ const Register = (): JSX.Element => {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Wrapper>
-    </Container>
+    </>
   );
 };
 

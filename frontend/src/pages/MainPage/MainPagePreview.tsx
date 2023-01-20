@@ -16,11 +16,13 @@ const MainPagePreview = (): JSX.Element => {
   return (
     <Container container justifyContent={'center'} spacing={10}>
       <Wall item md={6}>
-        <Typography variant='h3'>Twoja tablica</Typography>
-        <PostEditor />
+        <Typography variant='h3'>Bądź na bierzaco ze studentami</Typography>
+        <Typography variant="body1" color="initial">
+          Na twojej tablicy będą pojawiać się ogłoszenia innych studentów. Możesz je oceniać i komentować, a także dodać własne!
+        </Typography>
         {
           previewPosts.map(post => (
-            <Post key={post.id} {...post} />
+            <Post key={post.id} {...post} previewVersion/>
           ))
         }
       </Wall>
@@ -28,6 +30,7 @@ const MainPagePreview = (): JSX.Element => {
         <Announcement 
           author='SpotUS' 
           buttonText='Załóż konto' 
+          link='/register'
           content={registerAd} 
           title='Dołącz do nas!' />
       </StickySidebar>

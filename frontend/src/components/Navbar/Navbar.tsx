@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Header, Nav } from './Navbar.styles';
 import Logo from '../Logo/Logo';
+import { INavbar } from './Navbar.types';
 
-const Navbar = (): JSX.Element => {
+const Navbar = ({ userData }: INavbar): JSX.Element => {
   const [isBreakpointMet, setIsBreakpointMet] = useState(false);
   const setScrolled = () => {
     if (window.scrollY >= 50) {
@@ -25,9 +26,22 @@ const Navbar = (): JSX.Element => {
     <Header isBreakpointMet={isBreakpointMet}>
       <Logo />
       <Nav>
-        <NavLink to={'/'}>Główna</NavLink>
-        <NavLink to={'/profile'}>Profil</NavLink>
-        <NavLink to={'/contact'}>Kontakt</NavLink>
+        {
+          userData
+            ? (
+              <>
+                <NavLink to={'/'}>Główna</NavLink>
+                <NavLink to={'/profile'}>Profil</NavLink>
+                <NavLink to={'/contact'}>Kontakt</NavLink>
+              </>
+            )
+            : (
+              <>
+                <NavLink to={'/login'}>Zaloguj</NavLink>
+                <NavLink to={'/register'}>Zarejstruj</NavLink>
+              </>
+            )
+        }
       </Nav>
     </Header>
   );

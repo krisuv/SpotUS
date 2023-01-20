@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button } from '@mui/material';
-import { Container } from '../pages.styles';
 import Announcement from '../../components/Announcement/Announcement';
 import { IAnnouncement } from '../../components/Announcement/Announcement.types';
 
@@ -17,10 +15,10 @@ const becomeAdmin: IAnnouncement = {
 
 const Contact = (): JSX.Element => {
   return (
-    <Container>
+    <>
       <h1>Contact</h1>
       <Announcement {...becomeAdmin} />
-    </Container>
+    </>
   );
 };
 

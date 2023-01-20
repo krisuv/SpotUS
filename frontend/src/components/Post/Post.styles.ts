@@ -104,6 +104,6 @@ export const ArrowDown = styled(DownIcon)(({ theme }) => ({
 export const Comments = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  gap: theme.spacing(1.5)
+  gap: theme.spacing(1.5),
 }));
 

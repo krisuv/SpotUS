@@ -19,6 +19,7 @@ export interface IPost {
   publishDate: string;
   commentsCount?: number;
   votes?: number;
+  previewVersion?: boolean;
 }
 
 export type TCategoryColors = Record<TTag, string>;
