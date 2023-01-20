@@ -10,28 +10,22 @@ export const createPost = async (data: unknown) => {
 };
 
 export const downloadPosts = async () => {
-  const jwt = localStorage.getItem('user') || '';
-  let token = '';
-  if (JSON.parse(jwt)) {
-    const userToken = JSON.parse(jwt);
-    token = userToken.token;
-    console.log(`Bearer ${token}`);
+  try {
+    const jwt = localStorage.getItem('user') || '';
+    console.log(`%c Bearer ${jwt || '<< NO JWT >>'}`, 'color: magenta');
+
+    const res: AxiosResponse = await axios
+      .get('http://localhost:8080/posts', {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${jwt}`
+        }
+      });
+    return res.data || [];
+  } catch (error) {
+    console.log(error);
   }
-  const res: AxiosResponse = await axios
-    .get('http://localhost:8080/posts', {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => {
-      return response.data || [];
-    }).catch((error) => {
-      console.log(error);
-      console.log(`Bearer ${token}`);
-    });
-  return res;
 };
 
 export const downloadOnePost = async (id: number) => {

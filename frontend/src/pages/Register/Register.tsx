@@ -12,31 +12,27 @@ import Typography from '@mui/material/Typography';
 import Wrapper from '@mui/material/Container';
 import { Copyright } from '../../components';
 import { useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
 import { createUser } from '../../api/User.api';
 
 
 const Register = (): JSX.Element => {
   const navigate = useNavigate();
-  //if the user is logged in redirect them do main page immediately
-  if (localStorage.getItem('user')) {
-    navigate('/');
-  }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userData = (JSON.stringify({
-      email: data.get('email'),
-      password: data.get('password'),
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-    }));
-    console.log(userData);
-    const userToken = await createUser(userData);
-    console.log(userToken);
+    const userData = {
+      email: data.get('email')?.toString() || '',
+      password: data.get('password')?.toString() || '',
+      firstName: data.get('firstName')?.toString() || '',
+      lastName: data.get('lastName')?.toString() || '',
+    };
+
+    const jwtObject = await createUser(userData);
+    const jwt = JSON.parse(jwtObject).token;
+    console.log(jwt);
     if (!localStorage.getItem('user')) {
-      localStorage.setItem('user', JSON.stringify(userToken));
+      localStorage.setItem('user', jwt);
     }
     navigate('/login');
   };
@@ -58,7 +54,7 @@ const Register = (): JSX.Element => {
           <Typography component="h1" variant="h5">
             Zarejestruj się
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleRegister} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField

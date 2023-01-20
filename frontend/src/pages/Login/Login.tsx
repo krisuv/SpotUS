@@ -18,10 +18,6 @@ import { ILoginUser } from '../../types';
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
-  //if the user is logged in redirect them do main page immediately
-  if (localStorage.getItem('user')) {
-    navigate('/');
-  }
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,10 +27,11 @@ const Login = (): JSX.Element => {
       password: data.get('password')?.toString() || ''
     };
     console.log(userData);
-    const user = await loginUser(userData);
-    console.log(user);
+    const jwtObject = await loginUser(userData);
+    const jwt = JSON.parse(jwtObject).token;
+
     if (!localStorage.getItem('user')) {
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', jwt);
     }
     navigate('/');
   };
@@ -92,11 +89,6 @@ const Login = (): JSX.Element => {
               Zaloguj
             </Button>
             <Grid container>
-              {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Zapomniałem hasła
-                </Link>
-              </Grid> */}
               <Grid item>
                 <Link href="/register" variant="body2">
                   Nie masz konta? Zarejestruj się!
