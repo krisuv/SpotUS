@@ -24,18 +24,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .authorizeHttpRequests()
-                .anyRequest()
-                .permitAll()
-                .and()
-                .csrf().disable()
+                .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .anyRequest().permitAll()
-//                        .requestMatchers("/auth/**", "/h2/**").permitAll()
-//                        .anyRequest().authenticated()
+                        .requestMatchers("/api/auth/**", "/h2/**").permitAll()
+                        .anyRequest().authenticated()
                 )
-                .headers().frameOptions().sameOrigin()
-                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

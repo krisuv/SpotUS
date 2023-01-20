@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
@@ -20,8 +20,11 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
+
             @RequestBody AuthenticationRequest request
     ) {
+        System.out.println(request.getEmail());
+        System.out.println(request.getPassword());
         return ResponseEntity.ok(service.authenticate(request));
     }
 
