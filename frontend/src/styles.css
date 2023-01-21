@@ -6,23 +6,6 @@
     box-sizing: border-box;
 }
 
-html {
-    font-family: 'Montserrat', sans-serif;
-}
-
-h1,h2,h3,h4,h5,h6,a,p {
-    font-family: 'Montserrat', sans-serif;
-}
-
-button {
-    font-family: 'Montserrat', sans-serif;
-}
-
-#root {
-    isolation: isolate;
-    background: linear-gradient(180deg, #0D1633 0%, #14285A 27.6%, #6081D3 100%);
-}
-
 ::-webkit-scrollbar {
     width: 14px;
     background: linear-gradient(180deg, #0D1633 0%, #14285A 27.6%, #6081D3 100%);

@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { Grid, styled } from '@mui/material';
 import { Box } from '@mui/material';
 import { makeFontStyles, makeBorder } from '../../utils/styleSnippets';
 import { TTag } from './Post.types';
@@ -6,7 +6,6 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import UpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DownIcon from '@mui/icons-material/KeyboardArrowDown';
 import gradientColors from '../../utils/gradientColors';
-import ClearIcon from '@mui/icons-material/Clear';
 
 export const Wrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -14,7 +13,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3)
 }));
 
-export const PostContainer = styled(Box)<{ category: TTag }>(({ category, theme }) => ({
+export const PostContainer = styled(Grid)<{ category: TTag }>(({ category, theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   gap: theme.spacing(2),
@@ -48,27 +47,20 @@ export const CommentsContainer = styled(Box)(({ theme }) => ({
   width: 'min(100%, 600px)',
 }));
 
-export const CommentContainer = styled(Box)(({ theme }) => ({
-  borderRadius: theme.spacing(1),
-  background: 'wheat', 
-  padding: theme.spacing(1, 2), 
-}));
-
-
-export const WrapperLeft = styled(Box)(({ theme }) => ({
+export const WrapperLeft = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(1)
 }));
 
-export const WrapperRight = styled(Box)(({ theme }) => ({
+export const WrapperRight = styled(Grid)(({ theme }) => ({
   textAlign: 'center',
   fontWeight: 700,
   gap: theme.spacing(1),
   ...makeFontStyles(16, '17.5px'),
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
+  alignItems: 'flex-end',
   justifyContent: 'flex-start',
 }));
 
@@ -98,26 +90,20 @@ export const CommentIcon = styled(ChatBubbleIcon)(({ theme }) => ({
 }));
 
 export const ArrowUp = styled(UpIcon)(({ theme }) => ({
-  fill: theme.palette.text.dark,
-  width: 40,
-  height: 30
+  // fill: theme.palette.text.dark,
+  width: 35,
+  height: 35,
 }));
 
 export const ArrowDown = styled(DownIcon)(({ theme }) => ({
-  fill: theme.palette.text.dark,
-  width: 40,
-  height: 30,
-}));
-
-export const CancelVote = styled(ClearIcon)(({ theme }) => ({
-  fill: theme.palette.text.dark,
-  width: 40,
-  height: 30,
+  // fill: theme.palette.text.dark,
+  width: 35,
+  height: 35,
 }));
 
 export const Comments = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  gap: theme.spacing(1.5)
+  gap: theme.spacing(1.5),
 }));
 

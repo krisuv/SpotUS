@@ -1,9 +1,8 @@
-import styled from '@emotion/styled';
-import { spotUSTheme as theme } from '../../../public';
+import { styled } from '@mui/material';
 
-export const Image = styled('img')({
+export const Image = styled('img')(({ theme }) => ({
   borderRadius: 16,
-  margin: theme.spacing(2,0),
+  margin: theme.spacing(2, 0),
   objectFit: 'cover',
   backgroundSize: 'cover',
   width: 100,
@@ -18,4 +17,4 @@ export const Image = styled('img')({
   },
   [theme.breakpoints.up('lg')]: {
   },
-});
+}));

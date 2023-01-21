@@ -10,40 +10,34 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Wrapper from '@mui/material/Container';
-import { Container } from '../pages.styles';
 import { Copyright } from '../../components';
 import { useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
 import { createUser } from '../../api/User.api';
 
 
 const Register = (): JSX.Element => {
   const navigate = useNavigate();
-  //if the user is logged in redirect them do main page immediately
-  if (sessionStorage.getItem('user')) {
-    navigate('/');
-  }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userData = (JSON.stringify({
-      email: data.get('email'),
-      password: data.get('password'),
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-    }));
-    console.log(userData);
-    const userToken = await createUser(userData);
-    console.log(userToken);
-    if (!sessionStorage.getItem('user')) {
-      sessionStorage.setItem('user', JSON.stringify(userToken));
-    }
+    const userData = {
+      email: data.get('email')?.toString() || '',
+      password: data.get('password')?.toString() || '',
+      firstName: data.get('firstName')?.toString() || '',
+      lastName: data.get('lastName')?.toString() || '',
+      username: data.get('username')?.toString() || '',
+    };
+
+    const jwtObject = await createUser(userData);
+    console.log('jwt Object ', jwtObject);
+    const jwt = jwtObject.token;
+    console.log('token ' + jwt);
     navigate('/login');
   };
 
   return (
-    <Container>
+    <>
       <Wrapper component="main" maxWidth="xs">
         <Box
           sx={{
@@ -57,9 +51,9 @@ const Register = (): JSX.Element => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Zarejestruj się
+            Zarejestruj się, a następnie zarejestruj.
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleRegister} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -80,6 +74,17 @@ const Register = (): JSX.Element => {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    required
+                    fullWidth
+                    type="username"
+                    id="username"
+                    label="Nick"
+                    name="username"
+                    autoComplete="username"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -130,7 +135,7 @@ const Register = (): JSX.Element => {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Wrapper>
-    </Container>
+    </>
   );
 };
 

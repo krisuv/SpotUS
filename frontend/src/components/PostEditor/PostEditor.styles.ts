@@ -1,6 +1,5 @@
-import styled from '@emotion/styled';
 import { spotUSTheme as theme } from '../../../public';
-import { Autocomplete, Box, Button as MuiButton, TextareaAutosize } from '@mui/material';
+import {styled, Autocomplete, Box, Button as MuiButton, TextareaAutosize } from '@mui/material';
 import { makeFontStyles } from '../../utils/styleSnippets';
 import SendIcon from '@mui/icons-material/Send';
 
@@ -11,7 +10,7 @@ export const Container = styled(Box)({
   padding: theme.spacing(1, 1, 1, 2),
   '& h2': {
     ...makeFontStyles(20, '15px', theme.palette.text.light),
-    margin: theme.spacing(1.5,0,2)
+    margin: theme.spacing(1.5, 0, 2)
   },
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(1.5, 1.5, 1.5, 2.5),
@@ -43,7 +42,7 @@ export const Button = styled(MuiButton)({
 });
 
 export const Textarea = styled(TextareaAutosize)({
-  width: '100%', 
+  width: '100%',
   minHeight: 70,
   padding: theme.spacing(2),
   resize: 'none',

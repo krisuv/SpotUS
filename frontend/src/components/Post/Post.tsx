@@ -1,29 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { IPost, TVote } from './Post.types';
-import { PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, CancelVote, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer, CommentContainer } from './Post.styles';
-import Typography from '@mui/material/Typography';
+import { PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
-import { downloadComments } from '../../api/Comment.api';
+import { getComments } from '../../api/Comment.api';
 import UserComment from '../UserComment/UserComment';
-
-
-
-{/* <Avatar src='https://placekitten.com/40/40' alt='' /> */ }
+import { dateFormat } from '../../formatters';
+import Comment from '../Comment/Comment';
+import { IconButton, Typography } from '@mui/material';
 
 const Post = (props: IPost): JSX.Element => {
-  const { id, tag, username, content, commentsCount, publishDate, votes } = props;
+  const { id, tag, username, content, commentsCount, publishDate, votes, previewVersion } = props;
   const [comments, setComments] = useState<IComment[]>([]);
   const [userVote, setUserVote] = useState<TVote>(0);
   const [showComments, setShowComments] = useState(false);
+  const date = useMemo(() => (
+    dateFormat(publishDate)
+  ), [publishDate]);
 
   useEffect(() => {
-    console.log('download comments...');
     // updateVote()
   }, [userVote]);
 
+  useEffect(() => {
+    loadComments();
+  }, [commentsCount]);
+
+
   const loadComments = async () => {
-    const dbComments = await downloadComments() as unknown as IComment[];
+    const dbComments = await getComments(id) as unknown as IComment[];
     if (dbComments && dbComments.length > 0) {
       setComments(dbComments);
     } else {
@@ -32,6 +37,8 @@ const Post = (props: IPost): JSX.Element => {
   };
 
   const handleVote = (vote: TVote) => () => {
+    console.log(vote);
+    console.log(userVote);
     userVote !== vote && setUserVote(vote);
   };
 
@@ -41,40 +48,69 @@ const Post = (props: IPost): JSX.Element => {
 
   return (
     <Wrapper>
-      <PostContainer category={tag}>
-        <WrapperLeft>
+      <PostContainer container category={tag}>
+        <WrapperLeft item xs={9}>
           <UserInfo>
-            <h2>@{tag}</h2>
-            <h3>{username}</h3>
+            <Typography variant='h2'>@{tag}</Typography>
+            <Typography variant='h4'>{username}</Typography>
           </UserInfo>
           <Typography>{content}</Typography>
-          <Comments onClick={handleShowComments}>
-            <CommentIcon />
+          <Comments>
+            <IconButton onClick={handleShowComments}>
+              <CommentIcon />
+            </IconButton>
             <Typography>{commentsCount}</Typography>
           </Comments>
         </WrapperLeft>
-        <WrapperRight>
-          <Typography>{publishDate}</Typography>
+        <WrapperRight item xs={2}>
+          <Typography>{date}</Typography>
           <Votes>
             <Typography variant='body2'>...</Typography>
-            <ArrowUp onClick={handleVote(1)} />
+            <IconButton
+              onClick={handleVote(1)}
+              disabled={userVote === 1}
+              color='third'
+              size='small'
+              aria-label='lubię to'>
+              <ArrowUp />
+            </IconButton>
             <Typography variant='body2'>{(votes || 0) + userVote}</Typography>
-            <ArrowDown onClick={handleVote(-1)} />
-            <CancelVote onClick={handleVote(0)} />
+            <IconButton
+              onClick={handleVote(-1)}
+              disabled={userVote === -1}
+              color='third'
+              size='small'
+              aria-label='nie podoba mi się'>
+              <ArrowDown />
+            </IconButton>
+            {userVote !== 0 && (
+              <Typography onClick={handleVote(0)}>
+                Anuluj głos
+              </Typography>
+            )}
           </Votes>
         </WrapperRight>
       </PostContainer>
       {showComments && (
         <CommentsContainer>
-          <Typography variant="h3" color="initial">Dodaj komentarz</Typography>
-          <UserComment />
           {
-            mockCommentsJson.map((comment, index) => comment.postId === id && (
-              <CommentContainer key={index}>
-                <div>{comment.username}</div>
-                <div>{comment.content}</div>
-              </CommentContainer>
-            ))
+            previewVersion
+              ? (
+                mockCommentsJson.map(({ username, content, postId }, index) => postId === id && (
+                  <Comment key={index} username={username} content={content} />
+                ))
+              )
+              : (
+                <>
+                  <Typography variant="h4" color="initial">Dodaj komentarz</Typography>
+                  <UserComment />
+                  {
+                    comments.map(({ username, content, postId }, index) => postId === id && (
+                      <Comment key={index} username={username} content={content} />
+                    ))
+                  }
+                </>
+              )
           }
         </CommentsContainer>
       )}
