@@ -1,21 +1,22 @@
 package pl.spot.us.backend.post;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import pl.spot.us.backend.comment.Comment;
 import pl.spot.us.backend.user.User;
 
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "POST")
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
 
     @Id
@@ -30,30 +31,16 @@ public class Post {
 
     private Timestamp publishDate;
 
-    @OneToMany(mappedBy = "post")
-    @JsonManagedReference
-    private Collection<Comment> comments;
+    private Long votes;
 
     @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name = "user_id", nullable=false)
     private User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Collection<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Collection<Comment> comments) {
-        this.comments = comments;
-    }
-
-    private Long votes;
+    @OneToMany(
+            mappedBy = "post",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Comment> comments = new ArrayList<>();
 }

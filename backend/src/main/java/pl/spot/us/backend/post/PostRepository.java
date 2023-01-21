@@ -6,4 +6,6 @@ import pl.spot.us.backend.post.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+
+
 }

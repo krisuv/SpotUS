@@ -1,6 +1,6 @@
 package pl.spot.us.backend.user;
 
-public enum Role {
+public enum RoleEnum {
     USER,
     ADMIN
 }

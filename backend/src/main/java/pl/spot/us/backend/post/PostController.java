@@ -18,22 +18,24 @@ public class PostController {
         this.postService = postService;
     }
 
-    @CrossOrigin
-    @GetMapping("") //wrzucić nawiasy z pustymi apostrofami
-    public List<Post> getPosts() {
+    @GetMapping("")
+    public List<PostDTO> getPosts() {
         return postService.findAll();
     }
-    @PostMapping("")
-    public ResponseEntity createPost(@RequestBody Post post) throws URISyntaxException {
-        Post savedPost = postService.createPost(post);
+
+    @PostMapping(value ="", consumes = {"application/json"})
+    public ResponseEntity createPost(@RequestBody PostDTO post) throws URISyntaxException {
+        PostDTO savedPost = postService.createPost(post);
         return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
     }
+
     @GetMapping("/{id}")
-    public Post getPost(@PathVariable Long id) {
+    public PostDTO getPost(@PathVariable Long id) {
         return postService.findById(id);
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity updatePost(@PathVariable Long id, @RequestBody Post post) {
+    public ResponseEntity updatePost(@PathVariable Long id, @RequestBody PostDTO post) {
         return postService.updatePost(id, post);
     }
     @DeleteMapping("/{id}")

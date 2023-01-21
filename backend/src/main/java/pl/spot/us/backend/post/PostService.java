@@ -1,55 +1,48 @@
 package pl.spot.us.backend.post;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
 
-    public PostService(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
+    private final PostMapper postMapper;
 
-    public List<Post> findAll() {
+    public List<PostDTO> findAll() {
         List<Post> posts = postRepository.findAll();
-        return posts;
+        return posts.stream()
+                .map(postMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Post createPost(Post post){
-        Post savedPost = post;
-
-        // TODO weryfikacja lista przekleństw
-        //możesz coś w tym stylu
-        //String postContent = savedPost.getContent();
-        //if(postContent coś tam ) {}
-
-        postRepository.save(post);
-        return savedPost;
+    public PostDTO createPost(PostDTO post){
+        Post savedPost = postRepository.save(postMapper.toEntity(post));
+        return postMapper.toDTO(savedPost);
     }
 
-    public Post findById(Long id) {
-        return postRepository.findById(id).orElseThrow(RuntimeException::new);
+    public PostDTO findById(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(RuntimeException::new);
+        return postMapper.toDTO(post);
     }
 
-    public ResponseEntity updatePost(Long id, Post post) {
+    @Transactional
+    public ResponseEntity<PostDTO> updatePost(Long id, PostDTO postDTO) {
         Post currentPost = postRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentPost.setTag(post.getTag());
-        currentPost.setContent(post.getContent());
-        currentPost = postRepository.save(post);
-
-        return ResponseEntity.ok(currentPost);
+        currentPost.setTag(postDTO.getTag());
+        currentPost.setContent(postDTO.getContent());
+        return ResponseEntity.ok(postMapper.toDTO(currentPost));
     }
 
-    public ResponseEntity deletePost(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
         postRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }

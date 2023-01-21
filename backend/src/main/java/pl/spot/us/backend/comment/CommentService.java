@@ -1,35 +1,52 @@
 package pl.spot.us.backend.comment;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.spot.us.backend.post.Post;
+import pl.spot.us.backend.post.PostDTO;
 import pl.spot.us.backend.post.PostRepository;
+import pl.spot.us.backend.user.User;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
 
     private final CommentRepository commentRepository;
 
-    public CommentService(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
-    }
+    private final CommentMapper commentMapper;
 
-    public List<Comment> findAll() {
+
+    public List<CommentDTO> findAll() {
         List<Comment> comments = commentRepository.findAll();
-        return comments;
+        return comments.stream()
+                .map(commentMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Comment createComment(Comment comment){
-        Comment savedComment = comment;
+    public List<CommentDTO> findAllByPostId(Long postId) {
+        List<Comment> comments = commentRepository.findAll();
+        List<Comment> commentsByPostId = comments
+                .stream()
+                .filter(comment -> Objects.equals(comment.getPost().getId(), postId)).toList();
 
-        commentRepository.save(comment);
-        return savedComment;
+        return commentsByPostId.stream()
+                .map(commentMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Comment findById(Long id) {
-        return commentRepository.findById(id).orElseThrow(RuntimeException::new);
+    public CommentDTO createComment(CommentDTO commentDTO, Long postId){
+        Comment savedComment = commentRepository.save(commentMapper.toEntity(commentDTO, postId));
+        return commentMapper.toDTO(savedComment);
+    }
+
+    public CommentDTO findById(Long id) {
+        Comment comment = commentRepository.findById(id).orElseThrow(RuntimeException::new);
+        return commentMapper.toDTO(comment);
     }
 
     public ResponseEntity updateComment(Long id, Comment comment) {

@@ -17,19 +17,27 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping
-    public List<Comment> getComments() {
+    @GetMapping(value = "")
+    public List<CommentDTO> getComments() {
         return commentService.findAll();
     }
-    @PostMapping("")
-    public ResponseEntity createComment(@RequestBody Comment comment) throws URISyntaxException {
-        Comment savedComment = commentService.createComment(comment);
+
+    @GetMapping(value = "/byPostId/{postId}")
+    public List<CommentDTO> getCommentsByPostId(@PathVariable Long postId) {
+        return commentService.findAllByPostId(postId);
+    }
+
+    @PostMapping("/{postId}")
+    public ResponseEntity createComment(@RequestBody CommentDTO commentDTO, @PathVariable Long postId) throws URISyntaxException {
+        CommentDTO savedComment = commentService.createComment(commentDTO, postId);
         return ResponseEntity.created(new URI("/comments" + savedComment.getId())).body(savedComment);
     }
+
     @GetMapping("/{id}")
-    public Comment getComment(@PathVariable Long id) {
+    public CommentDTO getComment(@PathVariable Long id) {
         return commentService.findById(id);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity updateComment(@PathVariable Long id, @RequestBody Comment comment) {
         return commentService.updateComment(id, comment);

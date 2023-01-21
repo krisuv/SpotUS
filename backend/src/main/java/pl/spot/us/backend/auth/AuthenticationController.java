@@ -1,6 +1,7 @@
 package pl.spot.us.backend.auth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +13,15 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity register(
             @RequestBody RegisterRequest request
     ) {
-        return ResponseEntity.ok(service.register(request));
+        try {
+            return ResponseEntity.ok(service.register(request));
+        }
+        catch (UserAlreadyExistsException exception) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Użytkownik już istnieje");
+        }
     }
 
     @PostMapping("/authenticate")
@@ -23,7 +29,7 @@ public class AuthenticationController {
 
             @RequestBody AuthenticationRequest request
     ) {
-        System.out.println(request.getEmail());
+        System.out.println(request.getUsername());
         System.out.println(request.getPassword());
         return ResponseEntity.ok(service.authenticate(request));
     }

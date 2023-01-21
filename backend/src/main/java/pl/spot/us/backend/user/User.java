@@ -1,18 +1,17 @@
 package pl.spot.us.backend.user;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.spot.us.backend.comment.Comment;
 import pl.spot.us.backend.post.Post;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,37 +23,25 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
     private String email;
+    private String username;
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private RoleEnum role;
 
-    @OneToMany(mappedBy = "user")
-    @JsonManagedReference
-    private Collection<Post> posts;
-
-    @OneToMany(mappedBy = "user")
-    @JsonManagedReference
-    private Collection<Comment> comments;
-
-    public Collection<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Collection<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public Collection<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(Collection<Post> posts) {
-        this.posts = posts;
-    }
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonBackReference
+    private List<Post> posts = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -63,7 +50,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override
