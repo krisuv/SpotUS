@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { IPost, TVote } from './Post.types';
 import { PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
@@ -15,15 +15,20 @@ const Post = (props: IPost): JSX.Element => {
   const [userVote, setUserVote] = useState<TVote>(0);
   const [showComments, setShowComments] = useState(false);
   const date = useMemo(() => (
-     dateFormat(publishDate)
+    dateFormat(publishDate)
   ), [publishDate]);
 
   useEffect(() => {
     // updateVote()
   }, [userVote]);
 
+  useEffect(() => {
+    loadComments();
+  }, [commentsCount]);
+
+
   const loadComments = async () => {
-    const dbComments = await getComments() as unknown as IComment[];
+    const dbComments = await getComments(id) as unknown as IComment[];
     if (dbComments && dbComments.length > 0) {
       setComments(dbComments);
     } else {
@@ -89,17 +94,23 @@ const Post = (props: IPost): JSX.Element => {
       {showComments && (
         <CommentsContainer>
           {
-            !previewVersion && (
-              <>
-                <Typography variant="h4" color="initial">Dodaj komentarz</Typography>
-                <UserComment />
-              </>
-            )
-          }
-          {
-            mockCommentsJson.map(({ username, content, postId }, index) => postId === id && (
-              <Comment key={index} username={username} content={content} />
-            ))
+            previewVersion
+              ? (
+                mockCommentsJson.map(({ username, content, postId }, index) => postId === id && (
+                  <Comment key={index} username={username} content={content} />
+                ))
+              )
+              : (
+                <>
+                  <Typography variant="h4" color="initial">Dodaj komentarz</Typography>
+                  <UserComment />
+                  {
+                    comments.map(({ username, content, postId }, index) => postId === id && (
+                      <Comment key={index} username={username} content={content} />
+                    ))
+                  }
+                </>
+              )
           }
         </CommentsContainer>
       )}

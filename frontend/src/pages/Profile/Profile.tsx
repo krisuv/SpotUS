@@ -1,5 +1,4 @@
 import React from 'react';
-import Avatar from '../../components/Avatar/Avatar';
 import { Heading } from '../../styles/commonStyles';
 import { TextField } from './Profile.styles';
 import { UserData, Container } from './Profile.styles';
@@ -8,7 +7,6 @@ const Profile = (): JSX.Element => {
   return (
     <Container>
       <Heading variant='h1'>Twój profil</Heading>
-      <Avatar src='https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' />
       <UserData>
         <TextField label='imię' variant='outlined' color='secondary' />
         <TextField label='nazwisko' variant='outlined' color='secondary' />

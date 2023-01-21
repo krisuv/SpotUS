@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useState } from 'react';
 import { AppWrapper, ContentWrapper } from './App.styles';
 import Navbar from './components/Navbar/Navbar';
 import { ThemeProvider } from '@mui/system';
@@ -13,17 +13,17 @@ const App = () => {
 
   const user = userToken ? decodeUserToken(userToken) : null;
   console.log(user);
-  
+
   return (
     <ThemeProvider theme={spotUSTheme}>
-        <UserContext.Provider value={{userToken, setUserToken}}>
-          <AppWrapper>
-            <Navbar />
-            <ContentWrapper>
-              <AppRouter />
-            </ContentWrapper>
-          </AppWrapper>
-        </UserContext.Provider>
+      <UserContext.Provider value={{ userToken, setUserToken }}>
+        <AppWrapper>
+          <Navbar />
+          <ContentWrapper>
+            <AppRouter />
+          </ContentWrapper>
+        </AppWrapper>
+      </UserContext.Provider>
     </ThemeProvider>
   );
 };

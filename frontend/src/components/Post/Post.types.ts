@@ -12,7 +12,7 @@ export const tags: Record<'label', TTag>[] = [
 ];
 
 export interface IPost {
-  id?: number;
+  id: number;
   tag: TTag;
   username: string;
   content: string;
