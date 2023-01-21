@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,35 +12,37 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Wrapper from '@mui/material/Container';
 import { Copyright } from '../../components';
-import { Container } from '../pages.styles';
-import {loginUser} from "../../api/User.api";
-import {useNavigate} from "react-router-dom";
+import { loginUser } from '../../api/User.api';
+import { useNavigate } from 'react-router-dom';
+import { ILoginUser } from '../../types';
+import {UserContext} from '../../context';
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
-  //if the user is logged in redirect them do main page immediately
-  if (sessionStorage.getItem('user')) {
-    navigate('/');
-  }
+  const { setUserToken } = useContext(UserContext);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userData = (JSON.stringify({
-      email: data.get('email'),
-      password: data.get('password'),
-    }));
+    const userData: ILoginUser = {
+      username: data.get('username')?.toString() || '',
+      password: data.get('password')?.toString() || ''
+    };
     console.log(userData);
-    const user = await loginUser(userData);
-    console.log(user);
-    if (!sessionStorage.getItem('user')) {
-      sessionStorage.setItem('user', JSON.stringify(user));
+    const jwtObject = await loginUser(userData);
+    console.log(jwtObject);
+    const jwt = jwtObject.token;
+    console.log(jwt);
+
+    if (!localStorage.getItem('user')) {
+      localStorage.setItem('user', jwt);
+      setUserToken(jwt);
     }
     navigate('/');
   };
 
   return (
-    <Container>
+    <>
       <Wrapper component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -54,7 +56,7 @@ const Login = (): JSX.Element => {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography variant="h5">
             Zaloguj
           </Typography>
           <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
@@ -62,10 +64,10 @@ const Login = (): JSX.Element => {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Nick"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -92,11 +94,6 @@ const Login = (): JSX.Element => {
               Zaloguj
             </Button>
             <Grid container>
-              {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Zapomniałem hasła
-                </Link>
-              </Grid> */}
               <Grid item>
                 <Link href="/register" variant="body2">
                   Nie masz konta? Zarejestruj się!
@@ -107,7 +104,7 @@ const Login = (): JSX.Element => {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Wrapper>
-    </Container>
+    </>
   );
 };
 

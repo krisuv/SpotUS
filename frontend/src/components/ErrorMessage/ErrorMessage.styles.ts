@@ -1,8 +1,7 @@
-import styled from '@emotion/styled';
-import { spotUSTheme as theme } from '../../../public';
+import { styled } from '@mui/material';
 
-export const Error = styled('span')({
-  display: 'block', 
-  color: 'red', 
-  margin: theme.spacing(1,0)
-});
+export const Error = styled('span')(({theme}) => ({
+  margin: theme.spacing(1,0),
+  color: theme.palette.error.dark,
+  fontWeight: 500
+}));

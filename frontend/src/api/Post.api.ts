@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import { TVote } from '../components/Post/Post.types';
 
 export const createPost = async (data: unknown) => {
   const res: AxiosResponse = await axios
@@ -9,31 +8,26 @@ export const createPost = async (data: unknown) => {
   return res;
 };
 
-export const downloadPosts = async () => {
-  const jwt = sessionStorage.getItem('user') || '';
-  console.log(jwt);
-  if(JSON.parse(jwt)){
-    const userObject = JSON.parse(jwt);
-    const token = userObject.token;
-    console.log(`Bearer ${token}`);
+export const getPosts = async () => {
+  try {
+    const jwt = localStorage.getItem('user') || '<< NO JWT >>';
+    console.log(`%c Bearer ${jwt}`, 'color: magenta');
 
-    try {
-      const res: AxiosResponse = await axios
-        .get('/api/posts', {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`
-          }
-        });
-        return res.data || [];
-    } catch (error) {
-      console.log(error);
-    }
+    const res: AxiosResponse = await axios
+      .get('/api/posts', {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${jwt}`
+        }
+      });
+    return res.data || [];
+  } catch (error) {
+    console.log(error);
   }
 };
 
-export const downloadOnePost = async (id: number) => {
+export const getOnePost = async (id: number) => {
   const res: AxiosResponse = await axios
     .get(`/api/posts/${id}`)
     .then((response) => response.data || []);
