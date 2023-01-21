@@ -25,7 +25,7 @@ const Login = (): JSX.Element => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const userData: ILoginUser = {
-      email: data.get('email')?.toString() || '',
+      username: data.get('username')?.toString() || '',
       password: data.get('password')?.toString() || ''
     };
     console.log(userData);
@@ -64,10 +64,10 @@ const Login = (): JSX.Element => {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Nick"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField

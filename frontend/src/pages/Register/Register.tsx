@@ -26,14 +26,13 @@ const Register = (): JSX.Element => {
       password: data.get('password')?.toString() || '',
       firstName: data.get('firstName')?.toString() || '',
       lastName: data.get('lastName')?.toString() || '',
+      username: data.get('username')?.toString() || '',
     };
 
     const jwtObject = await createUser(userData);
-    const jwt = JSON.parse(jwtObject).token;
-    console.log(jwt);
-    if (!localStorage.getItem('user')) {
-      localStorage.setItem('user', jwt);
-    }
+    console.log('jwt Object ', jwtObject);
+    const jwt = jwtObject.token;
+    console.log('token ' + jwt);
     navigate('/login');
   };
 
@@ -52,7 +51,7 @@ const Register = (): JSX.Element => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Zarejestruj się
+            Zarejestruj się, a następnie zarejestruj.
           </Typography>
           <Box component="form" onSubmit={handleRegister} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -75,6 +74,17 @@ const Register = (): JSX.Element => {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    required
+                    fullWidth
+                    type="username"
+                    id="username"
+                    label="Nick"
+                    name="username"
+                    autoComplete="username"
                 />
               </Grid>
               <Grid item xs={12}>

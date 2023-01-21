@@ -1,20 +1,28 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import { getPosts } from '../../api/Post.api';
 import { Post } from '../../components';
 import { IPost } from '../../components/Post/Post.types';
 import PostEditor from '../../components/PostEditor/PostEditor';
 import { Wall, StickySidebar } from './MainPage.styles';
-import mockPostsJSON from '../../mocks/Post.mocks.json';
+// import mockPostsJSON from '../../mocks/Post.mocks.json';
 import { Typography } from '@mui/material';
 import { GridWrapper } from '../../styles/commonStyles';
 import {UserContext} from '../../context';
 
-const mockPosts = mockPostsJSON.slice(0, 4) as IPost[];
-const sponsoredPosts = mockPostsJSON.slice(4) as IPost[];
+// const mockPosts = mockPostsJSON.slice(0, 4) as IPost[];
+// const sponsoredPosts = mockPostsJSON.slice(4) as IPost[];
 
 const MainPage = (): JSX.Element => {
   const {userToken} = useContext(UserContext)
   const [posts, setPosts] = useState<IPost[]>([]);
+
+  const userPosts = useMemo(() => {
+    return posts.filter(post => post.tag !== 'sponsored');
+  }, [posts]);
+
+  const sponsoredPosts = useMemo(() => {
+    return posts.filter(post => post.tag === 'sponsored');
+  }, [posts]);
 
   console.log('%c You are on Main Page for verified user', 'color: #47bbff');
   console.log('posts from database: ', posts);
@@ -45,7 +53,7 @@ const MainPage = (): JSX.Element => {
         <Typography variant='h3'>Twoja tablica</Typography>
         <PostEditor />
         {
-          mockPosts.map(post => (
+          userPosts.map(post => (
             <Post key={post.id} {...post} />
           ))
         }

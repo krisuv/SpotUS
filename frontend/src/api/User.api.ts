@@ -7,12 +7,12 @@ export const createUser = async (data: IUser) => {
       .post('/api/auth/register', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/json',
-          'Accepts': 'application/json' // może nie
+          'Access-Control-Allow-Origin': '*'
         }
       });
     return res.data;
   } catch (error) {
-    console.error(error);
+    console.error('createUser error ' + error);
   }
 };
 
