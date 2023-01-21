@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,9 +15,11 @@ import { Copyright } from '../../components';
 import { loginUser } from '../../api/User.api';
 import { useNavigate } from 'react-router-dom';
 import { ILoginUser } from '../../types';
+import {UserContext} from '../../context';
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
+  const { setUserToken } = useContext(UserContext);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,10 +30,13 @@ const Login = (): JSX.Element => {
     };
     console.log(userData);
     const jwtObject = await loginUser(userData);
-    const jwt = JSON.parse(jwtObject).token;
+    console.log(jwtObject);
+    const jwt = jwtObject.token;
+    console.log(jwt);
 
     if (!localStorage.getItem('user')) {
       localStorage.setItem('user', jwt);
+      setUserToken(jwt);
     }
     navigate('/');
   };

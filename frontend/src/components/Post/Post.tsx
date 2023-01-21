@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import { IPost, TVote } from './Post.types';
 import { PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
@@ -14,9 +14,11 @@ const Post = (props: IPost): JSX.Element => {
   const [comments, setComments] = useState<IComment[]>([]);
   const [userVote, setUserVote] = useState<TVote>(0);
   const [showComments, setShowComments] = useState(false);
-  const date = dateFormat(publishDate);
+  const date = useMemo(() => (
+     dateFormat(publishDate)
+  ), [publishDate]);
+
   useEffect(() => {
-    console.log('get comments...');
     // updateVote()
   }, [userVote]);
 
