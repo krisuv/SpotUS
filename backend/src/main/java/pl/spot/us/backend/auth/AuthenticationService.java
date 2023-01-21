@@ -6,9 +6,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.spot.us.backend.config.JwtService;
-import pl.spot.us.backend.user.Role;
+import pl.spot.us.backend.user.RoleEnum;
 import pl.spot.us.backend.user.User;
 import pl.spot.us.backend.user.UserRepository;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,15 +24,18 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) throws  UserAlreadyExistsException{
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role(RoleEnum.USER)
                 .build();
+        if(!validateEmail(request.getEmail())) {
+            throw new UserAlreadyExistsException("Użytkownik już istnieje");
+        }
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse
@@ -53,5 +58,9 @@ public class AuthenticationService {
                 .builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public Boolean validateEmail(String email) {
+        return userRepository.findByEmail(email).isEmpty();
     }
 }

@@ -12,7 +12,8 @@ import java.util.List;
 
 @Builder
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "POST")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,8 +33,8 @@ public class Post {
 
     private Long votes;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable=false)
     private User user;
 
     @OneToMany(
@@ -41,6 +42,5 @@ public class Post {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonBackReference
     private List<Comment> comments = new ArrayList<>();
 }

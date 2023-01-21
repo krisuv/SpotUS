@@ -14,10 +14,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(RuntimeException::new);
-    }
-
     public ResponseEntity updateUser(Long id, User user) {
         User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setFirstName(user.getFirstName());

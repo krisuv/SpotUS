@@ -1,27 +1,29 @@
 package pl.spot.us.backend.user;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/user")
 public class UserController {
 
     private final UserRepository userRepository;
 
+    private final UserMapper userMapper;
+
     private final UserService userService;
 
-    public UserController(UserRepository userRepository, UserService userService) {
-        this.userRepository = userRepository;
-        this.userService = userService;
-    }
 
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.findById(id);
+    @GetMapping
+    public UserDTO getUser() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userMapper.toDTO(user);
     }
 
     @PutMapping("/{id}")

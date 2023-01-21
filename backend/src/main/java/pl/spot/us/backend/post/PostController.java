@@ -25,15 +25,17 @@ public class PostController {
 
     @PostMapping(value ="", consumes = {"application/json"})
     public ResponseEntity createPost(@RequestBody PostDTO post) throws URISyntaxException {
-        Post savedPost = postService.createPost(post);
+        PostDTO savedPost = postService.createPost(post);
         return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
     }
+
     @GetMapping("/{id}")
     public PostDTO getPost(@PathVariable Long id) {
         return postService.findById(id);
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity updatePost(@PathVariable Long id, @RequestBody Post post) {
+    public ResponseEntity updatePost(@PathVariable Long id, @RequestBody PostDTO post) {
         return postService.updatePost(id, post);
     }
     @DeleteMapping("/{id}")

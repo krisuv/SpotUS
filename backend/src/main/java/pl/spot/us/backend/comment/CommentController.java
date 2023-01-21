@@ -27,9 +27,9 @@ public class CommentController {
         return commentService.findAllByPostId(postId);
     }
 
-    @PostMapping(value = "", consumes = {"application/json"})
-    public ResponseEntity createComment(@RequestBody Comment comment) throws URISyntaxException {
-        Comment savedComment = commentService.createComment(comment);
+    @PostMapping("/{postId}")
+    public ResponseEntity createComment(@RequestBody CommentDTO commentDTO, @PathVariable Long postId) throws URISyntaxException {
+        CommentDTO savedComment = commentService.createComment(commentDTO, postId);
         return ResponseEntity.created(new URI("/comments" + savedComment.getId())).body(savedComment);
     }
 

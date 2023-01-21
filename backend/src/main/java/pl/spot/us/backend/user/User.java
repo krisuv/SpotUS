@@ -1,18 +1,17 @@
 package pl.spot.us.backend.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.spot.us.backend.comment.Comment;
 import pl.spot.us.backend.post.Post;
 
 import java.util.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,12 +29,11 @@ public class User implements UserDetails {
     private String lastName;
 
     private String email;
-
     private String username;
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private RoleEnum role;
 
     @OneToMany(
             mappedBy = "user",
