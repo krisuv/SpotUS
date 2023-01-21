@@ -1,20 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
+import {UserContext} from '../context';
 
-interface IAppRouter {
-  userData: any;
-}
-
-const AppRouter = ({ userData }: IAppRouter) => {
-  console.log('user data in App Router: ' + userData);
-  const isUserAuthenticated = Boolean(userData);
+const AppRouter = () => {
+  const { userToken } = useContext(UserContext);
+  console.log('user data in App Router: ' + userToken);
+  const isUserAuthenticated = Boolean(userToken);
   return (
     <Routes>
       {
         isUserAuthenticated
-          ? <Route path='/*' element={<PrivateRoutes userData={userData}/>} />
+          ? <Route path='/*' element={<PrivateRoutes />} />
           : <Route path='/*' element={<PublicRoutes />} />
       }
     </Routes>

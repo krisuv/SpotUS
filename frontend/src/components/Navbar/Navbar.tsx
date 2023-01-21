@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useState, useEffect, useMemo, useContext} from 'react';
 import { NavLink } from 'react-router-dom';
 import { Header, Nav } from './Navbar.styles';
 import Logo from '../Logo/Logo';
-import { ILink, INavbar } from './Navbar.types';
+import { ILink } from './Navbar.types';
 import { useScreenWidth } from '../../hooks';
 import { prepareNavLinks } from './Navbar.helpers';
 import HamburgerMenu from './HamburgerMenu/HamburgerMenu';
+import { UserContext } from '../../context';
 
 
 // eslint-disable-next-line react/prop-types
-const Navbar = ({ userData }: INavbar): JSX.Element => {
+const Navbar = (): JSX.Element => {
   const [isBreakpointMet, setIsBreakpointMet] = useState(false);
+  const { userToken } = useContext(UserContext);
   const isWidthMobile = useScreenWidth();
   const navLinks = useMemo<ILink[]>(() => {
-    return prepareNavLinks(userData);
-  }, [userData]);
+    return prepareNavLinks(userToken);
+  }, [userToken]);
 
   const setScrolled = () => {
     if (window.scrollY >= 50) {
@@ -39,7 +41,7 @@ const Navbar = ({ userData }: INavbar): JSX.Element => {
         {
           isWidthMobile
             ? (
-              <HamburgerMenu userData={userData} />
+              <HamburgerMenu userData={userToken} />
             )
             : (
               navLinks.map(({link, text}: ILink) => (
