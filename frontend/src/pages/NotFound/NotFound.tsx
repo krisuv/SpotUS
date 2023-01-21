@@ -6,7 +6,7 @@ const NotFound = (): JSX.Element => {
   return (
     <Wrapper>
       <Title variant='h1'>Błąd 404 😒</Title>
-      <Typography variant="body2">Strona której szukasz nie istnieje. Mogła zmienić adres, została usunięta lub nigdy nie istniała</Typography>
+      <Typography variant="body2">Strona której szukasz nie istnieje. Mogła zmienić adres, została usunięta, nigdy nie istniała lub błąd dotyczy uprawnień użytkownika zalogowanego/niezalogowanego.</Typography>
     </Wrapper>
   );
 };

@@ -17,10 +17,6 @@ const Contact = (): JSX.Element => {
         <ContactFormWrapper item md={6} >
           <Heading variant='h1'>Skontaktuj się z nami</Heading>
           <InfoText variant="body1">
-            Wyślij wiadomośc na naszego maila:
-          </InfoText>
-          <Typography variant='h2'>SpotUs.info@usz.edu.pl</Typography>
-          <InfoText variant="body1">
             lub bezpośrednio przez formularz 👇
           </InfoText>
         </ContactFormWrapper>
