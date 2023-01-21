@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { NotFound } from '../pages';
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
 
@@ -18,7 +17,6 @@ const AppRouter = ({ userData }: IAppRouter) => {
           ? <Route path='/*' element={<PrivateRoutes userData={userData}/>} />
           : <Route path='/*' element={<PublicRoutes />} />
       }
-      <Route path='*' element={<NotFound />} />
     </Routes>
   );
 };

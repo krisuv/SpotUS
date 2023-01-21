@@ -1,11 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Header, Nav } from './Navbar.styles';
 import Logo from '../Logo/Logo';
-import { INavbar } from './Navbar.types';
+import { ILink, INavbar } from './Navbar.types';
+import { useScreenWidth } from '../../hooks';
+import { prepareNavLinks } from './Navbar.helpers';
+import HamburgerMenu from './HamburgerMenu/HamburgerMenu';
 
+
+// eslint-disable-next-line react/prop-types
 const Navbar = ({ userData }: INavbar): JSX.Element => {
   const [isBreakpointMet, setIsBreakpointMet] = useState(false);
+  const isWidthMobile = useScreenWidth();
+  const navLinks = useMemo<ILink[]>(() => {
+    return prepareNavLinks(userData);
+  }, [userData]);
+
   const setScrolled = () => {
     if (window.scrollY >= 50) {
       setIsBreakpointMet(true);
@@ -27,19 +37,14 @@ const Navbar = ({ userData }: INavbar): JSX.Element => {
       <Logo />
       <Nav>
         {
-          userData
+          isWidthMobile
             ? (
-              <>
-                <NavLink to={'/'}>Główna</NavLink>
-                <NavLink to={'/profile'}>Profil</NavLink>
-                <NavLink to={'/contact'}>Kontakt</NavLink>
-              </>
+              <HamburgerMenu userData={userData} />
             )
             : (
-              <>
-                <NavLink to={'/login'}>Zaloguj</NavLink>
-                <NavLink to={'/register'}>Zarejstruj</NavLink>
-              </>
+              navLinks.map(({link, text}: ILink) => (
+                <NavLink key={link} to={link}>{text}</NavLink>
+              ))
             )
         }
       </Nav>

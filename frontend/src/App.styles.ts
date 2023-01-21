@@ -5,7 +5,7 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
   '-webkit-font-smoothing': 'antialiased',
   padding: theme.spacing(2, 3),
   [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(2, 10)
+    padding: theme.spacing(2, 10,)
   },
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(4, 20)
@@ -14,17 +14,11 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
     padding: theme.spacing(6, 20)
   },
   '& p, h1, h2, h3, h4, h5, h6': {
-    color: theme.palette.text.light,
     fontFamily: 'Montserrat, sans-serif',
     overflowWrap: 'break-word'
   },
   '& h1, h2, h3, h4, h5, h6': {
-    color: theme.palette.text.light,
     fontWeight: 700,
-  },
-  '& p': {
-    color: theme.palette.text.dark,
-    fontWeight: 500
   },
   '& input, button, textarea, select': {
     font: 'inherit'

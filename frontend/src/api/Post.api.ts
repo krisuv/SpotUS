@@ -9,10 +9,10 @@ export const createPost = async (data: unknown) => {
   return res;
 };
 
-export const downloadPosts = async () => {
+export const getPosts = async () => {
   try {
-    const jwt = localStorage.getItem('user') || '';
-    console.log(`%c Bearer ${jwt || '<< NO JWT >>'}`, 'color: magenta');
+    const jwt = localStorage.getItem('user') || '<< NO JWT >>';
+    console.log(`%c Bearer ${jwt}`, 'color: magenta');
 
     const res: AxiosResponse = await axios
       .get('http://localhost:8080/posts', {
@@ -28,7 +28,7 @@ export const downloadPosts = async () => {
   }
 };
 
-export const downloadOnePost = async (id: number) => {
+export const getOnePost = async (id: number) => {
   const res: AxiosResponse = await axios
     .get(`http://localhost:8080/posts/${id}`)
     .then((response) => response.data || []);

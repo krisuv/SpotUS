@@ -8,14 +8,14 @@ export const createComment = async (data: unknown) => {
   return res;
 };
 
-export const downloadComments = async () => {
+export const getComments = async () => {
   const res: AxiosResponse = await axios
     .get('http://localhost:8080/comments')
     .then((response) => response.data || []);
   return res;
 };
 
-export const downloadOneComment = async (id: number) => {
+export const getOneComment = async (id: number) => {
   const res: AxiosResponse = await axios
     .get(`http://localhost:8080/comments/${id}`)
     .then((response) => response.data || []);

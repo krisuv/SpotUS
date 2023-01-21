@@ -1,9 +1,4 @@
-import { styled, Grid } from '@mui/material';
-
-export const Container = styled(Grid)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-}));
+import { styled, Grid, Typography } from '@mui/material';
 
 export const Wall = styled(Grid)(({ theme }) => ({
   display: 'flex',
@@ -20,5 +15,9 @@ export const StickySidebar = styled(Grid)(({ theme }) => ({
   overflowX: 'hidden',
   gap: theme.spacing(3),
   flexDirection: 'column',
+}));
+
+export const Slogan = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.light
 }));
 

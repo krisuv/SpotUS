@@ -3,7 +3,7 @@ import { IPost, TVote } from './Post.types';
 import { PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
-import { downloadComments } from '../../api/Comment.api';
+import { getComments } from '../../api/Comment.api';
 import UserComment from '../UserComment/UserComment';
 import { dateFormat } from '../../formatters';
 import Comment from '../Comment/Comment';
@@ -16,12 +16,12 @@ const Post = (props: IPost): JSX.Element => {
   const [showComments, setShowComments] = useState(false);
   const date = dateFormat(publishDate);
   useEffect(() => {
-    console.log('download comments...');
+    console.log('get comments...');
     // updateVote()
   }, [userVote]);
 
   const loadComments = async () => {
-    const dbComments = await downloadComments() as unknown as IComment[];
+    const dbComments = await getComments() as unknown as IComment[];
     if (dbComments && dbComments.length > 0) {
       setComments(dbComments);
     } else {

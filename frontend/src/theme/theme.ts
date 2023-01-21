@@ -56,14 +56,18 @@ const spotUSTheme = createTheme({
       fontSize: 16
     },
     body1: {
+      color: '#0D1633',
       fontWeight: '500 !important',
       letterSpacing: 0.4,
-      lineHeight: '17px',
+      lineHeight: '20px',
       fontSize: 14
     },
     body2: {
-      // fontWeight: '700 !important',
+      color: '#F0F0F0',
       lineHeight: '22px',
+      fontWeight: '500 !important',
+      letterSpacing: 0.4,
+      fontSize: 14
     },
 
   },
@@ -81,9 +85,9 @@ const spotUSTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 600,
-      md: 1240,
-      lg: 1600,
+      sm: 760,
+      md: 1070,
+      lg: 1460,
       xl: 1920,
     }
   },
