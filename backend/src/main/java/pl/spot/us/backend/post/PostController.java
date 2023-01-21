@@ -19,17 +19,17 @@ public class PostController {
     }
 
     @GetMapping("")
-    public List<Post> getPosts() {
+    public List<PostDTO> getPosts() {
         return postService.findAll();
     }
 
     @PostMapping(value ="", consumes = {"application/json"})
-    public ResponseEntity createPost(@RequestBody Post post) throws URISyntaxException {
+    public ResponseEntity createPost(@RequestBody PostDTO post) throws URISyntaxException {
         Post savedPost = postService.createPost(post);
         return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
     }
     @GetMapping("/{id}")
-    public Post getPost(@PathVariable Long id) {
+    public PostDTO getPost(@PathVariable Long id) {
         return postService.findById(id);
     }
     @PutMapping("/{id}")

@@ -3,10 +3,12 @@ package pl.spot.us.backend.comment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.spot.us.backend.post.Post;
+import pl.spot.us.backend.post.PostDTO;
 import pl.spot.us.backend.post.PostRepository;
 import pl.spot.us.backend.user.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -19,25 +21,45 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public List<Comment> findAll() {
+    public List<CommentDTO> findAll() {
         List<Comment> comments = commentRepository.findAll();
-        return comments;
+        return comments.stream()
+                .map(comment -> CommentDTO.builder()
+                        .id(comment.getId())
+                        .username(comment.getUser().getUsername())
+                        .content(comment.getContent())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public List<CommentDTO> findAllByPostId(Long postId) {
+        List<Comment> comments = commentRepository.findAll();
+        List<Comment> commentsByPostId = comments
+                .stream()
+                .filter(comment -> comment.getPost().getId() == postId)
+                .collect(Collectors.toList());
+        return commentsByPostId.stream()
+                .map(comment -> CommentDTO.builder()
+                        .id(comment.getId())
+                        .username(comment.getUser().getUsername())
+                        .content(comment.getContent())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     public Comment createComment(Comment comment){
         Comment savedComment = comment;
-
-        Post post = new Post(postRepository.findById(2L));
-        savedComment.setPost(post);
-        if(post != null) {
-            postRepository.save(post);
-            return comment;
-        }
-        return null;
+        commentRepository.save(savedComment);
+        return comment;
     }
 
-    public Comment findById(Long id) {
-        return commentRepository.findById(id).orElseThrow(RuntimeException::new);
+    public CommentDTO findById(Long id) {
+        Comment comment = commentRepository.findById(id).orElseThrow(RuntimeException::new);
+        return CommentDTO.builder()
+                .id(comment.getId())
+                .username(comment.getUser().getUsername())
+                .content(comment.getContent())
+                .build();
     }
 
     public ResponseEntity updateComment(Long id, Comment comment) {

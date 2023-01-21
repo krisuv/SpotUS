@@ -24,9 +24,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
     private String email;
+
+    private String username;
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -40,10 +45,6 @@ public class User implements UserDetails {
     @JsonBackReference
     private List<Post> posts = new ArrayList<>();
 
-    public User(Optional<User> byId) {
-    }
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -51,7 +52,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override

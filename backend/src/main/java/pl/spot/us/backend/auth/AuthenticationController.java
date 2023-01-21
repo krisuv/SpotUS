@@ -23,7 +23,7 @@ public class AuthenticationController {
 
             @RequestBody AuthenticationRequest request
     ) {
-        System.out.println(request.getEmail());
+        System.out.println(request.getUsername());
         System.out.println(request.getPassword());
         return ResponseEntity.ok(service.authenticate(request));
     }
