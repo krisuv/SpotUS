@@ -50,6 +50,8 @@ public class JwtService {
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
+    //sprawdzenie check sum tokenu
+
     private boolean isTokenExpired(String token) {
         return extractExpiration(token). before(new Date());
     }

@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/api/posts")
 public class PostController {
     private final PostService postService;
 
@@ -18,7 +18,8 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping
+    @CrossOrigin
+    @GetMapping("") //wrzucić nawiasy z pustymi apostrofami
     public List<Post> getPosts() {
         return postService.findAll();
     }
