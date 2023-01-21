@@ -11,7 +11,8 @@ const usePostProcess = () => {
   const [post, setPost] = useState<TCreatePost>({
     tag: '',
     content: '',
-    username: 'koperek'
+    publishDate: formatDate(new Date()),
+    votes: 0
   });
   const [errors, setErrors] = useState<string[] | null>(null);
 
@@ -27,8 +28,8 @@ const usePostProcess = () => {
  * @returns An array of errors or an empty array.
  */
   const handlePostValidation = async () => {
-    const { tag, content, username } = post;
-    const validationResult = await validatePost({ tag, content, username });
+    const { tag, content } = post;
+    const validationResult = await validatePost({ tag, content });
     if (Array.isArray(validationResult)) {
       setErrors(validationResult);
       return false;
@@ -41,20 +42,15 @@ const usePostProcess = () => {
  * It sends a post to the server
  * @param data - Pick<IPost, 'tag' | 'content' | 'username'>
  */
-  const sendPost = async (data: Pick<IPost, 'tag' | 'content' | 'username'>) => {
-    console.log('sending post...');
-    await createPost({
-      publishDate: formatDate(new Date()),
-      ...data,
-    } satisfies IPost);
-    console.log('post sent(or not 😒)...');
+  const sendPost = async (data: TCreatePost) => {
+    await createPost(data);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const isPostValid = await handlePostValidation();
     if (isPostValid) {
-      sendPost(post);
+      await sendPost(post);
     }
   };
 

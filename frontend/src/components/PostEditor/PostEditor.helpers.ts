@@ -1,6 +1,6 @@
-import { VPost, TCreatePost } from './PostEditor.types';
+import {VPost, TValidatePost} from './PostEditor.types';
 
-export const validatePost = async (data: TCreatePost) => (
+export const validatePost = async (data: TValidatePost) => (
   await VPost
     .validate(data, { abortEarly: false })
     .then(value => value)
@@ -14,6 +14,5 @@ export const formatDate = (newDate: Date | string) => {
   const day = date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`;
   const hours = date.getHours() >= 10 ? date.getHours() : `0${date.getHours()}`;
   const minutes = date.getMinutes() >= 10 ? date.getMinutes() : `0${date.getMinutes()}`;
-  const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:00:000+00:00`;
-  return formattedDate;
+  return `${year}-${month}-${day}T${hours}:${minutes}:00:000+00:00`;
 };

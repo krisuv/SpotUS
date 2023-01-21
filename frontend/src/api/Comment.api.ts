@@ -3,7 +3,18 @@ import { IUserComment } from '../components';
 
 export const createComment = async (data: IUserComment) => {
   try {
-    const res = await axios.post('/api/comments', data);
+    const { postId, content } = data;
+    const contentToSend = {
+      content,
+    }
+    const jwt = localStorage.getItem('user');
+    const res = await axios.post(`/api/comments/${postId}`, JSON.stringify(contentToSend), {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${jwt}`
+      }
+    });
     return res.data;
   } catch(error) {
     console.error(error);
@@ -12,8 +23,8 @@ export const createComment = async (data: IUserComment) => {
 };
 
 export const getComments = async (postId: number) => {
-  const jwt = localStorage.getItem('user') || '<< NO JWT >>';
   try {
+    const jwt = localStorage.getItem('user');
     const res: AxiosResponse = await axios.get(`/api/comments/byPostId/${postId}`, {
       headers: {
         'Content-Type': 'application/json',

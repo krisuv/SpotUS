@@ -11,4 +11,5 @@ export const VPost = yup.object().shape({
       text => text?.replaceAll(' ','').length !== 0)
 });
 
-export type TCreatePost = Pick<IPost, 'tag' | 'content' | 'username' >;
+export type TCreatePost = Pick<IPost, 'tag' | 'content' | 'publishDate' | 'votes' >;
+export type TValidatePost = Pick<IPost, 'tag' | 'content'>;

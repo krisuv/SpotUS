@@ -34,7 +34,7 @@ const PostEditor = (): JSX.Element => {
     <Wrapper>
       <Container>
         <Typography variant="h2" color="primary">Co u ciebie słychać?</Typography>
-        <Form onSubmit={handleSubmit} id='commentForm'>
+        <Form onSubmit={handleSubmit} id='postForm'>
           <Textarea spellCheck='false' name='content' onChange={handleTextFieldChange} />
           {findError('content')}
           <AutoComplete
@@ -42,7 +42,6 @@ const PostEditor = (): JSX.Element => {
             id="tag"
             ref={autocompleteRef}
             onChange={handleAutocompleteChange}
-            // onKeyPress={(e) => e.preventDefault()}
             options={tags}
             renderInput={(params) => <TextField color='secondary' {...params} label="Tag" />}
           />
@@ -50,7 +49,7 @@ const PostEditor = (): JSX.Element => {
         </Form>
       </Container>
       <Button
-        form='commentForm'
+        form='postForm'
         type='submit'
         variant='text'
         color='primary'

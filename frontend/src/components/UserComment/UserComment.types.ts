@@ -1,5 +1,8 @@
 export interface IUserComment {
   postId: number;
-  userId: number;
   content: string;
+}
+
+export interface IPostData {
+  postId: number;
 }

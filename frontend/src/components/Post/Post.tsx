@@ -26,13 +26,15 @@ const Post = (props: IPost): JSX.Element => {
     loadComments();
   }, [commentsCount]);
 
+  useEffect(() => {
+    console.log(comments);
+  }, [comments]);
+
 
   const loadComments = async () => {
-    const dbComments = await getComments(id) as unknown as IComment[];
-    if (dbComments && dbComments.length > 0) {
-      setComments(dbComments);
-    } else {
-      console.error('Nie udało się pobrać komentarzy dla postu użytkownika ', username);
+    const deliveredComments = await getComments(id) as unknown as IComment[]; //TODO: pobrać tylko dla zalogowane usera
+    if (deliveredComments && deliveredComments.length > 0) {
+      setComments(deliveredComments);
     }
   };
 
@@ -103,9 +105,9 @@ const Post = (props: IPost): JSX.Element => {
               : (
                 <>
                   <Typography variant="h4" color="initial">Dodaj komentarz</Typography>
-                  <UserComment />
+                  <UserComment postId={id}/>
                   {
-                    comments.map(({ username, content, postId }, index) => postId === id && (
+                    comments.map(({ username, content, postId }, index) => (
                       <Comment key={index} username={username} content={content} />
                     ))
                   }
