@@ -1,6 +1,5 @@
 import { amber, cyan } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
-import { makeFontStyles } from '../utils/styleSnippets';
 
 const spotUSTheme = createTheme({
   palette: {

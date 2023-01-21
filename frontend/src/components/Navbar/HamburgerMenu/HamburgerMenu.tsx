@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Button, IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import { prepareNavLinks } from '../Navbar.helpers';
 import { ILink } from '../Navbar.types';
 import { NavLink } from 'react-router-dom';
