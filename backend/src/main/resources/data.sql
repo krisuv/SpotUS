@@ -1,3 +1,5 @@
+-- User
+
 insert into Users ( FIRST_NAME, LAST_NAME, EMAIL, USERNAME, PASSWORD, ROLE )
 values ( 'Wiktoria', 'Gry', 'wiki@wp.pl', 'wixatoja', '$2a$10$aJhcK8Ye/VFPDxWzmusjEuk77LvvxvcebfcQIMQGZPoqNel4hPjz.', 'USER' );
 
@@ -33,7 +35,7 @@ values ( 'Nikodem', 'Karabin', '255321@stud.usz.edu.pl', 'ak47', '$2a$12$UXtTMvd
 
 insert into Post ( TAG, CONTENT, USER_ID, PUBLISH_DATE )
 values ( 'help', 'Czy ktoś może mi pomóc w przeprowadzce do nowego mieszkania?',
-         (SELECT id from USERS WHERE id=4),  '2023-01-11 11:11:00' );
+        (SELECT id from USERS WHERE id=4),  '2023-01-11 11:11:00' );
 
 insert into Post ( TAG, CONTENT, USER_ID, PUBLISH_DATE )
 values ( 'help', 'Hejka wszystkim, mam taką sytuację, że nie zawsze mam czas na wieczorne spacery z psem ze względu na pracę, może ktoś mógłby mi w tym pomóc i jednocześnie znaleźć sobie towarzystwo na wieczorne spacery; )',
@@ -41,10 +43,10 @@ values ( 'help', 'Hejka wszystkim, mam taką sytuację, że nie zawsze mam czas 
 
 insert into Post ( TAG, CONTENT, USER_ID, PUBLISH_DATE )
 values ( 'job', 'Dzień dobry, poszukujemy nowego pracownika do naszego przyjaznego i wesołego zespołu w azjatyckiej restauracji. Zatrudnimy młodego kelnera. Odpowiednie dla studentów, ponieważ istnieje możliwość pracy na drugą zmianę. Zainteresowanych prosimy o kontakt telefoniczny: 896 358 813 ',
-         (SELECT id from USERS WHERE id=8), '2023-01-11 21:00:00' );
+        (SELECT id from USERS WHERE id=8), '2023-01-11 21:00:00' );
 
 insert into Post ( TAG, CONTENT, USER_ID, PUBLISH_DATE )
-values ( 'help', 'Witam, szukam niani do pomocy mojej córeczce.  Potrzebnie będzie Spędzić z nią kilka godzin po przedszkolu, pobawić się zabawkami, poczytać książki i po prostu wesoło spędzić czas. Pracuję w domu i mogę nie być w stanie nadążyć za wszystkim, więc szukam małej pomocy.  Będzie mi miło, jeśli zainteresuje Cię ta oferta.  Płatność możemy uzgodnić na osobistym spotkaniu. Zadzwoń pod numer 765 362 572',
+values ( 'job', 'Witam, szukam niani do pomocy mojej córeczce.  Potrzebnie będzie Spędzić z nią kilka godzin po przedszkolu, pobawić się zabawkami, poczytać książki i po prostu wesoło spędzić czas. Pracuję w domu i mogę nie być w stanie nadążyć za wszystkim, więc szukam małej pomocy.  Będzie mi miło, jeśli zainteresuje Cię ta oferta.  Płatność możemy uzgodnić na osobistym spotkaniu. Zadzwoń pod numer 765 362 572',
          (SELECT id from USERS WHERE id=1), '2023-01-09 15:14:00' );
 
 insert into Post ( TAG, CONTENT, USER_ID, PUBLISH_DATE )

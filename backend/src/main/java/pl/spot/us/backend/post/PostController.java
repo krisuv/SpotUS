@@ -23,7 +23,7 @@ public class PostController {
         return postService.findAll();
     }
 
-    @PostMapping(value ="", consumes = {"application/json"})
+    @PostMapping("")
     public ResponseEntity createPost(@RequestBody PostDTO post) throws URISyntaxException {
         PostDTO savedPost = postService.createPost(post);
         return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
