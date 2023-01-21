@@ -3,6 +3,7 @@ package pl.spot.us.backend.comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.spot.us.backend.post.Post;
 import pl.spot.us.backend.post.PostDTO;
 import pl.spot.us.backend.post.PostRepository;
@@ -49,12 +50,11 @@ public class CommentService {
         return commentMapper.toDTO(comment);
     }
 
-    public ResponseEntity updateComment(Long id, Comment comment) {
+    @Transactional
+    public ResponseEntity<CommentDTO> updateComment(Long id, CommentDTO commentDTO) {
         Comment currentComment = commentRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentComment.setContent(comment.getContent());
-        currentComment = commentRepository.save(comment);
-
-        return ResponseEntity.ok(currentComment);
+        currentComment.setContent(commentDTO.getContent());
+        return ResponseEntity.ok(commentMapper.toDTO(currentComment));
     }
 
     public ResponseEntity deleteById(Long id){

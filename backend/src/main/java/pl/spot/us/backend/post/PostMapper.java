@@ -16,7 +16,7 @@ public class PostMapper {
                 .content(post.getContent())
                 .publishDate(post.getPublishDate())
                 .votes(post.getVotes())
-                .commentsCount(post.getComments().size())
+                .commentsCount(isCommentCountNull(post) ? 0 : post.getComments().size())
                 .build();
     }
 
@@ -29,5 +29,9 @@ public class PostMapper {
                 .votes(postDTO.getVotes())
                 .user(user)
                 .build();
+    }
+
+    public Boolean isCommentCountNull(Post post){
+        return post.getComments() == null;
     }
 }
