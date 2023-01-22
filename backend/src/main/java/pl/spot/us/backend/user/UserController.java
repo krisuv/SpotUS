@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pl.spot.us.backend.comment.CommentDTO;
 
 import java.util.Optional;
 
@@ -26,8 +27,8 @@ public class UserController {
         return userMapper.toDTO(user);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity updateUser(@PathVariable Long id, User user) {
-        return userService.updateUser(id, user);
+    @PutMapping("")
+    public ResponseEntity updateUser(UserDTO userDTO) {
+        return userService.updateUser(userDTO);
     }
 }
