@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,8 +15,8 @@ import { Copyright } from '../../components';
 import { loginUser } from '../../api/User.api';
 import { useNavigate } from 'react-router-dom';
 import { ILoginUser } from '../../types';
-import {UserContext} from '../../context';
-import {ErrorMessage} from "../Register/Register.styles";
+import { UserContext } from '../../context';
+import { ErrorMessage } from '../Register/Register.styles';
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Login = (): JSX.Element => {
       password: data.get('password')?.toString() || ''
     };
     const jwtObject = await loginUser(userData);
-    if(!jwtObject){
+    if (!jwtObject) {
       setErrorMessage('Nieprawidłowy nick lub hasło');
     }
     const jwt = jwtObject.token;
@@ -40,7 +40,7 @@ const Login = (): JSX.Element => {
       setUserToken(jwt);
     }
 
-    if(jwt){
+    if (jwt) {
       navigate('/');
     }
   };

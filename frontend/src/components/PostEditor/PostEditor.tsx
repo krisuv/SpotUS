@@ -1,19 +1,16 @@
-import React, {useContext, useRef, useState} from 'react';
-import { TextField, Typography } from '@mui/material';
+import React, { useRef, useState } from 'react';
+import { TextField } from '@mui/material';
 import { tags } from '../Post/Post.types';
 import { Container, PublishIcon, Wrapper, Button, Textarea, AutoComplete, Form, Heading } from './PostEditor.styles';
 import usePostProcess from '../../hooks/usePostProcess';
-import {createPost} from "../../api/Post.api";
-import {ErrorMessage} from "../../pages/Register/Register.styles";
-import {UserContext} from "../../context";
-import {redirect} from "react-router-dom";
+import { createPost } from '../../api/Post.api';
+import { ErrorMessage } from '../../pages/Register/Register.styles';
 
 
 const PostEditor = (): JSX.Element => {
-  const { post, setPost, handlePostValidation,  findError } = usePostProcess();
+  const { post, setPost, handlePostValidation, findError } = usePostProcess();
   const [swearWordsError, setSwearWordsError] = useState('');
   const autocompleteRef = useRef<any>(null);
-  const {userToken, setUserToken} = useContext(UserContext);
 
   /**
   * A function that takes in an event and sets the state of the post.
@@ -39,9 +36,9 @@ const PostEditor = (): JSX.Element => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const isPostValid = await handlePostValidation();
-    if(isPostValid){
+    if (isPostValid) {
       const response = await createPost(post);
-      if(typeof response === 'string' && response.includes('niezgodne')){
+      if (typeof response === 'string' && response.includes('niezgodne')) {
         setSwearWordsError(response);
       } else {
         setSwearWordsError('');
@@ -59,7 +56,7 @@ const PostEditor = (): JSX.Element => {
           <ErrorMessage>{swearWordsError}</ErrorMessage>
           {findError('content')}
           <AutoComplete
-              style={{marginTop: '8px'}}
+            style={{ marginTop: '8px' }}
             disablePortal
             id="tag"
             ref={autocompleteRef}

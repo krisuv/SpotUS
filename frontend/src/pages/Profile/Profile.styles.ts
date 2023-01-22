@@ -1,6 +1,5 @@
 import { Box } from '@mui/system';
 import { styled, TextField as MuiTextField } from '@mui/material';
-import { amber } from '@mui/material/colors';
 
 export const UserData = styled('form')(({ theme }) => ({
   display: 'flex',

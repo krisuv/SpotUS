@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -13,9 +13,7 @@ import Wrapper from '@mui/material/Container';
 import { Copyright } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/User.api';
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
-import {ErrorMessage} from "./Register.styles";
+import { ErrorMessage } from './Register.styles';
 
 
 const Register = (): JSX.Element => {
@@ -35,13 +33,13 @@ const Register = (): JSX.Element => {
     };
 
     const jwtObject = await createUser(userData);
-    if(jwtObject.includes('email')){
+    if (jwtObject.includes('email')) {
       setEmailErrorMessage(jwtObject);
-    } else if (jwtObject.includes('nick')){
+    } else if (jwtObject.includes('nick')) {
       setUsernameErrorMessage(jwtObject);
     }
     const jwt = jwtObject.token;
-    if(jwt){
+    if (jwt) {
       navigate('/login');
     }
   };
@@ -91,13 +89,13 @@ const Register = (): JSX.Element => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                    required
-                    fullWidth
-                    type="username"
-                    id="username"
-                    label="Nick"
-                    name="username"
-                    autoComplete="username"
+                  required
+                  fullWidth
+                  type="username"
+                  id="username"
+                  label="Nick"
+                  name="username"
+                  autoComplete="username"
                 />
                 <ErrorMessage>{errorUsernameMessage}</ErrorMessage>
               </Grid>

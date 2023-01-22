@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { getPosts } from '../../api/Post.api';
 import { Post } from '../../components';
 import { IPost } from '../../components/Post/Post.types';
@@ -6,10 +6,10 @@ import PostEditor from '../../components/PostEditor/PostEditor';
 import { Wall, StickySidebar } from './MainPage.styles';
 import { Typography } from '@mui/material';
 import { GridWrapper } from '../../styles/commonStyles';
-import {UserContext} from '../../context';
+import { UserContext } from '../../context';
 
 const MainPage = (): JSX.Element => {
-  const {userToken} = useContext(UserContext)
+  const { userToken } = useContext(UserContext);
   const [posts, setPosts] = useState<IPost[]>([]);
 
   const userPosts = useMemo(() => {
@@ -63,8 +63,8 @@ const MainPage = (): JSX.Element => {
         }
         {
           !sponsoredPosts.length && (
-              <Typography variant='h4'>Nie znaleziono dostępnych postów</Typography>
-            )
+            <Typography variant='h4'>Nie znaleziono dostępnych postów</Typography>
+          )
         }
       </StickySidebar>
     </GridWrapper>

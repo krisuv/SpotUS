@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { IPost, TVote } from './Post.types';
 import {
   UserActions,
@@ -24,13 +24,13 @@ import UserComment from '../UserComment/UserComment';
 import { dateFormat } from '../../formatters';
 import Comment from '../Comment/Comment';
 import { IconButton, Typography } from '@mui/material';
-import {UserContext} from "../../context";
-import {deletePost} from "../../api/Post.api";
-import {decodeUserToken} from '../../utils';
+import { UserContext } from '../../context';
+import { deletePost } from '../../api/Post.api';
+import { decodeUserToken } from '../../utils';
 
 const Post = (props: IPost): JSX.Element => {
   const { id, tag, username, content, commentsCount, publishDate, votes, previewVersion } = props;
-  const {userToken, setUserToken} = useContext(UserContext);
+  const { userToken } = useContext(UserContext);
   const [comments, setComments] = useState<IComment[]>([]);
   const [userVote, setUserVote] = useState<TVote>(0);
   const [showComments, setShowComments] = useState(false);
@@ -41,7 +41,7 @@ const Post = (props: IPost): JSX.Element => {
 
   const decodedUsername = useMemo(() => {
     const username = userToken ? decodeUserToken(userToken) : '';
-    if(username){
+    if (username) {
       return username.sub;
     }
     return '';
@@ -61,7 +61,7 @@ const Post = (props: IPost): JSX.Element => {
 
 
   const loadComments = async () => {
-    if(userToken){
+    if (userToken) {
       const deliveredComments = await getComments(id) as unknown as IComment[];
       if (deliveredComments && deliveredComments.length > 0) {
         setComments(deliveredComments);
@@ -72,7 +72,7 @@ const Post = (props: IPost): JSX.Element => {
   const handleVote = (vote: TVote) => () => {
     console.log(vote);
     console.log(userVote);
-    if(vote !== 0){
+    if (vote !== 0) {
       userVote !== vote && setUserVote(vote);
     } else {
       setUserVote(vote);
@@ -84,31 +84,31 @@ const Post = (props: IPost): JSX.Element => {
   };
 
   const handlePostDelete = async (event: any) => {
-     await deletePost(id);
-  }
+    await deletePost(id);
+  };
 
   const handleCancelVote = async (event: any) => {
     event.preventDefault();
     handleVote(0);
-  }
+  };
 
   return (
     <Wrapper>
       <PostContainer container category={tag}>
         <WrapperLeft item xs={9}>
           <UpperWrapper>
-           <UserInfo>
-             <Typography variant='h4'>@{tag}</Typography>
-             <Typography variant='h3'>{username}</Typography>
-           </UserInfo>
+            <UserInfo>
+              <Typography variant='h4'>@{tag}</Typography>
+              <Typography variant='h3'>{username}</Typography>
+            </UserInfo>
             <Typography>{content}</Typography>
           </UpperWrapper>
-            <Comments>
-              <IconButton onClick={handleShowComments}>
-                <CommentIcon />
-              </IconButton>
-              <Typography>{commentsCount}</Typography>
-            </Comments>
+          <Comments>
+            <IconButton onClick={handleShowComments}>
+              <CommentIcon />
+            </IconButton>
+            <Typography>{commentsCount}</Typography>
+          </Comments>
         </WrapperLeft>
         <WrapperRight item xs={2}>
           <Typography>{date}</Typography>
@@ -133,24 +133,24 @@ const Post = (props: IPost): JSX.Element => {
           </Votes>
           <UserActions>
             {decodedUsername === username && (
-            <form onSubmit={handlePostDelete} id={`deletePost${id}`}>
-              <IconButton
+              <form onSubmit={handlePostDelete} id={`deletePost${id}`}>
+                <IconButton
                   type='submit'
                   form={`deletePost${id}`}
                   color='third'>
-                <DeleteIcon />
-              </IconButton>
-            </form>
+                  <DeleteIcon />
+                </IconButton>
+              </form>
             )}
             {userVote !== 0 && (
-                <form onSubmit={handleCancelVote} id={`cancelVote${id}`}>
+              <form onSubmit={handleCancelVote} id={`cancelVote${id}`}>
                 <IconButton
-                    type='submit'
-                    form={`cancelVote${id}`}
-                    color='third'>
+                  type='submit'
+                  form={`cancelVote${id}`}
+                  color='third'>
                   <CancelIcon />
                 </IconButton>
-                </form>
+              </form>
             )}
           </UserActions>
         </WrapperRight>
@@ -167,7 +167,7 @@ const Post = (props: IPost): JSX.Element => {
               : (
                 <>
                   <Typography variant="h4" color="initial">Dodaj komentarz</Typography>
-                  <UserComment postId={id}/>
+                  <UserComment postId={id} />
                   {
                     comments.map(({ username, content, postId }, index) => (
                       <Comment key={index} username={username} content={content} />

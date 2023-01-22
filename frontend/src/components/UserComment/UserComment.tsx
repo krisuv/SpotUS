@@ -1,11 +1,10 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Button, PublishIcon, Textarea, Wrapper } from '../../styles/commonStyles';
-import {createComment} from '../../api/Comment.api';
-import {IPostData} from "./UserComment.types";
-import {redirect} from "react-router-dom";
-import {ErrorMessage} from "../../pages/Register/Register.styles";
+import { createComment } from '../../api/Comment.api';
+import { IPostData } from './UserComment.types';
+import { ErrorMessage } from '../../pages/Register/Register.styles';
 
-const UserComment = ({postId}: IPostData): JSX.Element => {
+const UserComment = ({ postId }: IPostData): JSX.Element => {
   const [comment, setComment] = useState('');
   const [swearWordsError, setSwearWordsError] = useState('');
 
@@ -14,8 +13,8 @@ const UserComment = ({postId}: IPostData): JSX.Element => {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    const response = await createComment({postId, content: comment});
-    if(response.includes('niezgodne')){
+    const response = await createComment({ postId, content: comment });
+    if (response.includes('niezgodne')) {
       setSwearWordsError(response);
       event.preventDefault();
     }

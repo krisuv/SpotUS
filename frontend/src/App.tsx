@@ -4,14 +4,11 @@ import Navbar from './components/Navbar/Navbar';
 import { ThemeProvider } from '@mui/system';
 import { spotUSTheme } from '../public';
 import { AppRouter } from './routes';
-import { decodeUserToken } from './utils';
 import { UserContext } from './context';
 
 const App = () => {
   const [userToken, setUserToken] = useState(localStorage.getItem('user'));
   console.log('%c Logged user: ', 'color: #3fd4ee', userToken);
-
-  const user = userToken ? decodeUserToken(userToken) : null;
 
   return (
     <ThemeProvider theme={spotUSTheme}>

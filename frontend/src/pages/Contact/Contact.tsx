@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
 import Announcement from '../../components/Announcement/Announcement';
 import { becomeAdmin } from '../../mocks/Annoucement.mocks';

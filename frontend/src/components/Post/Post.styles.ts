@@ -106,12 +106,12 @@ export const ArrowDown = styled(DownIcon)(({ theme }) => ({
 export const DeleteIcon = styled(MuiDeleteIcon)({
   width: 20,
   height: 20,
-})
+});
 
 export const CancelIcon = styled(MuiCancelIcon)({
   width: 20,
   height: 20,
-})
+});
 
 export const Comments = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -119,14 +119,14 @@ export const Comments = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.5),
 }));
 
-export const UserActions = styled(Box)(({theme}) => ({
+export const UserActions = styled(Box)(({ theme }) => ({
   marginRight: theme.spacing(0.5),
   display: 'flex',
   gap: theme.spacing(0.5)
-}))
+}));
 
-export const UpperWrapper = styled(Box)(({theme}) => ({
+export const UpperWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
   flexDirection: 'column',
-}))
+}));
