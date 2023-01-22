@@ -14,7 +14,8 @@ import {
   Votes,
   Wrapper,
   CommentsContainer,
-  CancelIcon
+  CancelIcon,
+  UpperWrapper
 } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
@@ -95,17 +96,19 @@ const Post = (props: IPost): JSX.Element => {
     <Wrapper>
       <PostContainer container category={tag}>
         <WrapperLeft item xs={9}>
-          <UserInfo>
-            <Typography variant='h4'>@{tag}</Typography>
-            <Typography variant='h3'>{username}</Typography>
-          </UserInfo>
-          <Typography>{content}</Typography>
-          <Comments>
-            <IconButton onClick={handleShowComments}>
-              <CommentIcon />
-            </IconButton>
-            <Typography>{commentsCount}</Typography>
-          </Comments>
+          <UpperWrapper>
+           <UserInfo>
+             <Typography variant='h4'>@{tag}</Typography>
+             <Typography variant='h3'>{username}</Typography>
+           </UserInfo>
+            <Typography>{content}</Typography>
+          </UpperWrapper>
+            <Comments>
+              <IconButton onClick={handleShowComments}>
+                <CommentIcon />
+              </IconButton>
+              <Typography>{commentsCount}</Typography>
+            </Comments>
         </WrapperLeft>
         <WrapperRight item xs={2}>
           <Typography>{date}</Typography>

@@ -52,7 +52,7 @@ export const CommentsContainer = styled(Box)(({ theme }) => ({
 export const WrapperLeft = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1)
+  justifyContent: 'space-between'
 }));
 
 export const WrapperRight = styled(Grid)(({ theme }) => ({
@@ -125,3 +125,8 @@ export const UserActions = styled(Box)(({theme}) => ({
   gap: theme.spacing(0.5)
 }))
 
+export const UpperWrapper = styled(Box)(({theme}) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  flexDirection: 'column',
+}))

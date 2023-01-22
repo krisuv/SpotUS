@@ -1,16 +1,19 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import { TextField, Typography } from '@mui/material';
 import { tags } from '../Post/Post.types';
 import { Container, PublishIcon, Wrapper, Button, Textarea, AutoComplete, Form, Heading } from './PostEditor.styles';
 import usePostProcess from '../../hooks/usePostProcess';
 import {createPost} from "../../api/Post.api";
 import {ErrorMessage} from "../../pages/Register/Register.styles";
+import {UserContext} from "../../context";
+import {redirect} from "react-router-dom";
 
 
 const PostEditor = (): JSX.Element => {
   const { post, setPost, handlePostValidation,  findError } = usePostProcess();
   const [swearWordsError, setSwearWordsError] = useState('');
   const autocompleteRef = useRef<any>(null);
+  const {userToken, setUserToken} = useContext(UserContext);
 
   /**
   * A function that takes in an event and sets the state of the post.
@@ -34,14 +37,16 @@ const PostEditor = (): JSX.Element => {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const isPostValid = await handlePostValidation();
-    if (isPostValid) {
+    if(isPostValid){
       const response = await createPost(post);
-      if(response.includes('niezgodne')){
+      if(typeof response === 'string' && response.includes('niezgodne')){
         setSwearWordsError(response);
+      } else {
+        setSwearWordsError('');
+        document.location.reload();
       }
-    } else {
-      event.preventDefault();
     }
   };
 
@@ -51,8 +56,10 @@ const PostEditor = (): JSX.Element => {
         <Heading variant="h3" color="primary">Co u ciebie słychać?</Heading>
         <Form onSubmit={handleSubmit} id='postForm'>
           <Textarea spellCheck='false' name='content' onChange={handleTextFieldChange} />
+          <ErrorMessage>{swearWordsError}</ErrorMessage>
           {findError('content')}
           <AutoComplete
+              style={{marginTop: '8px'}}
             disablePortal
             id="tag"
             ref={autocompleteRef}
@@ -71,7 +78,6 @@ const PostEditor = (): JSX.Element => {
         endIcon={<PublishIcon />}>
         Dodaj
       </Button>
-      <ErrorMessage>{swearWordsError}</ErrorMessage>
     </Wrapper>
   );
 };
