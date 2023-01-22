@@ -11,12 +11,15 @@ const UserComment = ({postId}: IPostData): JSX.Element => {
     setComment(event.target.value);
   };
 
-  const handleAddComment = async () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     const createdComment = await createComment({postId, content: comment});
+    if(!createdComment){
+      event.preventDefault();
+    }
   };
 
   return (
-    <form onSubmit={handleAddComment} id='commentForm'>
+    <form onSubmit={handleSubmit} id='commentForm'>
       <Wrapper>
         <Textarea value={comment} onChange={handleInputChange} />
         <Button

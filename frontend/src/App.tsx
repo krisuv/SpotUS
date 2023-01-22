@@ -12,7 +12,6 @@ const App = () => {
   console.log('%c Logged user: ', 'color: #3fd4ee', userToken);
 
   const user = userToken ? decodeUserToken(userToken) : null;
-  console.log(user);
 
   return (
     <ThemeProvider theme={spotUSTheme}>

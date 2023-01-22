@@ -4,6 +4,7 @@ import {TCreatePost} from "../components/PostEditor/PostEditor.types";
 export const createPost = async (data: TCreatePost) => {
   try {
     const jwt = localStorage.getItem('user');
+    console.log('jwt in create post:', jwt);
     const res: AxiosResponse = await axios.post('/api/posts', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/json',
@@ -11,6 +12,7 @@ export const createPost = async (data: TCreatePost) => {
         Authorization: `Bearer ${jwt}`
       }
     });
+    console.log('user data: ', res.data);
     return res.data;
   } catch(error) {
     console.error(error);

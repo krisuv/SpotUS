@@ -3,10 +3,11 @@ import { TextField, Typography } from '@mui/material';
 import { tags } from '../Post/Post.types';
 import { Container, PublishIcon, Wrapper, Button, Textarea, AutoComplete, Form } from './PostEditor.styles';
 import usePostProcess from '../../hooks/usePostProcess';
+import {createPost} from "../../api/Post.api";
 
 
 const PostEditor = (): JSX.Element => {
-  const { post, setPost, handleSubmit, findError } = usePostProcess();
+  const { post, setPost, handlePostValidation,  findError } = usePostProcess();
   const autocompleteRef = useRef<any>(null);
 
   /**
@@ -27,6 +28,15 @@ const PostEditor = (): JSX.Element => {
     const field = autocompleteRef.current.querySelector('input').id;
     if (value?.label) {
       setPost({ ...post, [field]: value.label });
+    }
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const isPostValid = await handlePostValidation();
+    if (isPostValid) {
+      await createPost(post);
+    } else {
+      event.preventDefault();
     }
   };
 

@@ -5,6 +5,7 @@ import { IPost } from '../components/Post/Post.types';
 import { formatDate, validatePost } from '../components/PostEditor/PostEditor.helpers';
 import { TCreatePost } from '../components/PostEditor/PostEditor.types';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
+import {redirect} from "react-router-dom";
 
 
 const usePostProcess = () => {
@@ -42,17 +43,14 @@ const usePostProcess = () => {
  * It sends a post to the server
  * @param data - Pick<IPost, 'tag' | 'content' | 'username'>
  */
-  const sendPost = async (data: TCreatePost) => {
-    await createPost(data);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const isPostValid = await handlePostValidation();
-    if (isPostValid) {
-      await sendPost(post);
-    }
-  };
+  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   console.log('%c submit post', 'color: green');
+  //   const isPostValid = await handlePostValidation();
+  //   if (isPostValid) {
+  //     const createdPost = await createPost(post);
+  //   }
+  // };
 
   const validationErrors = () => {
     const errorData = errors?.map(
@@ -73,7 +71,7 @@ const usePostProcess = () => {
   return {
     post,
     setPost,
-    handleSubmit,
+    handlePostValidation,
     findError
   };
 };
