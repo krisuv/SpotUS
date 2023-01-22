@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import {Avatar, Button, Link, Grid, Box, Typography } from '@mui/material'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Wrapper from '@mui/material/Container';
 import { Copyright } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/User.api';
 import { ErrorMessage } from './Register.styles';
+import {TextField} from '../../styles/commonStyles';
 
 
 const Register = (): JSX.Element => {
@@ -55,14 +50,14 @@ const Register = (): JSX.Element => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 40, height: 40 }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Zarejestruj się,
+          <Typography component="h1" variant="h2">
+            Zarejestruj się
           </Typography>
-          <Typography variant='body1'>
-            następnie zostaniesz przeniesiony na stronę logowania. Zapamiętaj dane!
+          <Typography variant='body2' sx={{textAlign: 'center'}}>
+            Po zalogowaniu przeniesiemy cię na stronę logowania. Zapamiętaj dane!
           </Typography>
           <Box component="form" onSubmit={handleRegister} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -124,7 +119,7 @@ const Register = (): JSX.Element => {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={<Checkbox value="allowExtraEmails" color="secondary" />}
                   label="Nie będę obrażać innych użytkowników ani zamieszczać niecenzuralnych treści."
                 />
               </Grid>
@@ -135,15 +130,11 @@ const Register = (): JSX.Element => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Zatwierdź
+              Zarejestruj
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Masz już konto? Zaloguj
-                </Link>
-              </Grid>
-            </Grid>
+            <Link href="/login" variant="body2" style={{textAlign: 'center', display: 'block', fontWeight: 700}}>
+              Masz już konto? Zaloguj
+            </Link>
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />

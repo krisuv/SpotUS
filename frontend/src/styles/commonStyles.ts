@@ -1,4 +1,12 @@
-import { styled, TextareaAutosize, Button as MuiButton, Box, Grid, Typography } from '@mui/material';
+import {
+  styled,
+  TextareaAutosize,
+  Button as MuiButton,
+  Box,
+  Grid,
+  Typography,
+  TextField as MuiTextField
+} from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 export const GridWrapper = styled(Grid)(() => ({
@@ -55,4 +63,44 @@ export const Heading = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     fontSize: 40
   },
+}));
+
+export const TextField = styled(MuiTextField)(({ theme }) => ({
+  maxWidth: 400,
+  borderRadius: theme.spacing(1),
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: theme.palette.text.light,
+      // backgroundColor: theme.palette.common.orange
+    },
+    '&:hover fieldset': {
+      borderColor: theme.palette.secondary.dark,
+    },
+    // '& .Mui-focused fieldset': {
+    //   borderColor: theme.palette.text.light,
+    // },
+    '& .MuiSvgIcon-root': {
+      color: theme.palette.text.light,
+      fill: theme.palette.text.light,
+    },
+    '& .MuiAutocomplete-endAdornment': {
+      color: theme.palette.text.light,
+      fill: theme.palette.text.light,
+    },
+  },
+  '& input': {
+    color: theme.palette.text.light,
+  },
+  '& label': {
+    color: theme.palette.text.light,
+  },
+  '& input::placeholder': {
+    color: theme.palette.text.light,
+  },
+  '& .MuiAutocomplete-tag': {
+    backgroundColor: theme.palette.text.light
+  },
+  // '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
+  //   border: `2px solid ${theme.palette.text.orange} !important`
+  // },
 }));

@@ -15,7 +15,8 @@ import {
   Wrapper,
   CommentsContainer,
   CancelIcon,
-  UpperWrapper
+  UpperWrapper,
+    Username
 } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
@@ -99,7 +100,7 @@ const Post = (props: IPost): JSX.Element => {
           <UpperWrapper>
             <UserInfo>
               <Typography variant='h4'>@{tag}</Typography>
-              <Typography variant='h3'>{username}</Typography>
+              <Username variant='h3'>{username}</Username>
             </UserInfo>
             <Typography>{content}</Typography>
           </UpperWrapper>

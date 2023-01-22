@@ -42,7 +42,7 @@ const MainPage = (): JSX.Element => {
     <GridWrapper
       container
       justifyContent={'center'}
-      columnSpacing={{ md: 5, lg: 10 }}
+      columnSpacing={{ md: 5, lg: 10}}
       rowSpacing={{ xs: 4, sm: 6, md: 10 }}
     >
       <Wall item md={6}>
@@ -54,7 +54,7 @@ const MainPage = (): JSX.Element => {
           ))
         }
       </Wall>
-      <StickySidebar item md={4}>
+      <StickySidebar item md={6} lg={5}>
         <Typography variant='h2'>Zobacz, co cię ominęło w tym tygodniu!</Typography>
         {
           sponsoredPosts.map(post => (

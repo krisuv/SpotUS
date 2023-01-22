@@ -1,11 +1,12 @@
 import React, { useContext, useMemo, useState } from 'react';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { prepareNavLinks } from '../Navbar.helpers';
 import { ILink } from '../Navbar.types';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { deleteUserJwt } from '../../../utils/deleteUserJwt';
 import { UserContext } from '../../../context';
+import { MenuItem, Menu } from './HamburgerMenu.styles';
 
 interface IHamburgerMenu {
   userData: any;

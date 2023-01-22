@@ -1,6 +1,5 @@
 import React from 'react';
-import { Heading } from '../../styles/commonStyles';
-import { TextField } from './Profile.styles';
+import {Heading, TextField} from '../../styles/commonStyles';
 import { UserData, Container } from './Profile.styles';
 
 const Profile = (): JSX.Element => {

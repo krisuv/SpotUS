@@ -1,5 +1,5 @@
 import { Grid, styled } from '@mui/material';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { makeFontStyles, makeBorder } from '../../utils/styleSnippets';
 import { TTag } from './Post.types';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
@@ -9,6 +9,9 @@ import MuiDeleteIcon from '@mui/icons-material/Delete';
 import gradientColors from '../../utils/gradientColors';
 import MuiCancelIcon from '@mui/icons-material/Cancel';
 
+export const Username = styled(Typography)(({theme}) => ({
+  color: theme.palette.primary.contrastText
+}))
 export const Wrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -92,13 +95,11 @@ export const CommentIcon = styled(ChatBubbleIcon)(({ theme }) => ({
 }));
 
 export const ArrowUp = styled(UpIcon)(({ theme }) => ({
-  // fill: theme.palette.text.dark,
   width: 35,
   height: 35,
 }));
 
 export const ArrowDown = styled(DownIcon)(({ theme }) => ({
-  // fill: theme.palette.text.dark,
   width: 35,
   height: 35,
 }));

@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -17,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { ILoginUser } from '../../types';
 import { UserContext } from '../../context';
 import { ErrorMessage } from '../Register/Register.styles';
+import { TextField } from '../../styles/commonStyles';
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
@@ -57,10 +57,10 @@ const Login = (): JSX.Element => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 40, height: 40 }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography variant="h5">
+          <Typography variant="h2">
             Zaloguj
           </Typography>
           <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
@@ -79,14 +79,14 @@ const Login = (): JSX.Element => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Hasło"
               type="password"
               id="password"
               autoComplete="current-password"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="Zapamiętaj mnie"
             />
             <ErrorMessage>{errorMessage}</ErrorMessage>
             <Button
@@ -98,13 +98,9 @@ const Login = (): JSX.Element => {
             >
               Zaloguj
             </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/register" variant="body2">
-                  Nie masz konta? Zarejestruj się!
-                </Link>
-              </Grid>
-            </Grid>
+            <Link href="/register" variant="body2" style={{textAlign: 'center', display: 'block'}}>
+              Nie masz konta? Zarejestruj się!
+            </Link>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
