@@ -46,6 +46,7 @@ const spotUSTheme = createTheme({
     fontSize: 12,
     h2: {
       fontSize: 36,
+      color: '#F0F0F0',
       margin: '8px 0 16px'
     },
     h3: {

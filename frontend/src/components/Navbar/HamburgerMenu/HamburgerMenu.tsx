@@ -1,9 +1,11 @@
-import React, { useMemo, useState } from 'react';
+import React, {useContext, useMemo, useState} from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { prepareNavLinks } from '../Navbar.helpers';
 import { ILink } from '../Navbar.types';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
+import {deleteUserJwt} from "../../../utils/deleteUserJwt";
+import {UserContext} from "../../../context";
 
 interface IHamburgerMenu {
   userData: any;
@@ -12,6 +14,7 @@ interface IHamburgerMenu {
 const HamburgerMenu = ({ userData }: IHamburgerMenu) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const {userToken} = useContext(UserContext);
 
   const navLinks = useMemo<ILink[]>(() => {
     return prepareNavLinks(userData);
@@ -23,6 +26,11 @@ const HamburgerMenu = ({ userData }: IHamburgerMenu) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+    const handleLogout= () => {
+        deleteUserJwt();
+        setAnchorEl(null);
+    };
 
   return (
     <div>
@@ -50,6 +58,13 @@ const HamburgerMenu = ({ userData }: IHamburgerMenu) => {
               <NavLink key={link} to={link}>{text}</NavLink>
             </MenuItem>
           ))
+        }
+        {
+            userToken && (
+            <MenuItem key={'logout'} onClick={handleLogout}>
+                <NavLink key={'logout'} to={'/'}>Wyloguj</NavLink>
+            </MenuItem>
+            )
         }
       </Menu>
     </div>

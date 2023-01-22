@@ -1,5 +1,5 @@
 import { spotUSTheme as theme } from '../../../public';
-import {styled, Autocomplete, Box, Button as MuiButton, TextareaAutosize } from '@mui/material';
+import {styled, Autocomplete, Box, Button as MuiButton, TextareaAutosize, Typography} from '@mui/material';
 import { makeFontStyles } from '../../utils/styleSnippets';
 import SendIcon from '@mui/icons-material/Send';
 
@@ -66,3 +66,8 @@ export const Form = styled('form')({
   flexDirection: 'column',
   gap: theme.spacing(1),
 });
+
+export const Heading = styled(Typography)(({theme}) => ({
+  color: theme.palette.text.dark,
+  marginBottom: theme.spacing(1.5)
+}))

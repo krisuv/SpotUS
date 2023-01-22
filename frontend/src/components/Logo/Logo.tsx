@@ -4,7 +4,7 @@ import { StyledLogo } from './Logo.styles';
 
 const Logo = (): JSX.Element => (
   <Link href='/' >
-    <StyledLogo src='public/logo.png' alt="SpotUs" />
+    <StyledLogo src='logo.png' alt="SpotUs" />
   </Link>
 );
 

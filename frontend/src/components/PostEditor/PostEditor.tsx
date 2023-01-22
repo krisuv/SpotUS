@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { TextField, Typography } from '@mui/material';
 import { tags } from '../Post/Post.types';
-import { Container, PublishIcon, Wrapper, Button, Textarea, AutoComplete, Form } from './PostEditor.styles';
+import { Container, PublishIcon, Wrapper, Button, Textarea, AutoComplete, Form, Heading } from './PostEditor.styles';
 import usePostProcess from '../../hooks/usePostProcess';
 import {createPost} from "../../api/Post.api";
 
@@ -43,7 +43,7 @@ const PostEditor = (): JSX.Element => {
   return (
     <Wrapper>
       <Container>
-        <Typography variant="h2" color="primary">Co u ciebie słychać?</Typography>
+        <Heading variant="h3" color="primary">Co u ciebie słychać?</Heading>
         <Form onSubmit={handleSubmit} id='postForm'>
           <Textarea spellCheck='false' name='content' onChange={handleTextFieldChange} />
           {findError('content')}

@@ -1,6 +1,21 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import { IPost, TVote } from './Post.types';
-import { DeleteIcon, PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer } from './Post.styles';
+import {
+  UserActions,
+  DeleteIcon,
+  PostContainer,
+  UserInfo,
+  WrapperLeft,
+  WrapperRight,
+  CommentIcon,
+  Comments,
+  ArrowDown,
+  ArrowUp,
+  Votes,
+  Wrapper,
+  CommentsContainer,
+  CancelIcon
+} from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
 import { getComments } from '../../api/Comment.api';
@@ -67,13 +82,17 @@ const Post = (props: IPost): JSX.Element => {
      await deletePost(id);
   }
 
+  const handleCancelVote = async (event: any) => {
+    console.log('..') //TODO:napisać funckję
+  }
+
   return (
     <Wrapper>
       <PostContainer container category={tag}>
         <WrapperLeft item xs={9}>
           <UserInfo>
-            <Typography variant='h2'>@{tag}</Typography>
-            <Typography variant='h4'>{username}</Typography>
+            <Typography variant='h4'>@{tag}</Typography>
+            <Typography variant='h3'>{username}</Typography>
           </UserInfo>
           <Typography>{content}</Typography>
           <Comments>
@@ -86,16 +105,6 @@ const Post = (props: IPost): JSX.Element => {
         <WrapperRight item xs={2}>
           <Typography>{date}</Typography>
           <Votes>
-            <form onSubmit={handlePostDelete} id={`deletePost${id}`}>
-              <IconButton
-                  type='submit'
-                  form={`deletePost${id}`}
-                  color='third'
-                  disabled={decodedUsername !== username}
-                  hidden={decodedUsername !== username}>
-                <DeleteIcon />
-              </IconButton>
-            </form>
             <IconButton
               onClick={handleVote(1)}
               disabled={userVote === 1}
@@ -113,12 +122,29 @@ const Post = (props: IPost): JSX.Element => {
               aria-label='nie podoba mi się'>
               <ArrowDown />
             </IconButton>
-            {userVote !== 0 && (
-              <Typography onClick={handleVote(0)}>
-                Anuluj głos
-              </Typography>
-            )}
           </Votes>
+          <UserActions>
+            {decodedUsername === username && (
+            <form onSubmit={handlePostDelete} id={`deletePost${id}`}>
+              <IconButton
+                  type='submit'
+                  form={`deletePost${id}`}
+                  color='third'>
+                <DeleteIcon />
+              </IconButton>
+            </form>
+            )}
+            {userVote !== 0 && (
+                <form onSubmit={handleCancelVote} id={`cancelVote${id}`}>
+                <IconButton
+                    type='submit'
+                    form={`cancelVote${id}`}
+                    color='third'>
+                  <CancelIcon />
+                </IconButton>
+                </form>
+            )}
+          </UserActions>
         </WrapperRight>
       </PostContainer>
       {showComments && (

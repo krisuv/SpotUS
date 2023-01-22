@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo, useContext} from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink, redirect} from 'react-router-dom';
 import { Header, Nav } from './Navbar.styles';
 import Logo from '../Logo/Logo';
 import { ILink } from './Navbar.types';
@@ -7,12 +7,13 @@ import { useScreenWidth } from '../../hooks';
 import { prepareNavLinks } from './Navbar.helpers';
 import HamburgerMenu from './HamburgerMenu/HamburgerMenu';
 import { UserContext } from '../../context';
+import {deleteUserJwt} from "../../utils/deleteUserJwt";
 
 
 // eslint-disable-next-line react/prop-types
 const Navbar = (): JSX.Element => {
   const [isBreakpointMet, setIsBreakpointMet] = useState(false);
-  const { userToken } = useContext(UserContext);
+  const { userToken, setUserToken } = useContext(UserContext);
   const isWidthMobile = useScreenWidth();
   const navLinks = useMemo<ILink[]>(() => {
     return prepareNavLinks(userToken);
@@ -33,6 +34,11 @@ const Navbar = (): JSX.Element => {
     };
   });
 
+  const logoutUser = () => {
+    deleteUserJwt();
+    setUserToken(null);
+    redirect('/');
+  };
 
   return (
     <Header isBreakpointMet={isBreakpointMet}>
@@ -44,9 +50,16 @@ const Navbar = (): JSX.Element => {
               <HamburgerMenu userData={userToken} />
             )
             : (
-              navLinks.map(({link, text}: ILink) => (
-                <NavLink key={link} to={link}>{text}</NavLink>
-              ))
+                <>
+                  {
+                     navLinks.map(({link, text}: ILink) => (
+                       <NavLink key={link} to={link}>{text}</NavLink>
+                     ))
+                  }{
+                  userToken && <NavLink to={'/'} onClick={logoutUser}>Wyloguj</NavLink>
+
+                }
+                </>
             )
         }
       </Nav>

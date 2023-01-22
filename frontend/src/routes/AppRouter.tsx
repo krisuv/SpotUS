@@ -6,7 +6,6 @@ import {UserContext} from '../context';
 
 const AppRouter = () => {
   const { userToken } = useContext(UserContext);
-  console.log('user data in App Router: ' + userToken);
   const isUserAuthenticated = Boolean(userToken);
   return (
     <Routes>

@@ -7,6 +7,7 @@ import UpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MuiDeleteIcon from '@mui/icons-material/Delete';
 import gradientColors from '../../utils/gradientColors';
+import MuiCancelIcon from '@mui/icons-material/Cancel';
 
 export const Wrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -62,7 +63,7 @@ export const WrapperRight = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
-  justifyContent: 'flex-start',
+  justifyContent: 'space-between',
 }));
 
 export const Votes = styled(Box)({
@@ -107,9 +108,20 @@ export const DeleteIcon = styled(MuiDeleteIcon)({
   height: 20,
 })
 
+export const CancelIcon = styled(MuiCancelIcon)({
+  width: 20,
+  height: 20,
+})
+
 export const Comments = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.spacing(1.5),
 }));
+
+export const UserActions = styled(Box)(({theme}) => ({
+  marginRight: theme.spacing(0.5),
+  display: 'flex',
+  gap: theme.spacing(0.5)
+}))
 
