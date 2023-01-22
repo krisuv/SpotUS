@@ -39,6 +39,7 @@ public class PostService {
         Post currentPost = postRepository.findById(id).orElseThrow(RuntimeException::new);
         currentPost.setTag(postDTO.getTag());
         currentPost.setContent(postDTO.getContent());
+        currentPost.setVotes(postDTO.getVotes());
         return ResponseEntity.ok(postMapper.toDTO(currentPost));
     }
 
