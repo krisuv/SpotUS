@@ -3,17 +3,20 @@ import { Button, PublishIcon, Textarea, Wrapper } from '../../styles/commonStyle
 import {createComment} from '../../api/Comment.api';
 import {IPostData} from "./UserComment.types";
 import {redirect} from "react-router-dom";
+import {ErrorMessage} from "../../pages/Register/Register.styles";
 
 const UserComment = ({postId}: IPostData): JSX.Element => {
   const [comment, setComment] = useState('');
+  const [swearWordsError, setSwearWordsError] = useState('');
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.target.value);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    const createdComment = await createComment({postId, content: comment});
-    if(!createdComment){
+    const response = await createComment({postId, content: comment});
+    if(response.includes('niezgodne')){
+      setSwearWordsError(response);
       event.preventDefault();
     }
   };
@@ -30,6 +33,7 @@ const UserComment = ({postId}: IPostData): JSX.Element => {
           endIcon={<PublishIcon />}>
           Dodaj
         </Button>
+        <ErrorMessage>{swearWordsError}</ErrorMessage>
       </Wrapper>
     </form>
   );

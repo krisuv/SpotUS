@@ -1,13 +1,15 @@
-import React, { useRef } from 'react';
+import React, {useRef, useState} from 'react';
 import { TextField, Typography } from '@mui/material';
 import { tags } from '../Post/Post.types';
 import { Container, PublishIcon, Wrapper, Button, Textarea, AutoComplete, Form, Heading } from './PostEditor.styles';
 import usePostProcess from '../../hooks/usePostProcess';
 import {createPost} from "../../api/Post.api";
+import {ErrorMessage} from "../../pages/Register/Register.styles";
 
 
 const PostEditor = (): JSX.Element => {
   const { post, setPost, handlePostValidation,  findError } = usePostProcess();
+  const [swearWordsError, setSwearWordsError] = useState('');
   const autocompleteRef = useRef<any>(null);
 
   /**
@@ -34,7 +36,10 @@ const PostEditor = (): JSX.Element => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     const isPostValid = await handlePostValidation();
     if (isPostValid) {
-      await createPost(post);
+      const response = await createPost(post);
+      if(response.includes('niezgodne')){
+        setSwearWordsError(response);
+      }
     } else {
       event.preventDefault();
     }
@@ -66,6 +71,7 @@ const PostEditor = (): JSX.Element => {
         endIcon={<PublishIcon />}>
         Dodaj
       </Button>
+      <ErrorMessage>{swearWordsError}</ErrorMessage>
     </Wrapper>
   );
 };

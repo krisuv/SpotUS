@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 import { IUserComment } from '../components';
 
 export const createComment = async (data: IUserComment) => {
@@ -17,8 +17,10 @@ export const createComment = async (data: IUserComment) => {
     });
     return res.data;
   } catch(error) {
-    console.error(error);
-    return null;
+    console.log('%c create comment error: ', 'color: orange', error);
+    if(error instanceof  AxiosError){
+      return error.response?.data;
+    }
   }
 };
 

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 import {TCreatePost, TUpdatePost} from "../components/PostEditor/PostEditor.types";
 
 export const createPost = async (data: TCreatePost) => {
@@ -14,7 +14,10 @@ export const createPost = async (data: TCreatePost) => {
     });
     return res.data;
   } catch(error) {
-    console.error(error);
+    console.log('%c create post error: ', 'color: orange', error);
+    if(error instanceof  AxiosError){
+      return error.response?.data;
+    }
   }
 };
 
