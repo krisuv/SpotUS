@@ -4,6 +4,8 @@ import gradientColors from '../../utils/gradientColors';
 import { makeBorder } from '../../utils/styleSnippets';
 
 export const Title = styled(Typography)({
+  fontSize: 36,
+  margin: theme.spacing(1,0,3),
   backgroundImage: 'linear-gradient(270deg, rgba(14,176,179,1) 0%, rgba(218,150,1,1) 100%)',
   backgroundClip: 'text',
   '-webkit-background-clip': 'text',

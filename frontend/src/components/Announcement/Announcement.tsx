@@ -9,8 +9,8 @@ const Announcement = (props: IAnnouncement): JSX.Element => {
   return (
     <Container>
       <Typography>@{author}</Typography>
-      <Title variant='h2'>{title}</Title>
-      <Content variant='body2'>{content}</Content>
+      <Title variant='h3'>{title}</Title>
+      <Content variant='body1'>{content}</Content>
       <Submit variant='contained' color='secondary'>
         {
           link

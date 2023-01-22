@@ -39,7 +39,8 @@ export const PublishIcon = styled(SendIcon)(({ theme }) => ({
 }));
 
 export const InfoText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.light
+  color: theme.palette.text.light,
+  fontSize: 18
 }));
 
 export const Heading = styled(Typography)(({ theme }) => ({
