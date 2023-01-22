@@ -5,6 +5,7 @@ import { TTag } from './Post.types';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import UpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DownIcon from '@mui/icons-material/KeyboardArrowDown';
+import MuiDeleteIcon from '@mui/icons-material/Delete';
 import gradientColors from '../../utils/gradientColors';
 
 export const Wrapper = styled(Box)(({ theme }) => ({
@@ -100,6 +101,11 @@ export const ArrowDown = styled(DownIcon)(({ theme }) => ({
   width: 35,
   height: 35,
 }));
+
+export const DeleteIcon = styled(MuiDeleteIcon)({
+  width: 20,
+  height: 20,
+})
 
 export const Comments = styled(Box)(({ theme }) => ({
   display: 'flex',

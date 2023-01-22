@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import { IPost, TVote } from './Post.types';
-import { PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer } from './Post.styles';
+import { DeleteIcon, PostContainer, UserInfo, WrapperLeft, WrapperRight, CommentIcon, Comments, ArrowDown, ArrowUp, Votes, Wrapper, CommentsContainer } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
 import { getComments } from '../../api/Comment.api';
@@ -8,15 +8,28 @@ import UserComment from '../UserComment/UserComment';
 import { dateFormat } from '../../formatters';
 import Comment from '../Comment/Comment';
 import { IconButton, Typography } from '@mui/material';
+import {UserContext} from "../../context";
+import {deletePost} from "../../api/Post.api";
+import {decodeUserToken} from '../../utils';
 
 const Post = (props: IPost): JSX.Element => {
   const { id, tag, username, content, commentsCount, publishDate, votes, previewVersion } = props;
+  const {userToken, setUserToken} = useContext(UserContext);
   const [comments, setComments] = useState<IComment[]>([]);
   const [userVote, setUserVote] = useState<TVote>(0);
   const [showComments, setShowComments] = useState(false);
+
   const date = useMemo(() => (
     dateFormat(publishDate)
   ), [publishDate]);
+
+  const decodedUsername = useMemo(() => {
+    const username = userToken ? decodeUserToken(userToken) : '';
+    if(username){
+      return username.sub;
+    }
+    return '';
+  }, [userToken]);
 
   useEffect(() => {
     // updateVote()
@@ -32,9 +45,11 @@ const Post = (props: IPost): JSX.Element => {
 
 
   const loadComments = async () => {
-    const deliveredComments = await getComments(id) as unknown as IComment[]; //TODO: pobrać tylko dla zalogowane usera
-    if (deliveredComments && deliveredComments.length > 0) {
-      setComments(deliveredComments);
+    if(userToken){
+      const deliveredComments = await getComments(id) as unknown as IComment[];
+      if (deliveredComments && deliveredComments.length > 0) {
+        setComments(deliveredComments);
+      }
     }
   };
 
@@ -47,6 +62,10 @@ const Post = (props: IPost): JSX.Element => {
   const handleShowComments = () => {
     setShowComments(prev => !prev);
   };
+
+  const handlePostDelete = async (event: any) => {
+     await deletePost(id);
+  }
 
   return (
     <Wrapper>
@@ -67,7 +86,16 @@ const Post = (props: IPost): JSX.Element => {
         <WrapperRight item xs={2}>
           <Typography>{date}</Typography>
           <Votes>
-            <Typography variant='body2'>...</Typography>
+            <form onSubmit={handlePostDelete} id={`deletePost${id}`}>
+              <IconButton
+                  type='submit'
+                  form={`deletePost${id}`}
+                  color='third'
+                  disabled={decodedUsername !== username}
+                  hidden={decodedUsername !== username}>
+                <DeleteIcon />
+              </IconButton>
+            </form>
             <IconButton
               onClick={handleVote(1)}
               disabled={userVote === 1}

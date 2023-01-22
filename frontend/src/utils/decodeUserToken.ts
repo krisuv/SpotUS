@@ -2,8 +2,7 @@ import jwtDecode from 'jwt-decode';
 
 export const decodeUserToken = (token: string) => {
   try {
-    const userData = jwtDecode(token);
-    return userData;
+    return jwtDecode<string>(token);
   }
   catch (error) {
     console.log('%c the value passed to decoder is not a jwt!', 'color: orange');

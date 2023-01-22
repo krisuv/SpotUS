@@ -46,7 +46,7 @@ const MainPage = (): JSX.Element => {
       rowSpacing={{ xs: 4, sm: 6, md: 10 }}
     >
       <Wall item md={6}>
-        <Typography variant='h3'>Twoja tablica</Typography>
+        <Typography variant='h2'>Twoja tablica</Typography>
         <PostEditor />
         {
           userPosts.map(post => (
@@ -55,11 +55,16 @@ const MainPage = (): JSX.Element => {
         }
       </Wall>
       <StickySidebar item md={4}>
-        <Typography variant='h3'>Zobacz, co cię ominęło w tym tygodniu!</Typography>
+        <Typography variant='h2'>Zobacz, co cię ominęło w tym tygodniu!</Typography>
         {
           sponsoredPosts.map(post => (
             <Post key={post.id} {...post} />
           ))
+        }
+        {
+          !sponsoredPosts.length && (
+              <Typography variant='h4'>Nie znaleziono dostępnych postów</Typography>
+            )
         }
       </StickySidebar>
     </GridWrapper>

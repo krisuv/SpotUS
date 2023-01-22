@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import {TCreatePost} from "../components/PostEditor/PostEditor.types";
+import {TCreatePost, TUpdatePost} from "../components/PostEditor/PostEditor.types";
 
 export const createPost = async (data: TCreatePost) => {
   try {
@@ -12,7 +12,6 @@ export const createPost = async (data: TCreatePost) => {
         Authorization: `Bearer ${jwt}`
       }
     });
-    console.log('user data: ', res.data);
     return res.data;
   } catch(error) {
     console.error(error);
@@ -44,20 +43,45 @@ export const getOnePost = async (id: number) => {
   return res;
 };
 
-export const updatePost = async (data: unknown, id: number) => {
-  const res: AxiosResponse = await axios
-    .put(`/api/posts/${id}`, data)
-    .then(res => res.data)
-    .catch(err => console.error(err));
-  return res;
+export const updatePost = async (data: TUpdatePost) => {
+  const { id, votes, content, tag } = data;
+  const requestData = {
+    tag,
+    content,
+    votes
+  };
+  try {
+    const jwt = localStorage.getItem('user');
+    console.log('jwt in create post:', jwt);
+    const res: AxiosResponse = await axios.put(`/api/posts/${id}`, JSON.stringify(requestData), {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${jwt}`
+      }
+    });
+    return res.data;
+  } catch(error) {
+    console.error(error);
+  }
 };
 
 export const deletePost = async (id: number) => {
-  const res: AxiosResponse = await axios
-    .delete(`/api/posts/${id}`)
-    .then(res => res.data)
-    .catch(err => console.error(err));
-  return res;
+  try {
+    const jwt = localStorage.getItem('user');
+    console.log('id in deletePost: ', id);
+    console.log('jwt in delete post:', jwt);
+    const res: AxiosResponse = await axios.delete(`/api/posts/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${jwt}`
+      }
+    });
+    return res.data;
+  } catch(error) {
+    console.error(error);
+  }
 };
 
 export const updatePostVotes = async (postId: number, votes: number) => {
