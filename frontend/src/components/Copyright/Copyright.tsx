@@ -6,7 +6,7 @@ const Copyright = (props: any): JSX.Element => {
     <Typography variant="body2" color="secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="/">
-        Your Website
+        SpotUS
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

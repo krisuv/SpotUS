@@ -9,11 +9,9 @@ export const VRegister = yup.object().shape({
   email: yup.string().email().required('To nie jest poprawny e-mail!'),
   password: yup.
     string()
-    .min(8)
-    .minLowercase(1, 'Hasło musi zawierać co najmniej 1 małą litera')
+    .min(5)
     .minUppercase(1, 'Hasło musi zawierać co najmniej 1 wielką litera')
     .minNumbers(1, 'Hasło musi zawierać co najmniej jeden numer')
-    .minSymbols(1, 'Hasło musi zawierać co najmniej jeden znak specjalny')
     .required('Za mała ilośc znaków w haśle!'),
   passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Hasła muszą do siebie pasować!')
 });

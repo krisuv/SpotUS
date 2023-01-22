@@ -71,7 +71,11 @@ const Post = (props: IPost): JSX.Element => {
   const handleVote = (vote: TVote) => () => {
     console.log(vote);
     console.log(userVote);
-    userVote !== vote && setUserVote(vote);
+    if(vote !== 0){
+      userVote !== vote && setUserVote(vote);
+    } else {
+      setUserVote(vote);
+    }
   };
 
   const handleShowComments = () => {
@@ -83,7 +87,8 @@ const Post = (props: IPost): JSX.Element => {
   }
 
   const handleCancelVote = async (event: any) => {
-    console.log('..') //TODO:napisać funckję
+    event.preventDefault();
+    handleVote(0);
   }
 
   return (

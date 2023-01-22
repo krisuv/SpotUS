@@ -1,12 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { createPost } from '../api/Post.api';
-import { IPost } from '../components/Post/Post.types';
 import { formatDate, validatePost } from '../components/PostEditor/PostEditor.helpers';
 import { TCreatePost } from '../components/PostEditor/PostEditor.types';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
-import {redirect} from "react-router-dom";
-
 
 const usePostProcess = () => {
   const [post, setPost] = useState<TCreatePost>({

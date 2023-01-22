@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -13,10 +13,15 @@ import Wrapper from '@mui/material/Container';
 import { Copyright } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/User.api';
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
+import {ErrorMessage} from "./Register.styles";
 
 
 const Register = (): JSX.Element => {
   const navigate = useNavigate();
+  const [errorEmailMessage, setEmailErrorMessage] = useState('');
+  const [errorUsernameMessage, setUsernameErrorMessage] = useState('');
 
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,10 +35,15 @@ const Register = (): JSX.Element => {
     };
 
     const jwtObject = await createUser(userData);
-    console.log('jwt Object ', jwtObject);
+    if(jwtObject.includes('email')){
+      setEmailErrorMessage(jwtObject);
+    } else if (jwtObject.includes('nick')){
+      setUsernameErrorMessage(jwtObject);
+    }
     const jwt = jwtObject.token;
-    console.log('token ' + jwt);
-    navigate('/login');
+    if(jwt){
+      navigate('/login');
+    }
   };
 
   return (
@@ -51,7 +61,10 @@ const Register = (): JSX.Element => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Zarejestruj się, a następnie zarejestruj.
+            Zarejestruj się,
+          </Typography>
+          <Typography variant='body1'>
+            następnie zostaniesz przeniesiony na stronę logowania. Zapamiętaj dane!
           </Typography>
           <Box component="form" onSubmit={handleRegister} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -86,6 +99,7 @@ const Register = (): JSX.Element => {
                     name="username"
                     autoComplete="username"
                 />
+                <ErrorMessage>{errorUsernameMessage}</ErrorMessage>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -97,6 +111,7 @@ const Register = (): JSX.Element => {
                   name="email"
                   autoComplete="email"
                 />
+                <ErrorMessage>{errorEmailMessage}</ErrorMessage>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -112,7 +127,7 @@ const Register = (): JSX.Element => {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="Nie będę obrażać innych użytkowników ani zamieszczać niecenzuralnych treści."
                 />
               </Grid>
             </Grid>

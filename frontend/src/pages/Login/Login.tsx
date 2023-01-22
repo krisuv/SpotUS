@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,9 +16,11 @@ import { loginUser } from '../../api/User.api';
 import { useNavigate } from 'react-router-dom';
 import { ILoginUser } from '../../types';
 import {UserContext} from '../../context';
+import {ErrorMessage} from "../Register/Register.styles";
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
   const { setUserToken } = useContext(UserContext);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -28,17 +30,19 @@ const Login = (): JSX.Element => {
       username: data.get('username')?.toString() || '',
       password: data.get('password')?.toString() || ''
     };
-    console.log(userData);
     const jwtObject = await loginUser(userData);
-    console.log(jwtObject);
+    if(!jwtObject){
+      setErrorMessage('Nieprawidłowy nick lub hasło');
+    }
     const jwt = jwtObject.token;
-    console.log(jwt);
-
     if (!localStorage.getItem('user')) {
       localStorage.setItem('user', jwt);
       setUserToken(jwt);
     }
-    navigate('/');
+
+    if(jwt){
+      navigate('/');
+    }
   };
 
   return (
@@ -84,6 +88,7 @@ const Login = (): JSX.Element => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            <ErrorMessage>{errorMessage}</ErrorMessage>
             <Button
               type="submit"
               color='primary'

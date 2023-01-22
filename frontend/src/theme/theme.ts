@@ -18,10 +18,10 @@ const spotUSTheme = createTheme({
     },
     success: cyan,
     error: {
-      main: '#ab0c07',
-      dark: '#850905',
-      contrastText: '#570503',
-      light: '#c40904'
+      main: '#ffc400',
+      dark: '#ffa000',
+      contrastText: '#9c6802',
+      light: '#ffd54f'
     },
     info: {
       main: '#7C8D9E',

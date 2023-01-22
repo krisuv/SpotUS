@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 import { ILoginUser, IUser } from '../types';
 
 export const createUser = async (data: IUser) => {
@@ -12,7 +12,10 @@ export const createUser = async (data: IUser) => {
       });
     return res.data;
   } catch (error) {
-    console.error('createUser error ' + error);
+    console.log('%c register error: ', 'color: orange', error);
+    if(error instanceof  AxiosError){
+    return error.response?.data;
+    }
   }
 };
 
@@ -27,6 +30,9 @@ export const loginUser = async (data: ILoginUser) => {
       });
     return res.data;
   } catch (error) {
-    console.error(error);
+    console.log('%c register error: ', 'color: orange', error);
+    if(error instanceof  AxiosError){
+      return null;
+    }
   }
 };
