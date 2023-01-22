@@ -25,6 +25,9 @@ public class AuthenticationController {
         catch (EmailPatternNotAllowedException exception) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Podany email musi zawierać: usz.edu albo stud.usz.edu");
         }
+        catch (UsernameAlreadyTakenException exception) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Podany nick jest już zajęty");
+        }
 
     }
 
