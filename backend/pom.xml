@@ -11,8 +11,9 @@
 	<groupId>pl.spot.us</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>backend</name>
-	<description>backend</description>
+	<description>SpotUS_backend</description>
 	<properties>
 		<java.version>19</java.version>
 	</properties>
