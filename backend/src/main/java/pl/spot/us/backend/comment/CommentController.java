@@ -1,5 +1,6 @@
 package pl.spot.us.backend.comment;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.spot.us.backend.swearWordsValidation.SwearWordsFoundException;
@@ -29,8 +30,13 @@ public class CommentController {
 
     @PostMapping("/{postId}")
     public ResponseEntity createComment(@RequestBody CommentDTO commentDTO, @PathVariable Long postId) throws URISyntaxException, SwearWordsFoundException {
-        CommentDTO savedComment = commentService.createComment(commentDTO, postId);
-        return ResponseEntity.created(new URI("/comments" + savedComment.getId())).body(savedComment);
+        try {
+            return ResponseEntity.ok(commentService.createComment(commentDTO, postId));
+        }
+        catch (SwearWordsFoundException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("W tekście znaleziono słowa niezgodne z regulaminem");
+        }
+
     }
 
     @GetMapping("/{id}")
