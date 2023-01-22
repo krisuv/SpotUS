@@ -1,5 +1,6 @@
 package pl.spot.us.backend.post;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.spot.us.backend.swearWordsValidation.SwearWordsFoundException;
@@ -23,9 +24,13 @@ public class PostController {
     }
 
     @PostMapping("")
-    public ResponseEntity createPost(@RequestBody PostDTO post) throws URISyntaxException, SwearWordsFoundException {
-        PostDTO savedPost = postService.createPost(post);
-        return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
+    public ResponseEntity createPost(@RequestBody PostDTO post) {
+        try {
+            return ResponseEntity.ok(postService.createPost(post));
+        }
+        catch (SwearWordsFoundException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("W tekście znaleziono słowa niezgodne z regulaminem");
+        }
     }
 
     @GetMapping("/{id}")
