@@ -20,8 +20,12 @@ public class AuthenticationController {
             return ResponseEntity.ok(service.register(request));
         }
         catch (UserAlreadyExistsException exception) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Użytkownik już istnieje");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Podany email jest już zajęty");
         }
+        catch (EmailPatternNotAllowedException exception) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Podany email musi zawierać: usz.edu albo stud.usz.edu");
+        }
+
     }
 
     @PostMapping("/authenticate")

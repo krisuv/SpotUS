@@ -11,6 +11,7 @@ import pl.spot.us.backend.user.User;
 import pl.spot.us.backend.user.UserRepository;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) throws  UserAlreadyExistsException{
+    public AuthenticationResponse register(RegisterRequest request) throws UserAlreadyExistsException, EmailPatternNotAllowedException {
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -33,8 +34,11 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(RoleEnum.USER)
                 .build();
-        if(!validateEmail(request.getEmail())) {
-            throw new UserAlreadyExistsException("Użytkownik już istnieje");
+        if(!isEmailTaken(request.getEmail())) {
+            throw new UserAlreadyExistsException("Podany email jest już zajęty");
+        }
+        if(!isEmailValid(request.getEmail())){
+            throw new EmailPatternNotAllowedException("Podany email musi zawierać: usz.edu albo stud.usz.edu");
         }
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -60,7 +64,14 @@ public class AuthenticationService {
                 .build();
     }
 
-    public Boolean validateEmail(String email) {
+    public Boolean isEmailTaken(String email) {
         return userRepository.findByEmail(email).isEmpty();
     }
+    public Boolean isEmailValid(String email) {
+        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9._-]+(\\.[A-Za-z0-9_-]+)*@+(stud\\.usz|usz)\\.edu\\.pl$";
+        return Pattern.compile(regexPattern)
+                .matcher(email)
+                .matches();
+    }
+
 }
