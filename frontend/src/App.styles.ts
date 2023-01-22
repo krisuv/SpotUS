@@ -33,7 +33,6 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const AppWrapper = styled(Box)(({ theme }) => ({
-  overflow: 'hidden',
   fontFamily: '"Montserrat", sans-serif',
   background: 'linear-gradient(180deg, #0D1633 0%, #14285A 27.6%, #6081D3 100%)',
   minHeight: '100vh',
