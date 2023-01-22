@@ -36,3 +36,19 @@ export const loginUser = async (data: ILoginUser) => {
     }
   }
 };
+
+export const getUserData = async () => {
+  try {
+    const jwt = localStorage.getItem('user');
+    const res: AxiosResponse = await axios.get('/api/user', {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${jwt}`
+      }
+    });
+    return res.data;
+  } catch(error){
+    console.error(error);
+  }
+};

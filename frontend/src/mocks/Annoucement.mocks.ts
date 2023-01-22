@@ -9,11 +9,10 @@ Nasza aplikacja doskonale się do tego nadaje. Więc nie zwlekaj i zarejestruj s
 
 export const becomeAdmin: IAnnouncement = {
   author: 'SpotUS',
-  title: 'Zostań adminem',
+  title: 'Poinformuj nas',
   content: `Opinia każdego z naszych użytkowników jest dla nas bardzo ważna. 
 
   Chcemy tylko polepszyć naszą funkcjonalność. Jeśli masz pomysły i sugestie, jak zrobić to lepiej, napisz do nas.
   
   Z małych pomysłów zawsze powstają wielkie rzeczy i możesz nam w tym pomóc.`,
-  buttonText: 'Zgłoś się'
 };

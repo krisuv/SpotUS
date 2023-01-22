@@ -11,13 +11,17 @@ const Announcement = (props: IAnnouncement): JSX.Element => {
       <Typography>@{author}</Typography>
       <Title variant='h3'>{title}</Title>
       <Content variant='body1'>{content}</Content>
-      <Submit variant='contained' color='secondary'>
         {
-          link
-            ? <NavLink to={link}>{buttonText}</NavLink>
-            : <>{ buttonText }</>
+            buttonText && (
+              <Submit variant='contained' color='secondary'>
+                {
+                  link
+                    ? <NavLink to={link}>{buttonText}</NavLink>
+                    : <>{ buttonText }</>
+                }
+              </Submit>
+            )
         }
-      </Submit>
     </Container>
   );
 };
