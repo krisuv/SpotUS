@@ -12,13 +12,14 @@ export const tags: Record<'label', TTag>[] = [
 ];
 
 export interface IPost {
-  id?: number;
+  id: number;
   tag: TTag;
   username: string;
   content: string;
   publishDate: string;
   commentsCount?: number;
   votes?: number;
+  previewVersion?: boolean;
 }
 
 export type TCategoryColors = Record<TTag, string>;

@@ -1,5 +1,10 @@
-import { styled, TextareaAutosize, Button as MuiButton, Box } from '@mui/material';
+import { styled, TextareaAutosize, Button as MuiButton, Box, Grid, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+
+export const GridWrapper = styled(Grid)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+}));
 
 export const Textarea = styled(TextareaAutosize)(({ theme }) => ({
   width: '100%',
@@ -31,4 +36,22 @@ export const PublishIcon = styled(SendIcon)(({ theme }) => ({
   fill: theme.palette.primary.main,
   width: 28,
   height: 28
+}));
+
+export const InfoText = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.light
+}));
+
+export const Heading = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.light,
+  fontSize: 20,
+  [theme.breakpoints.up('sm')]: {
+    fontSize: 30
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: 35
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: 40
+  },
 }));

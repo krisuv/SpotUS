@@ -1,26 +1,30 @@
+import { Grid, Typography } from '@mui/material';
 import React from 'react';
-import { Button } from '@mui/material';
-import { Container } from '../pages.styles';
 import Announcement from '../../components/Announcement/Announcement';
-import { IAnnouncement } from '../../components/Announcement/Announcement.types';
-
-const becomeAdmin: IAnnouncement = {
-  author: 'SpotUS',
-  title: 'Zostań adminem',
-  content: `Opinia każdego z naszych użytkowników jest dla nas bardzo ważna. 
-
-  Chcemy tylko polepszyć naszą funkcjonalność. Jeśli masz pomysły i sugestie, jak zrobić to lepiej, napisz do nas.
-  
-  Z małych pomysłów zawsze powstają wielkie rzeczy i możesz nam w tym pomóc.`,
-  buttonText: 'Zgłoś się'
-};
+import { becomeAdmin } from '../../mocks/Annoucement.mocks';
+import { GridWrapper, Heading, InfoText } from '../../styles/commonStyles';
+import { ContactFormWrapper } from './Contact.styles';
 
 const Contact = (): JSX.Element => {
   return (
-    <Container>
-      <h1>Contact</h1>
-      <Announcement {...becomeAdmin} />
-    </Container>
+    <>
+      <GridWrapper
+        container
+        justifyContent={'center'}
+        columnSpacing={{ md: 5, lg: 10 }}
+        rowSpacing={{ xs: 4, sm: 6, md: 10 }}
+      >
+        <ContactFormWrapper item md={6} >
+          <Heading variant='h1'>Skontaktuj się z nami</Heading>
+          <InfoText variant="body1">
+            lub bezpośrednio przez formularz 👇
+          </InfoText>
+        </ContactFormWrapper>
+        <Grid item md={6} lg={5}>
+          <Announcement {...becomeAdmin} />
+        </Grid>
+      </GridWrapper>
+    </>
   );
 };
 

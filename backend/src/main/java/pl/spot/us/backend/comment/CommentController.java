@@ -3,6 +3,7 @@ package pl.spot.us.backend.comment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pl.spot.us.backend.post.PostDTO;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,9 +40,10 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateComment(@PathVariable Long id, @RequestBody Comment comment) {
-        return commentService.updateComment(id, comment);
+    public ResponseEntity updateComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO) {
+        return commentService.updateComment(id, commentDTO);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteComment(@PathVariable Long id) {
         return  commentService.deleteById(id);

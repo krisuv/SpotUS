@@ -3,4 +3,5 @@ export interface IAnnouncement {
   title: string;
   content: string;
   buttonText: string;
+  link?: string;
 }

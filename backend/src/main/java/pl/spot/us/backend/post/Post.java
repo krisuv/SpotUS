@@ -27,6 +27,7 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private TagEnum tag;
 
+    @Column(length = 1024)
     private String content;
 
     private Timestamp publishDate;
