@@ -2,8 +2,7 @@ package pl.spot.us.backend.post;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.spot.us.backend.post.Post;
-import pl.spot.us.backend.post.PostRepository;
+import pl.spot.us.backend.swearWordsValidation.SwearWordsFoundException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -24,7 +23,7 @@ public class PostController {
     }
 
     @PostMapping("")
-    public ResponseEntity createPost(@RequestBody PostDTO post) throws URISyntaxException {
+    public ResponseEntity createPost(@RequestBody PostDTO post) throws URISyntaxException, SwearWordsFoundException {
         PostDTO savedPost = postService.createPost(post);
         return ResponseEntity.created(new URI("/posts" + savedPost.getId())).body(savedPost);
     }

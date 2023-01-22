@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.spot.us.backend.post.Post;
-import pl.spot.us.backend.post.PostDTO;
-import pl.spot.us.backend.post.PostRepository;
-import pl.spot.us.backend.user.User;
+import pl.spot.us.backend.swearWordsValidation.SwearWordsFoundException;
+import pl.spot.us.backend.swearWordsValidation.SwearWordsValidation;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +19,7 @@ public class CommentService {
 
     private final CommentMapper commentMapper;
 
+    private final SwearWordsValidation swearWordsValidation;
 
     public List<CommentDTO> findAll() {
         List<Comment> comments = commentRepository.findAll();
@@ -40,9 +39,14 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    public CommentDTO createComment(CommentDTO commentDTO, Long postId){
-        Comment savedComment = commentRepository.save(commentMapper.toEntity(commentDTO, postId));
-        return commentMapper.toDTO(savedComment);
+    public CommentDTO createComment(CommentDTO commentDTO, Long postId) throws SwearWordsFoundException {
+        Comment savedComment = commentMapper.toEntity(commentDTO, postId);
+        if (swearWordsValidation.isContentValid(savedComment.getContent())) {
+            commentRepository.save(savedComment);
+            return commentMapper.toDTO(savedComment);
+        }else{
+            throw new SwearWordsFoundException("W tekście znaleziono słowa niezgodne z regulaminem");
+        }
     }
 
     public CommentDTO findById(Long id) {
