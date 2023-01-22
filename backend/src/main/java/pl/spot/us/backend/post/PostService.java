@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import pl.spot.us.backend.swearWordsValidation.SwearWordsFoundException;
+import pl.spot.us.backend.swearWordsValidation.SwearWordsValidation;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +18,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     private final PostMapper postMapper;
+    private final SwearWordsValidation swearWordsValidation;
 
     public List<PostDTO> findAll() {
         List<Post> posts = postRepository.findAll();
@@ -24,9 +27,14 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    public PostDTO createPost(PostDTO post){
-        Post savedPost = postRepository.save(postMapper.toEntity(post));
-        return postMapper.toDTO(savedPost);
+    public PostDTO createPost(PostDTO post) throws SwearWordsFoundException {
+        Post savedPost = postMapper.toEntity(post);
+        if (swearWordsValidation.isContentValid(savedPost.getContent())) {
+            postRepository.save(savedPost);
+            return postMapper.toDTO(savedPost);
+        }else{
+            throw new SwearWordsFoundException("W tekście znaleziono słowa niezgodne z regulaminem");
+        }
     }
 
     public PostDTO findById(Long id) {
@@ -47,4 +55,7 @@ public class PostService {
         postRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+
+
 }
