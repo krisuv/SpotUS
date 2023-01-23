@@ -48,16 +48,17 @@ const Post = (props: IPost): JSX.Element => {
     return '';
   }, [userToken]);
 
-  useEffect(() => {
-    // updateVote()
-  }, [userVote]);
 
   useEffect(() => {
-    loadComments();
+    if(userToken){
+      loadComments();
+    }
   }, [commentsCount]);
 
   useEffect(() => {
-    console.log(comments);
+    if(userToken){
+      console.log(comments);
+    }
   }, [comments]);
 
 
